@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY ulb "http://code.ulb.ac.be/example/terms/">
+]>
+<rdf:RDF
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns:foaf="http://xmlns.com/foaf/0.1/"
+        xmlns:vcard="http://www.w3.org/2001/vcard-rdf/3.0#"
+        xmlns:ulb="http://code.ulb.ac.be/example/terms/"
+        xml:base="http://code.ulb.ac.be/example/staff"
+        >
+
+    <rdf:Description rdf:ID="svansumm">
+        <rdf:type rdf:resource="&ulb;Professor" />
+        <foaf:name>Stijn Vansummeren</foaf:name>
+        <foaf:knows rdf:resource="#fpicalau" />
+        <foaf:knows rdf:resource="#ezimanyi" />
+    </rdf:Description>
+
+    <rdf:Description rdf:ID="fpicalau">
+        <foaf:name>François Picalausa</foaf:name>
+        <foaf:knows rdf:resource="#svansumm" />
+        <foaf:knows rdf:resource="#boverhae" />
+    </rdf:Description>
+
+    <rdf:Description rdf:ID="ezimanyi">
+        <vcard:FN>Esteban Zimányi</vcard:FN>
+        <foaf:knows rdf:resource="#fpicalau" />
+        <foaf:knows rdf:resource="#svansumm" />
+        <foaf:knows rdf:resource="#boverhae" />
+        <foaf:homepage rdf:resource="http://cs.ulb.ac.be/members/esteban/" />
+    </rdf:Description>
+
+    <rdf:Description rdf:ID="boverhae">
+        <vcard:FN>Boris Verhaegen</vcard:FN>
+        <foaf:knows rdf:resource="#fpicalau" />
+        <foaf:knows rdf:resource="#ezimanyi" />
+    </rdf:Description>
+</rdf:RDF>
