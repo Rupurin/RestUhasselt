@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY ulb "http://code.ulb.ac.be/example/terms/">
+]>
+<rdf:RDF
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns:foaf="http://xmlns.com/foaf/0.1/"
+        xmlns:vcard="http://www.w3.org/2006/vcard/ns#"
+        xmlns:geo="http://www.opengis.net/ont/geosparql#"
+        xmlns:linkrec="http://linkrec.be/terms"
+        xml:base="http://linkrec.be/terms"
+        >
+
+    <rdf:Description rdf:ID="user01">
+        <rdf:type rdf:resource="User" />
+        <foaf:name>Martin Poulter</foaf:name>
+        <based_near geo:lat="51.47026" geo:long="-2.59466"/>
+        <linkrec:degree>
+            <rdf:Description>
+                <rdf:value>Master of Science</rdf:value>
+                <vcard:organization>UHasselt</vcard:organization>
+            </rdf:Description>
+        </linkrec:degree>
+        <maxDistance>50</maxDistance>
+        <vcard:email rdf:resource="example@fakemail.com"/>
+        <workExperience>4</workExperience>
+        <BIO>blah</BIO>
+    </rdf:Description>
+
+    <rdf:Description rdf:ID="user02">
+        <rdf:type rdf:resource="User" />
+        <foaf:name>Voorbeeld Usertwee</foaf:name>
+        <based_near geo:lat="50.8132068" geo:long="4.3800335"/>
+        <linkrec:degree>
+            <rdf:Description>
+                <rdf:value>Master of Science</rdf:value>
+                <vcard:organization>ULB</vcard:organization>
+            </rdf:Description>
+        </linkrec:degree>
+        <maxDistance>25</maxDistance>
+        <email>example02@fakemail.com</email>
+        <workExperience>0</workExperience>
+        <BIO>bloh</BIO>
+    </rdf:Description>
+
+    <rdf:Description rdf:ID="user03">
+        <rdf:type rdf:resource="User" />
+        <foaf:name>Nogeen Voorbeeld</foaf:name>
+        <based_near geo:lat="51.47026" geo:long="-2.59466"/>
+        <linkrec:degree>
+            <rdf:Description>
+                <rdf:value>Bachelor of Science</rdf:value>
+                <vcard:organization>Leuven</vcard:organization>
+            </rdf:Description>
+        </linkrec:degree>
+        <maxDistance>100</maxDistance>
+        <email>example03@fakemail.com</email>
+        <workExperience>4</workExperience>
+        <BIO>bleh</BIO>
+    </rdf:Description>
+
+</rdf:RDF>

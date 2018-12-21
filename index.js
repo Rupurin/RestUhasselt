@@ -21,44 +21,6 @@ app.get('/asynctest', async (req, res) => {
 })
 
 app.get('/rdf2', (req, res) => {
-	/*
-	Stappen om draaiend te krijgen:
-	1) download de zip op jena apache fuseki
-	2) steek de .war in tomcat/webapps
-	3) start tomcat (is deel van XAMPP, btw)
-	4) ga naar localhost:8080/fuseki/
-	5) maak nieuwe dataset, noem die "Test" (anders werkt het voorbeeld niet)
-	6) upload staff.rdf (voor dit voorbeeld)
-	7) probeer een paar queries in de tool daar, zoals:
-	 	SELECT DISTINCT ?class
-	 	WHERE {
-			?s a ?class .
-	 	}
-	 	en
-	 	PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-	 	SELECT ?name
-	 	WHERE {
-			?s foaf:name ?name .
-	 	}
-	8) run ".\fuseki-server --mem --update /Test" in de uitgezipte map van fuseki
-	9) NIEUW: upload de file test.rdf
-		(om de een of andere reden werkt updaten niet als ge op een file werkt)
-	10) navigeer naar 
-	http://localhost:3030/Test/query?query=SELECT%20DISTINCT%20%3Fclass%20WHERE%20%7B%3Fs%20a%20%3Fclass%20.%7D
-		(kan zijn dat het andere poort is, kijk naar output van fuseki-server)
-		Dit is dezelfde query als 7a, maar over HTTP
-	11) open nieuwe terminal
-	12) run "npm i"
-	13) wacht tot alles geinstalleerd is
-	14) run "node index.js"
-	15) ga naar /rdf2
-	16) meld resultaten
-	17) ???
-	18) Profit!
-
-	Als er iets fout gaat:
-		opzoeken en bidden
-	*/
 	var fetch = require('isomorphic-fetch')
 	var SparqlHttp = require('sparql-http-client')
 
@@ -85,6 +47,9 @@ app.get('/rdf2', (req, res) => {
 });
 
 app.get('/rdf2/update', (req, res) => {
+
+	res.send("Deze endpoint werkt niet op het moment.");
+
 	var fetch = require('isomorphic-fetch')
 	var SparqlHttp = require('sparql-http-client')
 

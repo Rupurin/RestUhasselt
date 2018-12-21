@@ -1,0 +1,20 @@
+
+Hiermee vraag je alle namen op van de users en businesses:
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT ?name
+WHERE {
+	?s foaf:name ?name .
+}
+
+Hiermee vraag je alle users op met het diploma "Master of Science".
+
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX linkrec: <http://linkrec.be/terms>
+
+SELECT ?name
+WHERE {
+  ?p linkrec:degree ?degree .
+  ?degree rdf:value "Master of Science" .
+  ?p foaf:name ?name .
+}
