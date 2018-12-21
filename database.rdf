@@ -21,10 +21,10 @@
                 <vcard:organization>UHasselt</vcard:organization>
             </rdf:Description>
         </linkrec:degree>
-        <maxDistance>50</maxDistance>
+        <linkrec:maxDistance>50</linkrec:maxDistance>
         <vcard:email rdf:resource="example@fakemail.com"/>
-        <workExperience>4</workExperience>
-        <BIO>blah</BIO>
+        <linkrec:workExperience>4</linkrec:workExperience>
+        <linkrec:BIO>blah</linkrec:BIO>
     </rdf:Description>
 
     <rdf:Description rdf:ID="user02">
@@ -37,10 +37,10 @@
                 <vcard:organization>ULB</vcard:organization>
             </rdf:Description>
         </linkrec:degree>
-        <maxDistance>25</maxDistance>
-        <email>example02@fakemail.com</email>
-        <workExperience>0</workExperience>
-        <BIO>bloh</BIO>
+        <linkrec:maxDistance>25</linkrec:maxDistance>
+        <vcard:email>example02@fakemail.com</vcard:email>
+        <linkrec:workExperience>0</linkrec:workExperience>
+        <linkrec:BIO>bloh</linkrec:BIO>
     </rdf:Description>
 
     <rdf:Description rdf:ID="user03">
@@ -53,10 +53,10 @@
                 <vcard:organization>Leuven</vcard:organization>
             </rdf:Description>
         </linkrec:degree>
-        <maxDistance>100</maxDistance>
-        <email>example03@fakemail.com</email>
-        <workExperience>4</workExperience>
-        <BIO>bleh</BIO>
+        <linkrec:maxDistance>100</linkrec:maxDistance>
+        <vcard:email>example03@fakemail.com</vcard:email>
+        <linkrec:workExperience>4</linkrec:workExperience>
+        <linkrec:BIO>bleh</linkrec:BIO>
     </rdf:Description>
 
 </rdf:RDF>
