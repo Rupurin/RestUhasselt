@@ -7,7 +7,7 @@
         xmlns:foaf="http://xmlns.com/foaf/0.1/"
         xmlns:vcard="http://www.w3.org/2006/vcard/ns#"
         xmlns:geo="http://www.opengis.net/ont/geosparql#"
-        xmlns:linkrec="http://linkrec.be/terms"
+        xmlns:linkrec="http://linkrec.be/terms/"
         xml:base="http://linkrec.be/terms"
         >
 
@@ -22,9 +22,10 @@
             </rdf:Description>
         </linkrec:degree>
         <linkrec:maxDistance>50</linkrec:maxDistance>
-        <vcard:email rdf:resource="example@fakemail.com"/>
+        <vcard:email>example@fakemail.com</vcard:email>
         <linkrec:workExperience>4</linkrec:workExperience>
         <linkrec:BIO>blah</linkrec:BIO>
+        <linkrec:id rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</linkrec:id>
     </rdf:Description>
 
     <rdf:Description rdf:ID="user02">
@@ -41,6 +42,7 @@
         <vcard:email>example02@fakemail.com</vcard:email>
         <linkrec:workExperience>0</linkrec:workExperience>
         <linkrec:BIO>bloh</linkrec:BIO>
+        <linkrec:id rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</linkrec:id>
     </rdf:Description>
 
     <rdf:Description rdf:ID="user03">
@@ -57,6 +59,7 @@
         <vcard:email>example03@fakemail.com</vcard:email>
         <linkrec:workExperience>4</linkrec:workExperience>
         <linkrec:BIO>bleh</linkrec:BIO>
+        <linkrec:id rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</linkrec:id>
     </rdf:Description>
 
 </rdf:RDF>
