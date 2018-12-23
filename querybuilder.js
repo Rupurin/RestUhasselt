@@ -1,5 +1,9 @@
 module.exports = class QueryBuilder {
 	constructor(query){
+		this.setQuery(query);
+	}
+
+	setQuery(query){
 		this.query = query;
 	}
 
@@ -41,8 +45,18 @@ module.exports = class QueryBuilder {
 		this.query = this.query.replace(paramname, paramval);
 	}
 
+	bindParamAsInt(paramname, paramval){
+		let newval = '"' + paramval + '"^^xsd:int';
+		this.bindParam(paramname, newval);
+	}
+
+	bindParamAsString(paramname, paramval){
+		let newval = '"' + paramval + '"';
+		this.bindParam(paramname, newval);
+	}
+
 	result(){
-		console.log(this.query);
+		//console.log(this.query);
 		return this.query;
 	}
 }

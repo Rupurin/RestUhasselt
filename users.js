@@ -1,7 +1,8 @@
 var express = require('express')
 var router = express.Router()
+router.use(express.json());
+router.use(express.urlencoded());
 var QueryBuilder = require('./querybuilder')
-let qbuilder = new QueryBuilder();
 
 router.get('/test', function (req, res) {
 	res.send('Users home page.');
@@ -19,8 +20,6 @@ router.get('/:id', (req, res) => {
 
 	SparqlHttp.fetch = fetch;
 
-	var id = '"' + req.params.id + '"^^xsd:int';
-
 	var endpoint = new SparqlHttp({endpointUrl: 'http://localhost:3030/Test/query'});
 	var query = `SELECT DISTINCT ?name ?degreename ?email ?bio WHERE 
 	{
@@ -32,9 +31,8 @@ router.get('/:id', (req, res) => {
 		?p linkrec:BIO ?bio .
 	}`;
 	qb = new QueryBuilder(query);
-	// PLEASE NOTE: execute bindParam BEFORE handling prefixes, otherwise it won't properly handle the param's type!!
-	qb.bindParam('$id', id);
-	//TODO: make function bindParamAsInt or something
+	// PLEASE NOTE: execute bindParam BEFORE handling prefixes, otherwise it might not properly handle the param's type!!
+	qb.bindParamAsInt('$id', req.params.id);
 	qb.handleAllPrefixesKnown();
 
 	endpoint.selectQuery(qb.result()).then(function(resp){
@@ -50,51 +48,61 @@ router.get('/:id', (req, res) => {
 	})
 });
 
-router.get('/rdf2/update', (req, res) => {
-
-	res.send("Deze endpoint werkt niet op het moment; ze is er alleen ingelaten om te laten zien hoe te updaten.");
-	return;
-
+function updateUserName(res, id, newname){
 	var fetch = require('isomorphic-fetch')
 	var SparqlHttp = require('sparql-http-client')
 
 	SparqlHttp.fetch = fetch;
+	//first, delete the old name
+	var endpoint = new SparqlHttp({updateUrl: 'http://localhost:3030/Test/update'});
+	var query = `DELETE {?p foaf:name ?name .} WHERE 
+	{
+		?p linkrec:id $id .
+		?p foaf:name ?name .
+	}`; 
+	qb = new QueryBuilder(query);
+	// PLEASE NOTE: execute bindParam BEFORE handling prefixes, otherwise it might not properly handle the param's type!!
+	qb.bindParamAsInt('$id', id);
+	qb.handleAllPrefixesKnown();
 
-	var endpoint = new SparqlHttp({endpointUrl: 'http://localhost:3030/Test/update'});
-	var query = `INSERT {?p a ulbterm:Professor} WHERE {?p foaf:name "François Picalausa".}`;
-	query = qbuilder.handleAllPrefixesKnown(query);
-
-	endpoint.selectQuery(query).then(function(resp){
+	endpoint.postQuery(qb.result(), {update:true}).then(function(resp){
 		return resp.text();
 	}).then(function(body) {
-		//parse body
-		var result = JSON.parse(body);
-		//output
-		var output = JSON.stringify(result, null, ' ');
-		console.log(output);
+		//should be OK, so we can safely do nothing here
 	}).catch(function (err){
 		console.error(err);
+		res.send(err);
 	})
 
-	//now check if it actually went through!
-	endpoint = new SparqlHttp({endpointUrl: 'http://localhost:3030/Test/query'});
-	query = `SELECT DISTINCT ?name {?p foaf:name ?name. ?p a ulbterm:Professor .}`;
-	query = query.replace('foaf:name', '<http://xmlns.com/foaf/0.1/name>');	
-	query = query.replace('ulbterm:Professor', '<http://code.ulb.ac.be/example/terms/Professor>');
-	console.log(query);
-	
-	endpoint.selectQuery(query).then(function(resp){
+	//second, insert the new name
+	var query = `INSERT {?p foaf:name $newname .} WHERE 
+	{
+		?p linkrec:id $id .
+	}`; 
+	qb = new QueryBuilder(query);
+	// PLEASE NOTE: execute bindParam BEFORE handling prefixes, otherwise it won't properly handle the param's type!!
+	qb.bindParamAsInt('$id', id);
+	qb.bindParamAsString('$newname', newname);
+	qb.handleAllPrefixesKnown();
+
+	endpoint.postQuery(qb.result(), {update:true}).then(function(resp){
 		return resp.text();
 	}).then(function(body) {
-		//parse body
-		var result = JSON.parse(body);
-		//output
-		var output = JSON.stringify(result, null, ' ');
-		console.log(output);
-		res.send(output);
+		res.send(body);
 	}).catch(function (err){
 		console.error(err);
+		res.send(err);
 	})
+}
+
+router.post('/:id', (req, res) => {
+	//replace the name
+	if(req.body.name !== undefined){
+		updateUserName(res, req.params.id, req.body.name);
+	}
+	else{
+		res.send("Nothing was done.");
+	}
 });
 
 module.exports = router;

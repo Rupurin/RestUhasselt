@@ -22,10 +22,19 @@ http://localhost:3030/Test/query?query=SELECT%20DISTINCT%20%3Fclass%20WHERE%20%7
 12) run "npm i"
 13) wacht tot alles geinstalleerd is
 14) run "node index.js"
-15) ga naar /rdf2
+15) ga naar /profile/users/1
 16) meld resultaten
 17) ???
 18) Profit!
 
 Als er iets fout gaat:
 	opzoeken en bidden
+
+Om POST requests te versturen:
+	1) Gebruik Postman (https://www.getpostman.com/)
+	2) Bij opstellen van een request:
+		a) klik op "body".
+		b) klik op x-www-form-urlencoded
+		c) vul parameter in
+	3) Klik op send.
+	(Postman blijft wachten op een antwoord, oneindig lang. Heeft geen slechte gevolgen, gewoon mee opppassen)
