@@ -1,36 +1,14 @@
 var express = require('express')
 var router = express.Router()
 router.use(express.json());
-router.use(express.urlencoded());
-var QueryBuilder = require('./querybuilder')
-
-function prettifyJSONAlt(obj){
-	var newobj = [];
-	for(var singleQueryObj in obj){
-		let singleQuery = obj[singleQueryObj];
-		let newObjItem = {};
-		for(var singleQueryItem in singleQuery){
-			let sqItem = singleQuery[singleQueryItem];
-			//sqItem is now something like {type: 'literal', value:'xxxxx'}
-			let tmp = sqItem['value'];
-			newObjItem[singleQueryItem] = tmp;
-		}
-		newobj.push(newObjItem);
-	}
-	return newobj;
-}
-
-function prettifyJSONResponse(obj){
-	let tmp = obj.results.bindings;
-	tmp = prettifyJSONAlt(tmp);
-	tmp = JSON.stringify(tmp, null, ' ');
-	//console.log(tmp);
-	return tmp;
-}
+router.use(express.urlencoded({extended:true}));
+var QueryBuilder = require('./querybuilder');
+var JSONPrettifier = require('./JSONprettifier');
+var prettifier = new JSONPrettifier();
 
 router.get('/', (req, res) => {
-	var fetch = require('isomorphic-fetch')
-	var SparqlHttp = require('sparql-http-client')
+	var fetch = require('isomorphic-fetch');
+	var SparqlHttp = require('sparql-http-client');
 
 	SparqlHttp.fetch = fetch;
 
@@ -52,7 +30,7 @@ router.get('/', (req, res) => {
 	}).then(function(body) {
 		//parse body
 		var result = JSON.parse(body);
-		let output = prettifyJSONResponse(result);
+		let output = prettifier.prettify(result);
 		res.send(output);
 	}).catch(function (err){
 		console.error(err);
@@ -60,7 +38,7 @@ router.get('/', (req, res) => {
 	})
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id(\\d+)', (req, res) => {
 	var fetch = require('isomorphic-fetch')
 	var SparqlHttp = require('sparql-http-client')
 
@@ -86,7 +64,7 @@ router.get('/:id', (req, res) => {
 	}).then(function(body) {
 		//parse body
 		var result = JSON.parse(body);
-		let output = prettifyJSONResponse(result);
+		let output = prettifier.prettify(result);
 		res.send(output);
 	}).catch(function (err){
 		console.error(err);
