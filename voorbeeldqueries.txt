@@ -18,3 +18,12 @@ WHERE {
   ?degree rdf:value "Master of Science" .
   ?p foaf:name ?name .
 }
+
+Hiermee vraag je de hoogste ID op:
+PREFIX linkrec: <http://linkrec.be/terms/>
+
+SELECT ?id WHERE 
+{
+		?p linkrec:id ?id .
+}   ORDER BY DESC (?id)
+LIMIT 1
