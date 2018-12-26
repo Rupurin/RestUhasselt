@@ -1,10 +1,12 @@
 module.exports = class QueryBuilder {
 	constructor(query){
 		this.setQuery(query);
+		this.prefixesHandled = false;
 	}
 
 	setQuery(query){
 		this.query = query;
+		this.prefixesHandled = false;
 	}
 
 	handleRDFPrefix(prefixShort, prefixLong){
@@ -39,10 +41,12 @@ module.exports = class QueryBuilder {
 		this.handleRDFPrefix('foaf', 'http://xmlns.com/foaf/0.1/');
 		this.handleRDFPrefix('xsd', 'http://www.w3.org/2001/XMLSchema#');
 		this.handleRDFPrefix('vcard', 'http://www.w3.org/2006/vcard/ns#');
+		this.prefixesHandled = true;
 	}
 
 	bindParam(paramname, paramval){
 		this.query = this.query.replace(paramname, paramval);
+		this.prefixesHandled = false;
 	}
 
 	bindParamAsInt(paramname, paramval){
@@ -56,7 +60,8 @@ module.exports = class QueryBuilder {
 	}
 
 	result(){
-		//console.log(this.query);
+		if(!this.prefixesHandled)
+			this.handleAllPrefixesKnown();
 		return this.query;
 	}
 }
