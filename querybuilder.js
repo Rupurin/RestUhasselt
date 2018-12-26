@@ -36,6 +36,11 @@ module.exports = class QueryBuilder {
 	}
 
 	handleAllPrefixesKnown(){
+		// first off, to make sure the query more legible:
+		this.query = this.query.replace("}", " }");
+		this.query = this.query.replace(".", " .");
+
+		// now handle the prefixes
 		this.handleRDFPrefix('linkrec', 'http://linkrec.be/terms/');
 		this.handleRDFPrefix('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
 		this.handleRDFPrefix('foaf', 'http://xmlns.com/foaf/0.1/');
