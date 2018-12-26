@@ -21,8 +21,13 @@ module.exports = class QueryBuilder {
 			//so we'll need to replace it
 			let tmp = query.substr(i, query.length);	
 
-			//tmp is now prefixShort:xxxx
-			tmp = tmp.substr(0,tmp.indexOf(" "));
+			//tmp is now prefixShort:xxxx[' '|.|}]
+			let endOfWord = tmp.indexOf(" ");
+			if(endOfWord > tmp.indexOf("."))
+				endOfWord = tmp.indexOf(".");
+			if(endOfWord > tmp.indexOf("}"))
+				endOfWord = tmp.indexOf("}");
+			tmp = tmp.substr(0, endOfWord);
 
 			//tmp2 is now xxxx
 			let tmp2 = tmp.substr(tmp.indexOf(":") + 1, tmp.length);
@@ -38,7 +43,6 @@ module.exports = class QueryBuilder {
 	handleAllPrefixesKnown(){
 		// first off, to make sure the query more legible:
 		this.query = this.query.replace("}", " }");
-		this.query = this.query.replace(".", " .");
 
 		// now handle the prefixes
 		this.handleRDFPrefix('linkrec', 'http://linkrec.be/terms/');
@@ -46,6 +50,7 @@ module.exports = class QueryBuilder {
 		this.handleRDFPrefix('foaf', 'http://xmlns.com/foaf/0.1/');
 		this.handleRDFPrefix('xsd', 'http://www.w3.org/2001/XMLSchema#');
 		this.handleRDFPrefix('vcard', 'http://www.w3.org/2006/vcard/ns#');
+		this.handleRDFPrefix('geo', 'http://www.opengis.net/ont/geosparql#');
 		this.prefixesHandled = true;
 	}
 

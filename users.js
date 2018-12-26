@@ -8,7 +8,8 @@ var QueryBuilder = require('./querybuilder');
 //this is needed to execute the queries
 var QueryExecutor = require('./queryexecutor');
 var qe = new QueryExecutor();
-
+//this is needed to use the intermediary class which handles userinfo gets & updates
+var UserInfoHandler = require('./UserInfoHandler');
 
 router.get('/', async (req, res) => {
 	var query = `SELECT DISTINCT ?name ?degreename ?degreeorganization ?email ?bio WHERE 
@@ -29,91 +30,31 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id(\\d+)', async (req, res) => {
-	var query = `SELECT DISTINCT ?name ?degreename ?degreeorganization ?email ?bio WHERE 
-	{
-		?p linkrec:id $id .
-		?p foaf:name ?name .
-		?p vcard:email ?email .
-		OPTIONAL {
-			?p linkrec:degree ?degree .
-			?degree rdf:value ?degreename .
-			?degree vcard:organization ?degreeorganization .
-			?p linkrec:BIO ?bio .
-		}
-	}`;
-	qb = new QueryBuilder(query);
-	qb.bindParamAsInt('$id', req.params.id);
-	
-	// Execute the query and reform into the desired output
-	let output = await qe.executeGetToOutput(qb.result());
+	let handler = new UserInfoHandler(req.params.id);
+	let output = await handler.getUserInfo();
 	// send the output
 	res.send(output);
 });
 
 async function updateUserName(res, id, newname){
-	//first, delete the old name
-	var query = `DELETE {?p foaf:name ?name .} WHERE 
-	{
-		?p linkrec:id $id .
-		?p foaf:name ?name .
-	}`; 
-	qb = new QueryBuilder(query);
-	qb.bindParamAsInt('$id', id);
-
-	let result = await qe.executeUpdateQuery(qb.result());
-	if (!qe.updateQuerySuccesful(result)) {
-		res.send("Deletion of previous data did not succeed.\n" + result);
-		return;
-	}
-
-	//second, insert the new name
-	var query = `INSERT {?p foaf:name $newname .} WHERE 
-	{
-		?p linkrec:id $id .
-	}`; 
-	qb = new QueryBuilder(query);
-	qb.bindParamAsInt('$id', id);
-	qb.bindParamAsString('$newname', newname);
-
-	result = await qe.executeUpdateQuery(qb.result());
-	if (!qe.updateQuerySuccesful(result)) {
-		res.send("Insertion of new data did not succeed.\n" + result);
-		return;
-	}
-	res.send(result);
+	let handler = new UserInfoHandler(id);
+	let success = await handler.deleteUserName(res);
+	success = success && await handler.insertUserName(res, newname);
+	return success;
 }
 
 async function updateEmail(res, id, newemail){
-	//first, delete the old name
-	var query = `DELETE {?p vcard:email ?email .} WHERE 
-	{
-		?p linkrec:id $id .
-		?p vcard:email ?email .
-	}`; 
-	qb = new QueryBuilder(query);
-	qb.bindParamAsInt('$id', id);
+	let handler = new UserInfoHandler(id);
+	let success = await handler.deleteEmail(res);
+	success = success && await handler.insertEmail(res, newemail);
+	return success;
+}
 
-	let result = await qe.executeUpdateQuery(qb.result());
-	if (!qe.updateQuerySuccesful(result)) {
-		res.send("Deletion of previous data did not succeed.\n" + result);
-		return;
-	}
-
-	//second, insert the new name
-	var query = `INSERT {?p vcard:email $newemail .} WHERE 
-	{
-		?p linkrec:id $id .
-	}`; 
-	qb = new QueryBuilder(query);
-	qb.bindParamAsInt('$id', id);
-	qb.bindParamAsString('$newemail', newemail);
-
-	result = await qe.executeUpdateQuery(qb.result());
-	if (!qe.updateQuerySuccesful(result)) {
-		res.send("Insertion of new data did not succeed.\n" + result);
-		return;
-	}
-	res.send(result);
+async function updateLocation(res, id, newlat, newlong){
+	let handler = new UserInfoHandler(id);
+	let success = await handler.deleteLocation(res);
+	success = success && await handler.insertLocation(res, newlat, newlong);
+	return success;
 }
 
 router.post('/:id', async (req, res) => {
@@ -127,18 +68,29 @@ router.post('/:id', async (req, res) => {
 
 	// now that the user has been confirmed to exist, handle changes
 	let anythingchanged = false;
+	let success = true;
 
 	if(req.body.name !== undefined){
-		 updateUserName(res, id, req.body.name);
+		 success = success && updateUserName(res, id, req.body.name);
 		 anythingchanged = true;
 	}
 	if(req.body.email !== undefined){
-		updateEmail(res, id, req.body.email);
+		success = success &&updateEmail(res, id, req.body.email);
+		anythingchanged = true;
+	}
+
+	if(req.body.lat !== undefined && req.body.long !== undefined){
+		success = success &&updateLocation(res, id, req.body.lat, req.body.long);
 		anythingchanged = true;
 	}
 
 	if(!anythingchanged){
-		res.send("Nothing was done.");
+		res.send("No valid parameters were passed.");
+	}
+	else{
+		if(success){
+			res.send("Update succesfull!");
+		}
 	}
 });
 
