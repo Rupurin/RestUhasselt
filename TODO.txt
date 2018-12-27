@@ -1,8 +1,6 @@
 
 Endpoints:
 	* POST /login
-	* PUT /profile/user
-		(nog een aantal params)
 	* POST /profile/user/:id
 		(nog een aantal params)
 	* GET /profile/user/:id

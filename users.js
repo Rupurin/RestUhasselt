@@ -96,6 +96,11 @@ router.post('/:id', async (req, res) => {
 
 router.put('/', async (req, res) => {
 	// check that all the params are there. TODO!
+	var handler = new UserInfoHandler(-1);
+	if(!handler.hasNeededParams(req.body)){
+		res.send("Needed params are missing. Aborting PUT request.");
+		return;
+	}
 
 	// this is what we have to do to insert a new user:
 	// STEP 1: get the latest ID
@@ -122,6 +127,12 @@ router.put('/', async (req, res) => {
 		INSERT {
 			?p foaf:name $name .
 			?p vcard:email $email .
+			?p linkrec:degree [ rdf:value $degreename ; vcard:organization $degreeorganization ] .
+			?p linkrec:based_near [ geo:lat $lat ; geo:long $long ] .
+			?p a linkrec:User .
+			?p linkrec:BIO $bio .
+			?p linkrec:maxDistance $maxDistance .
+			?p linkrec:workExperience $workExp .
 		}
 		WHERE {
 			?p linkrec:id $idTyped .
@@ -130,6 +141,13 @@ router.put('/', async (req, res) => {
 	qb = new QueryBuilder(query);
 	qb.bindParamAsString('$name', req.body.name);
 	qb.bindParamAsString('$email', req.body.email);
+	qb.bindParamAsString('$degreename', req.body.degreename);
+	qb.bindParamAsString('$degreeorganization', req.body.degreeorganization);
+	qb.bindParamAsString('$lat', req.body.lat);	
+	qb.bindParamAsString('$long', req.body.long);
+	qb.bindParamAsString('$bio', req.body.bio);
+	qb.bindParamAsString('$maxDistance', req.body.maxDistance);
+	qb.bindParamAsString('$workExp', req.body.workExperience);
 	qb.bindParamAsInt('$idTyped', id + 1);
 
 	result = await qe.executeUpdateQuery(qb.result());

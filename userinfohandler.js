@@ -143,4 +143,26 @@ module.exports = class UserInfoHandler {
 		}
 		return true;
 	}
+
+	hasNeededParams(params){
+		if(params.name === undefined)
+			return false;		
+		if(params.email === undefined)
+			return false;
+		if(params.degreename === undefined)
+			return false;
+		if(params.degreeorganization === undefined)
+			return false;		
+		if(params.lat === undefined)
+			return false;
+		if(params.long === undefined)
+			return false;
+		if(params.bio === undefined)
+			return false;
+		if(params.maxDistance === undefined)
+			return false;
+		if(params.workExperience === undefined)
+			return false;
+		return true;
+	}
 }

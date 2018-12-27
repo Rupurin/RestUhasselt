@@ -43,6 +43,7 @@ module.exports = class QueryBuilder {
 	handleAllPrefixesKnown(){
 		// first off, to make sure the query more legible:
 		this.query = this.query.replace("}", " }");
+		this.query = this.query.replace("]", " ]");
 
 		// now handle the prefixes
 		this.handleRDFPrefix('linkrec', 'http://linkrec.be/terms/');
