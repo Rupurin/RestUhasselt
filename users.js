@@ -139,6 +139,39 @@ router.put('/', async (req, res) => {
 	}
 
 	res.send("New user inserted succesfully.");
-})
+});
+
+router.post('/:id/connect', async (req, res) => {
+	if(req.body.thisUserID === undefined){
+		res.send("No current user defined.");
+		return;
+	}
+	//we will assume for now that the user asking for the connection exists!
+
+	let otheruserExists = await qe.checkUserExists(req.params.id);
+	if(!otheruserExists){
+		res.send("The user that's being connected to does not exist.");
+		return;
+	}
+
+	var query = `
+		INSERT {
+			?x linkrec:connected ?y .
+		} WHERE {
+			?x linkrec:id $thisUser .
+			?y linkrec:id $otherUser .
+		}`;
+	let qb = new QueryBuilder(query);
+	qb.bindParamAsInt('$thisUser', req.body.thisUserID);
+	qb.bindParamAsInt('$otherUser', req.params.id);
+
+	let result = await qe.executeUpdateQuery(qb.result());
+	if (!qe.updateQuerySuccesful(result)) {
+		res.send("Making a connection did not succeed.\n" + result);
+		return;
+	}
+
+	res.send(result);
+});
 
 module.exports = router;

@@ -27,3 +27,10 @@ SELECT ?id WHERE
 		?p linkrec:id ?id .
 }   ORDER BY DESC (?id)
 LIMIT 1
+
+Hiermee vraag je de open connecties van alle users op:
+SELECT ?name {
+	?p foaf:name ?name .
+    ?x linkrec:connected ?p .
+  FILTER NOT EXISTS {?p linkrec:connected ?x .}
+} 
