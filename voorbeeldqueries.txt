@@ -1,4 +1,5 @@
 
+##############################################################
 Hiermee vraag je alle namen op van de users en businesses:
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 SELECT ?name
@@ -6,6 +7,7 @@ WHERE {
 	?s foaf:name ?name .
 }
 
+##############################################################
 Hiermee vraag je alle users op met het diploma "Master of Science":
 
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
@@ -19,6 +21,7 @@ WHERE {
   ?p foaf:name ?name .
 }
 
+##############################################################
 Hiermee vraag je de hoogste ID op:
 PREFIX linkrec: <http://linkrec.be/terms/>
 
@@ -28,9 +31,21 @@ SELECT ?id WHERE
 }   ORDER BY DESC (?id)
 LIMIT 1
 
+##############################################################
 Hiermee vraag je de open connecties van alle users op:
+PREFIX linkrec: <http://linkrec.be/terms/>
+
 SELECT ?name {
 	?p foaf:name ?name .
     ?x linkrec:connected ?p .
   FILTER NOT EXISTS {?p linkrec:connected ?x .}
+} 
+
+##############################################################
+Hiermee vraag je de organisators van een vacancy op:
+PREFIX linkrec: <http://linkrec.be/terms/>
+
+SELECT ?title {
+	 ?p vcard:title ?title .
+  	?v linkrec:organizer ?p .
 } 

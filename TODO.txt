@@ -17,7 +17,6 @@ Endpoints:
 	* POST /profile/company/:id
 	* PUT /vacancy/
 		(staat in verslag als /vacancy/:details, mss beter om met xform-url-encoded te werken?)
-	* GET /vacancy/:id
 	* GET /vacancy/:id/matching
 
 Algemeen:
