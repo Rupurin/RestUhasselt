@@ -1,0 +1,34 @@
+
+Endpoints:
+	* POST /login
+	* PUT /profile/user
+		(nog een aantal params)
+	* POST /profile/user/:id
+		(nog een aantal params)
+	* GET /profile/user/:id
+		(checken of user wel bestaat)
+	* POST /job-hunting
+	* GET /open-connections
+		(welke details moeten er teruggegeven worden?)
+	* GET /vacancies
+	* GET /vacancies/matching
+	* GET /vacancy/:id
+		(hebben alle drie te maken met vacancies, daar hebben we nog niet echt voorbeelden van)
+	* PUT /profile/company
+	* GET /profile/company/:id
+	* POST /profile/company/:id
+	* PUT /vacancy/
+		(staat in verslag als /vacancy/:details, mss beter om met xform-url-encoded te werken?)
+	* GET /vacancy/:id
+	* GET /vacancy/:id/matching
+
+Algemeen:
+	* Security toevoegen
+		(bijv. inloggen mogelijk maken & afdwingen)
+	* overal error codes zetten & fatsoenlijkere errorberichten geven
+	* alles ns testen op bugs enz
+
+Verslag:
+	* aanpassen van beschrijving endpoints aan uiteindelijke implementatie
+	* aanpassen van beschrijving RDF-XML aan uiteindelijke implementatie
+	* Demo/Verdediging voorbereiden
