@@ -9,11 +9,15 @@ module.exports = class UserInfoHandler {
 	}
 
 	async getUserInfo(){
-		var query = `SELECT DISTINCT ?name ?degreename ?degreeorganization ?email ?bio WHERE 
+		var query = `SELECT DISTINCT ?name ?degreename ?degreeorganization ?email ?bio ?lat ?long ?maxDistance WHERE 
 		{
 			?p linkrec:userid $id .
 			?p foaf:name ?name .
 			?p vcard:email ?email .
+			?p linkrec:based_near ?loc .
+			?loc geo:lat ?lat .
+			?loc geo:long ?long .
+			?p linkrec:maxDistance ?maxDistance .
 			OPTIONAL {
 				?p linkrec:degree ?degree .
 				?degree rdf:value ?degreename .

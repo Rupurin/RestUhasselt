@@ -21,7 +21,7 @@
                 <vcard:organization>UHasselt</vcard:organization>
             </rdf:Description>
         </linkrec:degree>
-        <linkrec:maxDistance>50</linkrec:maxDistance>
+        <linkrec:maxDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#int">50</linkrec:maxDistance>
         <vcard:email>example@fakemail.com</vcard:email>
         <linkrec:workExperience>4 years</linkrec:workExperience>
         <linkrec:BIO>blah</linkrec:BIO>
@@ -38,7 +38,7 @@
                 <vcard:organization>ULB</vcard:organization>
             </rdf:Description>
         </linkrec:degree>
-        <linkrec:maxDistance>25</linkrec:maxDistance>
+        <linkrec:maxDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#int">25</linkrec:maxDistance>
         <vcard:email>example02@fakemail.com</vcard:email>
         <linkrec:workExperience>2 months</linkrec:workExperience>
         <linkrec:BIO>bloh</linkrec:BIO>
@@ -55,7 +55,7 @@
                 <vcard:organization>Leuven</vcard:organization>
             </rdf:Description>
         </linkrec:degree>
-        <linkrec:maxDistance>100</linkrec:maxDistance>
+        <linkrec:maxDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#int">100</linkrec:maxDistance>
         <vcard:email>example03@fakemail.com</vcard:email>
         <linkrec:workExperience>3 years</linkrec:workExperience>
         <linkrec:BIO>bleh</linkrec:BIO>
@@ -82,6 +82,7 @@
     </rdf:Description>
 
     <rdf:Description rdf:ID="job1">
+        <rdf:type rdf:resource="Vacancy" />
         <linkrec:BIO>blah</linkrec:BIO>
         <linkrec:jobTitle>Software Engineer</linkrec:jobTitle>
         <linkrec:organizer rdf:resource="http://linkrec.be/terms/#business1" />
@@ -93,12 +94,25 @@
     </rdf:Description>
 
     <rdf:Description rdf:ID="job2">
+        <rdf:type rdf:resource="Vacancy" />
         <linkrec:BIO>entry-level helpdesk job</linkrec:BIO>
         <linkrec:jobTitle>User-facing Software Assistant</linkrec:jobTitle>
         <linkrec:organizer rdf:resource="http://linkrec.be/terms/#business1" />
         <linkrec:requiredDegreeName>None</linkrec:requiredDegreeName>
         <linkrec:recruiterEmail>corky@example.com</linkrec:recruiterEmail>
-        <linkrec:location geo:lat="50.812068" geo:long="4.3800335" />
+        <linkrec:location geo:lat="51.47026" geo:long="-2.59466" />
+        <linkrec:workExperience>0 years</linkrec:workExperience>
+        <linkrec:vacancyID rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</linkrec:vacancyID>
+    </rdf:Description>
+
+    <rdf:Description rdf:ID="job3">
+        <rdf:type rdf:resource="Vacancy" />
+        <linkrec:BIO>Secretary</linkrec:BIO>
+        <linkrec:jobTitle>Administrative Assistant</linkrec:jobTitle>
+        <linkrec:organizer rdf:resource="http://linkrec.be/terms/#business1" />
+        <linkrec:requiredDegreeName>Master of Science</linkrec:requiredDegreeName>
+        <linkrec:recruiterEmail>corky@example.com</linkrec:recruiterEmail>
+        <linkrec:location geo:lat="51.47026" geo:long="-2.59466" />
         <linkrec:workExperience>0 years</linkrec:workExperience>
         <linkrec:vacancyID rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</linkrec:vacancyID>
     </rdf:Description>
