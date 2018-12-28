@@ -11,7 +11,7 @@ module.exports = class UserInfoHandler {
 	async getUserInfo(){
 		var query = `SELECT DISTINCT ?name ?degreename ?degreeorganization ?email ?bio WHERE 
 		{
-			?p linkrec:id $id .
+			?p linkrec:userid $id .
 			?p foaf:name ?name .
 			?p vcard:email ?email .
 			OPTIONAL {
@@ -32,7 +32,7 @@ module.exports = class UserInfoHandler {
 	async deleteUserName(res){
 		var query = `DELETE {?p foaf:name ?name .} WHERE 
 		{
-			?p linkrec:id $id .
+			?p linkrec:userid $id .
 			?p foaf:name ?name .
 		}`; 
 		let qb = new QueryBuilder(query);
@@ -50,7 +50,7 @@ module.exports = class UserInfoHandler {
 		//second, insert the new name
 		var query = `INSERT {?p foaf:name $newname .} WHERE 
 		{
-			?p linkrec:id $id .
+			?p linkrec:userid $id .
 		}`; 
 		let qb = new QueryBuilder(query);
 		qb.bindParamAsInt('$id', this.userID);
@@ -68,7 +68,7 @@ module.exports = class UserInfoHandler {
 	async deleteEmail(res){		
 		var query = `DELETE {?p vcard:email ?email .} WHERE 
 		{
-			?p linkrec:id $id .
+			?p linkrec:userid $id .
 			?p vcard:email ?email .
 		}`; 
 		let qb = new QueryBuilder(query);
@@ -85,7 +85,7 @@ module.exports = class UserInfoHandler {
 	async insertEmail(res, newemail){
 		var query = `INSERT {?p vcard:email $newemail .} WHERE 
 		{
-			?p linkrec:id $id .
+			?p linkrec:userid $id .
 		}`; 
 		let qb = new QueryBuilder(query);
 		qb.bindParamAsInt('$id', this.userID);
@@ -105,7 +105,7 @@ module.exports = class UserInfoHandler {
 			?loc geo:long ?long .
 		} WHERE 
 		{
-			?p linkrec:id $id .
+			?p linkrec:userid $id .
 			?p linkrec:based_near ?loc .
 			?loc geo:lat ?lat .
 			?loc geo:long ?long .
@@ -128,7 +128,7 @@ module.exports = class UserInfoHandler {
 			?loc geo:long $long .
 		} WHERE 
 		{
-			?p linkrec:id $id .
+			?p linkrec:userid $id .
 			?p linkrec:based_near ?loc .
 		}`; 
 		let qb = new QueryBuilder(query);

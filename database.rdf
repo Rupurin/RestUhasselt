@@ -25,7 +25,7 @@
         <vcard:email>example@fakemail.com</vcard:email>
         <linkrec:workExperience>4 years</linkrec:workExperience>
         <linkrec:BIO>blah</linkrec:BIO>
-        <linkrec:id rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</linkrec:id>
+        <linkrec:userid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</linkrec:userid>
     </rdf:Description>
 
     <rdf:Description rdf:ID="user2">
@@ -42,7 +42,7 @@
         <vcard:email>example02@fakemail.com</vcard:email>
         <linkrec:workExperience>2 months</linkrec:workExperience>
         <linkrec:BIO>bloh</linkrec:BIO>
-        <linkrec:id rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</linkrec:id>
+        <linkrec:userid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</linkrec:userid>
     </rdf:Description>
 
     <rdf:Description rdf:ID="user3">
@@ -59,7 +59,7 @@
         <vcard:email>example03@fakemail.com</vcard:email>
         <linkrec:workExperience>3 years</linkrec:workExperience>
         <linkrec:BIO>bleh</linkrec:BIO>
-        <linkrec:id rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</linkrec:id>
+        <linkrec:userid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</linkrec:userid>
     </rdf:Description>
 
     <rdf:Description rdf:ID="business1">
@@ -82,13 +82,25 @@
     </rdf:Description>
 
     <rdf:Description rdf:ID="job1">
-        <BIO>blah</BIO>
+        <linkrec:BIO>blah</linkrec:BIO>
         <linkrec:jobTitle>Software Engineer</linkrec:jobTitle>
         <linkrec:organizer rdf:resource="http://linkrec.be/terms/#business1" />
         <linkrec:requiredDegreeName>Master of Science</linkrec:requiredDegreeName>
         <linkrec:recruiterEmail>corky@example.com</linkrec:recruiterEmail>
         <linkrec:location geo:lat="50.812068" geo:long="4.3800335" />
         <linkrec:workExperience>4 years</linkrec:workExperience>
+        <linkrec:vacancyID rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</linkrec:vacancyID>
+    </rdf:Description>
+
+    <rdf:Description rdf:ID="job2">
+        <linkrec:BIO>entry-level helpdesk job</linkrec:BIO>
+        <linkrec:jobTitle>User-facing Software Assistant</linkrec:jobTitle>
+        <linkrec:organizer rdf:resource="http://linkrec.be/terms/#business1" />
+        <linkrec:requiredDegreeName>None</linkrec:requiredDegreeName>
+        <linkrec:recruiterEmail>corky@example.com</linkrec:recruiterEmail>
+        <linkrec:location geo:lat="50.812068" geo:long="4.3800335" />
+        <linkrec:workExperience>0 years</linkrec:workExperience>
+        <linkrec:vacancyID rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</linkrec:vacancyID>
     </rdf:Description>
 
 </rdf:RDF>

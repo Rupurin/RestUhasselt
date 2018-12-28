@@ -11,14 +11,15 @@ var QueryBuilder = require('./querybuilder');
 //this is needed to execute the queries
 var QueryExecutor = require('./queryexecutor');
 var qe = new QueryExecutor();
-//this is needed to use the intermediary class which handles userinfo gets & updates
-var UserInfoHandler = require('./UserInfoHandler');
 
-//implements files which contain their own routes
+//routes all /profile/users/.... requests via users.js
 var users = require('./users');
 app.use('/profile/users', users);
+// routes all /vacancies/... requests via vacancies.js
+var vacancies = require('./vacancies');
+app.use('/vacancies', vacancies);
 
-
+// Wouldn't this endpoint be better in /profile/users/...?
 app.get('/open-connections', async (req, res) => {
 	if(req.body.thisUserID === undefined){
 		res.send("No current user defined.");
@@ -28,8 +29,8 @@ app.get('/open-connections', async (req, res) => {
 
 	var query = `
 		SELECT ?name {
-			?x foaf:name ?name .
-			?p linkrec:id $id .
+			?p foaf:name ?name .
+			?x linkrec:userid $id .
 			?x linkrec:connected ?p .
 			FILTER NOT EXISTS {?p linkrec:connected ?x .}
 		}`;
@@ -43,4 +44,4 @@ app.get('/open-connections', async (req, res) => {
 });
 
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => console.log(`App listening on port ${port}!`))

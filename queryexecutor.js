@@ -61,10 +61,10 @@ module.exports = class QueryExecutor {
 		return /Update succeeded/.test(result);
 	}
 
-	async getMaximumID(){
+	async getMaximumUserID(){
 		var query = `SELECT ?id WHERE 
 		{
-				?p linkrec:id ?id .
+				?p linkrec:userid ?id .
 		}   ORDER BY DESC (?id)
 		LIMIT 1`;
 		var qb = new QueryBuilder(query);
@@ -83,7 +83,7 @@ module.exports = class QueryExecutor {
 	}
 
 	async checkUserExists(id){
-		let query = `ASK {?p linkrec:id $id .}`;
+		let query = `ASK {?p linkrec:userid $id .}`;
 		let qb = new QueryBuilder(query);
 		qb.bindParamAsInt('$id', id);
 		return await this.executeAskQuery(qb.result());

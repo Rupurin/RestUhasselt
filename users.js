@@ -104,12 +104,12 @@ router.put('/', async (req, res) => {
 
 	// this is what we have to do to insert a new user:
 	// STEP 1: get the latest ID
-	var id = await qe.getMaximumID();
+	var id = await qe.getMaximumUserID();
 
 	//STEP 2: insert the new user so we can add his bits and bobs
 	var query = `
 	 INSERT DATA {
-	 	<http://linkrec.be/terms#user$id> linkrec:id $idTyped .
+	 	<http://linkrec.be/terms#user$id> linkrec:userid $idTyped .
 	 }
 	`;
 	var qb = new QueryBuilder(query);
@@ -135,7 +135,7 @@ router.put('/', async (req, res) => {
 			?p linkrec:workExperience $workExp .
 		}
 		WHERE {
-			?p linkrec:id $idTyped .
+			?p linkrec:userid $idTyped .
 		}
 	`
 	qb = new QueryBuilder(query);
@@ -176,12 +176,12 @@ router.post('/:id/connect', async (req, res) => {
 		INSERT {
 			?x linkrec:connected ?y .
 		} WHERE {
-			?x linkrec:id $thisUser .
-			?y linkrec:id $otherUser .
+			?x linkrec:userid $connectedUser .
+			?y linkrec:userid $connectingUser .
 		}`;
 	let qb = new QueryBuilder(query);
-	qb.bindParamAsInt('$thisUser', req.body.thisUserID);
-	qb.bindParamAsInt('$otherUser', req.params.id);
+	qb.bindParamAsInt('$connectingUser', req.body.thisUserID);
+	qb.bindParamAsInt('$connectedUser', req.params.id);
 
 	let result = await qe.executeUpdateQuery(qb.result());
 	if (!qe.updateQuerySuccesful(result)) {
