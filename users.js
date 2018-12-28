@@ -164,7 +164,12 @@ router.post('/:id/connect', async (req, res) => {
 		res.send("No current user defined.");
 		return;
 	}
-	//we will assume for now that the user asking for the connection exists!
+	
+	let userExists = await qe.checkUserExists(req.body.thisUserID);
+	if(!userExists){
+		res.send("The user that's attempting to connect does not exist.");
+		return;
+	}
 
 	let otheruserExists = await qe.checkUserExists(req.params.id);
 	if(!otheruserExists){

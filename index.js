@@ -11,6 +11,8 @@ var QueryBuilder = require('./querybuilder');
 //this is needed to execute the queries
 var QueryExecutor = require('./queryexecutor');
 var qe = new QueryExecutor();
+//intermediary class that handles user info
+var UserInfoHandler = require('./UserInfoHandler');
 
 //routes all /profile/users/.... requests via users.js
 var users = require('./users');
@@ -25,20 +27,14 @@ app.get('/open-connections', async (req, res) => {
 		res.send("No current user defined.");
 		return;
 	}
-	//we will assume for now that the user asking for the connection exists!
+	let userExists = await qe.checkUserExists(req.body.thisUserID);
+	if(!userExists){
+		res.send("The user that's attempting to connect does not exist.");
+		return;
+	}
 
-	var query = `
-		SELECT ?name {
-			?p foaf:name ?name .
-			?x linkrec:userid $id .
-			?x linkrec:connected ?p .
-			FILTER NOT EXISTS {?p linkrec:connected ?x .}
-		}`;
-	let qb = new QueryBuilder(query);
-	qb.bindParamAsInt('$id', req.body.thisUserID);
-
-	// Execute the query and reform into the desired output
-	let output = await qe.executeGetToOutput(qb.result());
+	var handler = new UserInfoHandler(req.body.thisUserID);
+	let output = await handler.getOpenConnections();
 	// send the output
 	res.send(output);
 });

@@ -165,4 +165,20 @@ module.exports = class UserInfoHandler {
 			return false;
 		return true;
 	}
+
+	async getOpenConnections(){
+		var query = `
+		SELECT ?name {
+			?p foaf:name ?name .
+			?x linkrec:userid $id .
+			?x linkrec:connected ?p .
+			FILTER NOT EXISTS {?p linkrec:connected ?x .}
+		}`;
+		let qb = new QueryBuilder(query);
+		qb.bindParamAsInt('$id', this.userID);
+
+		// Execute the query and reform into the desired output
+		let output = await qe.executeGetToOutput(qb.result());
+		return output;
+	}
 }
