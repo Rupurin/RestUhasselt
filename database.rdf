@@ -79,6 +79,7 @@
         </vcard:hasTelephone>
         <vcard:email>corky@example.com</vcard:email>
         <linkrec:BIO>lol</linkrec:BIO>
+        <linkrec:companyid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</linkrec:companyid>
     </rdf:Description>
 
     <rdf:Description rdf:ID="job1">

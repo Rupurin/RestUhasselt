@@ -17,6 +17,9 @@ var UserInfoHandler = require('./UserInfoHandler');
 //routes all /profile/users/.... requests via users.js
 var users = require('./users');
 app.use('/profile/users', users);
+//routes all /company/.... requests via company.js
+var company = require('./company');
+app.use('/company', company);
 // routes all /vacancies/... requests via vacancies.js
 var vacancies = require('./vacancies');
 app.use('/vacancies', vacancies);
