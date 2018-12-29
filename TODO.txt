@@ -2,10 +2,15 @@
 Endpoints:
 	* POST /login
 	* POST /profile/user/:id
-		(nog een aantal params)
+		o nog een aantal params
+		o checken of huidige user toegang mag hebben
+			(komt erop neer om thisUserID toe te voegen aan de request)
 	* GET /profile/user/:id
-		(checken of user wel bestaat)
+		o checken of huidige user toegang mag hebben
 	* POST /job-hunting
+		o volledig nog te doen
+		o checken of huidige user toegang heeft
+		o veranderingen ook doorverspreiden aan rest v queries
 	* GET /open-connections
 		(welke details moeten er teruggegeven worden?)
 	* GET /vacancies/matching
@@ -22,6 +27,7 @@ Endpoints:
 		)
 	* PUT /profile/company
 	* GET /profile/company/:id
+		(Steven heeft hieraan gewerkt. Denk dat het af is voor het moment?)
 	* POST /profile/company/:id
 	* PUT /vacancy/
 		(staat in verslag als /vacancy/:details, mss beter om met xform-url-encoded te werken?)

@@ -8,6 +8,10 @@ module.exports = class UserInfoHandler {
 		this.userID = id;
 	}
 
+	async thisUserExists(){
+		return qe.checkUserExists(this.userID);
+	}
+
 	async getUserInfo(){
 		var query = `SELECT DISTINCT ?name ?degreename ?degreeorganization ?email ?bio ?lat ?long ?maxDistance WHERE 
 		{

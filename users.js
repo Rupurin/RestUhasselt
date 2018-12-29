@@ -12,6 +12,7 @@ var qe = new QueryExecutor();
 var UserInfoHandler = require('./UserInfoHandler');
 
 router.get('/', async (req, res) => {
+	//TODO: move this to userinfohandler
 	var query = `SELECT DISTINCT ?name ?degreename ?degreeorganization ?email ?bio WHERE 
 	{
 		?p foaf:name ?name .
@@ -31,6 +32,11 @@ router.get('/', async (req, res) => {
 
 router.get('/:id(\\d+)', async (req, res) => {
 	let handler = new UserInfoHandler(req.params.id);
+	let exists = await handler.thisUserExists();
+	if(!exists){
+		res.send("That user does not exist.");
+		return;
+	}
 	let output = await handler.getUserInfo();
 	// send the output
 	res.send(output);
@@ -164,7 +170,7 @@ router.post('/:id/connect', async (req, res) => {
 		res.send("No current user defined.");
 		return;
 	}
-	
+
 	let userExists = await qe.checkUserExists(req.body.thisUserID);
 	if(!userExists){
 		res.send("The user that's attempting to connect does not exist.");
