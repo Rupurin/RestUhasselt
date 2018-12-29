@@ -92,6 +92,7 @@
         <linkrec:location geo:lat="50.812068" geo:long="4.3800335" />
         <linkrec:workExperience>4 years</linkrec:workExperience>
         <linkrec:vacancyID rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</linkrec:vacancyID>
+        <linkrec:vacancyStatus>active</linkrec:vacancyStatus>
     </rdf:Description>
 
     <rdf:Description rdf:ID="job2">
@@ -104,6 +105,7 @@
         <linkrec:location geo:lat="51.47026" geo:long="-2.59466" />
         <linkrec:workExperience>0 years</linkrec:workExperience>
         <linkrec:vacancyID rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</linkrec:vacancyID>
+        <linkrec:vacancyStatus>fulfilled</linkrec:vacancyStatus>
     </rdf:Description>
 
     <rdf:Description rdf:ID="job3">
@@ -116,6 +118,7 @@
         <linkrec:location geo:lat="51.47026" geo:long="-2.59466" />
         <linkrec:workExperience>0 years</linkrec:workExperience>
         <linkrec:vacancyID rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</linkrec:vacancyID>
+        <linkrec:vacancyStatus>active</linkrec:vacancyStatus>
     </rdf:Description>
 
 </rdf:RDF>

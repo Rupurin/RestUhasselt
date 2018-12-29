@@ -8,6 +8,14 @@ module.exports = class UserInfoHandler {
 		this.userID = id;
 	}
 
+	setUserID(id){
+		this.userID = parseInt(id,10);
+	}
+
+	getUserID(){
+		return this.userID;
+	}
+
 	async thisUserExists(){
 		return qe.checkUserExists(this.userID);
 	}
@@ -34,6 +42,51 @@ module.exports = class UserInfoHandler {
 		
 		// Execute the query and reform into the desired output
 		let output = await qe.executeGetToOutput(qb.result());
+		return output;
+	}
+
+	async addNewUser(){
+		var query = `
+			INSERT DATA {
+				<http://linkrec.be/terms#user$id> linkrec:userid $idTyped .
+			}
+		`;
+		var qb = new QueryBuilder(query);
+		qb.bindParam('$id', this.userID);
+		qb.bindParamAsInt('$idTyped', this.userID);
+
+		return await qe.executeUpdateQuery(qb.result());
+	}
+
+	async addUserInfo(params){
+		let query = `
+			INSERT {
+				?p foaf:name $name .
+				?p vcard:email $email .
+				?p linkrec:degree [ rdf:value $degreename ; vcard:organization $degreeorganization ] .
+				?p linkrec:based_near [ geo:lat $lat ; geo:long $long ] .
+				?p a linkrec:User .
+				?p linkrec:BIO $bio .
+				?p linkrec:maxDistance $maxDistance .
+				?p linkrec:workExperience $workExp .
+			}
+			WHERE {
+				?p linkrec:userid $idTyped .
+			}
+		`
+		let qb = new QueryBuilder(query);
+		qb.bindParamAsString('$name', params.name);
+		qb.bindParamAsString('$email', params.email);
+		qb.bindParamAsString('$degreename', params.degreename);
+		qb.bindParamAsString('$degreeorganization', params.degreeorganization);
+		qb.bindParamAsString('$lat', params.lat);	
+		qb.bindParamAsString('$long', params.long);
+		qb.bindParamAsString('$bio', params.bio);
+		qb.bindParamAsString('$maxDistance', params.maxDistance);
+		qb.bindParamAsString('$workExp', params.workExperience);
+		qb.bindParamAsInt('$idTyped', this.userID);
+
+		let output = await qe.executeUpdateQuery(qb.result());
 		return output;
 	}
 

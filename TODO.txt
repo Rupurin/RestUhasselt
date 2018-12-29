@@ -3,13 +3,17 @@ Endpoints:
 	* POST /login
 	* POST /profile/user/:id
 		o nog een aantal params
-		o checken of huidige user toegang mag hebben
-			(komt erop neer om thisUserID toe te voegen aan de request)
 	* GET /profile/user/:id
 		o checken of huidige user toegang mag hebben
+			volgens overleaf:
+				* eigen gebruiker
+				* business accounts
+				* friends
+			moeten we dat wel zo nauw beperken?
 	* POST /job-hunting
 		o volledig nog te doen
-		o checken of huidige user toegang heeft
+		o checken of huidige user toegang heeft daarvoor
+		o welke relatie gaan we gebruiken daarvoor?
 		o veranderingen ook doorverspreiden aan rest v queries
 	* GET /open-connections
 		(welke details moeten er teruggegeven worden?)
@@ -17,13 +21,16 @@ Endpoints:
 		(moet nog wel wat gebeuren:
 			* ook checken of user een hoger diploma heeft dan hetgene opgelijst:
 				zou gedaan kunnen worden door alle diplomas op te lijsten?
-					bijv #user1 heeft LagereSchoolDiploma, MiddelbareSchoolDiploma, Bachelor of Science, Master of Science, Professor of Science ? kan zonder al te veel moeite in RDF
+					bijv #user1 heeft LagereSchoolDiploma, MiddelbareSchoolDiploma, Bachelor of Science, Master of Science, ? 
+					kan zonder al te veel moeite in RDF naar mijn weten
+					zouden mss ook best diploma en veld waarin dat diploma behaald is scheiden
 				zou ook gedaan kunnen door RDF klasses te gebruiken, denk ik (Gilles) ?
 			* ook checken op work experience:
 				op het moment is het een beetje onduidelijk hoe de work experience werkt
 					in de voorbeelden heb ik (Gilles) gewoon gezegd "4 years" maar niet als wat of waar
 				gaan we huidige work experience dan in een lijst moeten omzetten of zo
 					(gaat de prettifier wel gruwelijk breken, maar da kan wel gemaakt worden)
+					->	(moet ook zo volgens de usage scenarios)
 		)
 	* PUT /profile/company
 	* GET /profile/company/:id

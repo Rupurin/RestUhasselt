@@ -65,14 +65,18 @@ async function updateLocation(res, id, newlat, newlong){
 
 router.post('/:id', async (req, res) => {
 	let id = req.params.id;
-	let userExists = await qe.checkUserExists(id);
+	if(req.body.thisUserID != id){
+		res.send("You do not have permission to edit this profile.");
+		return;
+	}
 
+	let userExists = await qe.checkUserExists(id);
 	if(!userExists){
 		res.send("That user does not exist!");
 		return;
 	}
 
-	// now that the user has been confirmed to exist, handle changes
+	// now that the user has been confirmed to exist & have permission, handle changes
 	let anythingchanged = false;
 	let success = true;
 
@@ -111,52 +115,21 @@ router.put('/', async (req, res) => {
 	// this is what we have to do to insert a new user:
 	// STEP 1: get the latest ID
 	var id = await qe.getMaximumUserID();
+	if(id === -1){
+		res.send("Something went wrong trying to create the new user.");
+		return;
+	}
+	handler.setUserID(id + 1);
 
 	//STEP 2: insert the new user so we can add his bits and bobs
-	var query = `
-	 INSERT DATA {
-	 	<http://linkrec.be/terms#user$id> linkrec:userid $idTyped .
-	 }
-	`;
-	var qb = new QueryBuilder(query);
-	qb.bindParam('$id', id + 1);
-	qb.bindParamAsInt('$idTyped', id + 1);
-
-	let result = await qe.executeUpdateQuery(qb.result());
+	let result = await handler.addNewUser();
 	if (!qe.updateQuerySuccesful(result)) {
 		res.send("Insertion of new user did not succeed.\n" + result);
 		return;
 	}
 
 	//STEP 3: insert the data of that new user, using what we just inserted
-	query = `
-		INSERT {
-			?p foaf:name $name .
-			?p vcard:email $email .
-			?p linkrec:degree [ rdf:value $degreename ; vcard:organization $degreeorganization ] .
-			?p linkrec:based_near [ geo:lat $lat ; geo:long $long ] .
-			?p a linkrec:User .
-			?p linkrec:BIO $bio .
-			?p linkrec:maxDistance $maxDistance .
-			?p linkrec:workExperience $workExp .
-		}
-		WHERE {
-			?p linkrec:userid $idTyped .
-		}
-	`
-	qb = new QueryBuilder(query);
-	qb.bindParamAsString('$name', req.body.name);
-	qb.bindParamAsString('$email', req.body.email);
-	qb.bindParamAsString('$degreename', req.body.degreename);
-	qb.bindParamAsString('$degreeorganization', req.body.degreeorganization);
-	qb.bindParamAsString('$lat', req.body.lat);	
-	qb.bindParamAsString('$long', req.body.long);
-	qb.bindParamAsString('$bio', req.body.bio);
-	qb.bindParamAsString('$maxDistance', req.body.maxDistance);
-	qb.bindParamAsString('$workExp', req.body.workExperience);
-	qb.bindParamAsInt('$idTyped', id + 1);
-
-	result = await qe.executeUpdateQuery(qb.result());
+	result = await handler.addUserInfo(req.body);
 	if (!qe.updateQuerySuccesful(result)) {
 		res.send("Insertion of data for the new user did not succeed.\n" + result);
 		return;

@@ -76,7 +76,7 @@ module.exports = class QueryExecutor {
 		} catch(err){
 			//result is the error explanation so send that along
 			res.send(result);
-			return;
+			return -1;
 		}
 		var id = output.results.bindings[0]["id"]["value"];
 		return parseInt(id);

@@ -88,8 +88,8 @@ router.get('/matching', async (req, res) => {
 
 	//get all vacancies
 	let vacancyhandler = new VacancyInfoHandler();
-	// TODO: find a way to pre-emptively prune vacancies that won't match
-	let allVacancies = await vacancyhandler.getAllVacancies();
+	// TODO: find a way to pre-emptively prune vacancies that won't ever match
+	let allVacancies = await vacancyhandler.getAllActiveVacancies();
 	// that returns a string so turn that back into JSON
 	allVacancies = JSON.parse(allVacancies);
 
