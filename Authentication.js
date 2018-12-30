@@ -24,8 +24,8 @@ var tokenAlgoritme = "RS256";
 /**
  * create and returns an authentication token
  * @param post:
- *      name = name of the user
- *      pass = password of the user
+ *      userName = name of the user
+ *      userPass = password of the user
  */
 router.post('/', async (req, res) => {
     let name = req.body.userName;
@@ -63,14 +63,21 @@ router.post('/', async (req, res) => {
     res.send(Token);
 });
 
+/**
+ * example of the token validation
+ * it wil return the user id inside the token
+ * or wil return the error if the token is invalid
+ * @param post
+ *      token
+ */
 router.post('/test', async (req, res) => {
     let token = req.body.token;
     
     try{
         let userId = authenticate(token);
     }catch(err){
-        
         res.send(err);
+        return;
     }
     res.send(userId);
 });
