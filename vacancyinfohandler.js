@@ -9,7 +9,7 @@ module.exports = class VacancyInfoHandler {
 	}
 
 	async getAllVacancies(){
-		var query = `SELECT ?jobTitle ?organizerName ?requiredDegree ?recruiter ?lat ?long ?experience ?bio ?status WHERE 
+		var query = `SELECT ?jobTitle ?organizerName ?requiredDegree ?recruiter ?lat ?long ?bio ?status WHERE 
 		{
 			?v linkrec:jobTitle ?jobTitle .
 			?v linkrec:organizer ?org .
@@ -19,7 +19,6 @@ module.exports = class VacancyInfoHandler {
 			?v linkrec:location ?loc .
 			?loc geo:lat ?lat .
 			?loc geo:long ?long .
-			?v linkrec:workExperience ?experience .
 			?v linkrec:BIO ?bio .
 			?v linkrec:vacancyStatus ?status .
 		}`;
@@ -30,7 +29,7 @@ module.exports = class VacancyInfoHandler {
 	}
 
 	async getAllActiveVacancies(){
-		var query = `SELECT ?jobTitle ?organizerName ?requiredDegree ?recruiter ?lat ?long ?experience ?bio WHERE 
+		var query = `SELECT ?jobTitle ?organizerName ?requiredDegree ?recruiter ?lat ?long ?bio WHERE 
 		{
 			?v linkrec:jobTitle ?jobTitle .
 			?v linkrec:organizer ?org .
@@ -40,7 +39,6 @@ module.exports = class VacancyInfoHandler {
 			?v linkrec:location ?loc .
 			?loc geo:lat ?lat .
 			?loc geo:long ?long .
-			?v linkrec:workExperience ?experience .
 			?v linkrec:BIO ?bio .
 			?v linkrec:vacancyStatus "active" .
 		}`;
@@ -51,7 +49,7 @@ module.exports = class VacancyInfoHandler {
 	}
 
 	async getVacancyInfo(){
-		var query = `SELECT ?jobTitle ?organizerName ?requiredDegree ?recruiter ?lat ?long ?experience ?bio WHERE 
+		var query = `SELECT ?jobTitle ?organizerName ?requiredDegree ?recruiter ?lat ?long ?bio WHERE 
 		{
 			?v linkrec:jobTitle ?jobTitle .
 			?v linkrec:organizer ?org .
@@ -61,7 +59,6 @@ module.exports = class VacancyInfoHandler {
 			?v linkrec:location ?loc .
 			?loc geo:lat ?lat .
 			?loc geo:long ?long .
-			?v linkrec:workExperience ?experience .
 			?v linkrec:BIO ?bio .
 			?v linkrec:vacancyID $id .
 		}`;

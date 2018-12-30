@@ -1,19 +1,19 @@
 <?xml version="1.0" ?>
 <!DOCTYPE rdf:RDF [
-    <!ENTITY ulb "http://code.ulb.ac.be/example/terms/">
+<!ENTITY ulb "http://code.ulb.ac.be/example/terms/">
 ]>
 <rdf:RDF
-        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-        xmlns:foaf="http://xmlns.com/foaf/0.1/"
-        xmlns:vcard="http://www.w3.org/2006/vcard/ns#"
-        xmlns:geo="http://www.opengis.net/ont/geosparql#"
-        xmlns:linkrec="http://linkrec.be/terms/"
-        xml:base="http://linkrec.be/terms/"
-        >
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:vcard="http://www.w3.org/2006/vcard/ns#"
+    xmlns:geo="http://www.opengis.net/ont/geosparql#"
+    xmlns:linkrec="http://linkrec.be/terms/"
+    xml:base="http://linkrec.be/terms/"
+    >
 
     <rdf:Description rdf:ID="user1">
         <rdf:type rdf:resource="User" />
-        <foaf:name>Martin Poulter</foaf:name>
+        <foaf:name>Frank Neven</foaf:name>
         <linkrec:based_near geo:lat="51.47026" geo:long="-2.59466"/>
         <linkrec:degree>
             <rdf:Description>
@@ -23,9 +23,26 @@
         </linkrec:degree>
         <linkrec:maxDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#int">50</linkrec:maxDistance>
         <vcard:email>example@fakemail.com</vcard:email>
-        <linkrec:workExperience>4 years</linkrec:workExperience>
         <linkrec:BIO>blah</linkrec:BIO>
         <linkrec:userid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</linkrec:userid>
+        <linkrec:workExperience>
+            <rdf:Description>
+                <linkrec:field>Programming</linkrec:field>
+                <linkrec:workDuration>5</linkrec:workDuration>
+            </rdf:Description>
+        </linkrec:workExperience>
+        <linkrec:workExperience>
+            <rdf:Description>
+                <linkrec:field>Databases</linkrec:field>
+                <linkrec:workDuration>3</linkrec:workDuration>
+            </rdf:Description>
+        </linkrec:workExperience>
+        <linkrec:workExperience>
+            <rdf:Description>
+                <linkrec:field>lolwtfbbq</linkrec:field>
+                <linkrec:workDuration>99</linkrec:workDuration>
+            </rdf:Description>
+        </linkrec:workExperience>
     </rdf:Description>
 
     <rdf:Description rdf:ID="user2">
@@ -40,7 +57,6 @@
         </linkrec:degree>
         <linkrec:maxDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#int">25</linkrec:maxDistance>
         <vcard:email>example02@fakemail.com</vcard:email>
-        <linkrec:workExperience>2 months</linkrec:workExperience>
         <linkrec:BIO>bloh</linkrec:BIO>
         <linkrec:userid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</linkrec:userid>
     </rdf:Description>
@@ -57,7 +73,6 @@
         </linkrec:degree>
         <linkrec:maxDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#int">100</linkrec:maxDistance>
         <vcard:email>example03@fakemail.com</vcard:email>
-        <linkrec:workExperience>3 years</linkrec:workExperience>
         <linkrec:BIO>bleh</linkrec:BIO>
         <linkrec:userid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</linkrec:userid>
     </rdf:Description>
@@ -90,7 +105,6 @@
         <linkrec:requiredDegreeName>Master of Science</linkrec:requiredDegreeName>
         <linkrec:recruiterEmail>corky@example.com</linkrec:recruiterEmail>
         <linkrec:location geo:lat="50.812068" geo:long="4.3800335" />
-        <linkrec:workExperience>4 years</linkrec:workExperience>
         <linkrec:vacancyID rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</linkrec:vacancyID>
         <linkrec:vacancyStatus>active</linkrec:vacancyStatus>
     </rdf:Description>
@@ -103,7 +117,6 @@
         <linkrec:requiredDegreeName>None</linkrec:requiredDegreeName>
         <linkrec:recruiterEmail>corky@example.com</linkrec:recruiterEmail>
         <linkrec:location geo:lat="51.47026" geo:long="-2.59466" />
-        <linkrec:workExperience>0 years</linkrec:workExperience>
         <linkrec:vacancyID rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</linkrec:vacancyID>
         <linkrec:vacancyStatus>fulfilled</linkrec:vacancyStatus>
     </rdf:Description>
@@ -116,7 +129,6 @@
         <linkrec:requiredDegreeName>Master of Science</linkrec:requiredDegreeName>
         <linkrec:recruiterEmail>corky@example.com</linkrec:recruiterEmail>
         <linkrec:location geo:lat="51.47026" geo:long="-2.59466" />
-        <linkrec:workExperience>0 years</linkrec:workExperience>
         <linkrec:vacancyID rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</linkrec:vacancyID>
         <linkrec:vacancyStatus>active</linkrec:vacancyStatus>
     </rdf:Description>

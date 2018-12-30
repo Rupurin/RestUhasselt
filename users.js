@@ -42,6 +42,64 @@ router.get('/:id(\\d+)', async (req, res) => {
 	res.send(output);
 });
 
+router.get('/:id(\\d+)/workExperience', async (req, res) =>{
+	let handler = new UserInfoHandler(req.params.id);
+	let exists = await handler.thisUserExists();
+	if(!exists){
+		res.send("That user does not exist.");
+		return;
+	}
+
+	//do the actual query
+	let output = await handler.getWorkExperience();
+	res.send(output);
+});
+
+router.post('/:id(\\d+)/workExperience', async (req, res) =>{
+	let handler = new UserInfoHandler(req.params.id);
+	let exists = await handler.thisUserExists();
+	if(!exists){
+		res.send("That user does not exist.");
+		return;
+	}
+	
+	let hasEditPermission = handler.hasEditPermission(req.body.thisUserID);
+	if(!hasEditPermission){
+		res.send("You do not have permission to edit this information.");
+		return;
+	}
+
+	//do the actual query
+	let result = await handler.addWorkExperience(req.body);
+	if (!qe.updateQuerySuccesful(result)) {
+		res.send("Setting work experience did not succeed.\n" + result);
+		return;
+	}
+	res.send(result);
+});
+
+router.post('/:id(\\d+)/setJobHunting', async (req, res) =>{
+	let handler = new UserInfoHandler(req.params.id);
+	let exists = await handler.thisUserExists();
+	if(!exists){
+		res.send("That user does not exist.");
+		return;
+	}	
+	
+	let hasEditPermission = handler.hasEditPermission(req.body.thisUserID);
+	if(!hasEditPermission){
+		res.send("You do not have permission to edit this information.");
+		return;
+	}
+
+	let result = await handler.setJobHunting(res, req.body.isJobHunting === 'true');
+	if (!qe.updateQuerySuccesful(result)) {
+		res.send("Setting jobhuntingness did not succeed.\n" + result);
+		return;
+	}
+	res.send(result);
+});
+
 async function updateUserName(res, id, newname){
 	let handler = new UserInfoHandler(id);
 	let success = await handler.deleteUserName(res);
@@ -63,20 +121,22 @@ async function updateLocation(res, id, newlat, newlong){
 	return success;
 }
 
-router.post('/:id', async (req, res) => {
-	let id = req.params.id;
-	if(req.body.thisUserID != id){
-		res.send("You do not have permission to edit this profile.");
+router.post('/:id(\\d+)', async (req, res) => {
+	let handler = new UserInfoHandler(req.params.id);
+	let exists = await handler.thisUserExists();
+	if(!exists){
+		res.send("That user does not exist.");
 		return;
-	}
-
-	let userExists = await qe.checkUserExists(id);
-	if(!userExists){
-		res.send("That user does not exist!");
+	}	
+	
+	let hasEditPermission = handler.hasEditPermission(req.body.thisUserID);
+	if(!hasEditPermission){
+		res.send("You do not have permission to edit this information.");
 		return;
 	}
 
 	// now that the user has been confirmed to exist & have permission, handle changes
+	let id = req.params.id;
 	let anythingchanged = false;
 	let success = true;
 
@@ -138,7 +198,7 @@ router.put('/', async (req, res) => {
 	res.send("New user inserted succesfully.");
 });
 
-router.post('/:id/connect', async (req, res) => {
+router.post('/:id(\\d+)/connect', async (req, res) => {
 	if(req.body.thisUserID === undefined){
 		res.send("No current user defined.");
 		return;

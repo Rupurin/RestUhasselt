@@ -11,26 +11,18 @@ Endpoints:
 				* friends
 			moeten we dat wel zo nauw beperken?
 	* POST /job-hunting
-		o volledig nog te doen
-		o checken of huidige user toegang heeft daarvoor
-		o welke relatie gaan we gebruiken daarvoor?
-		o veranderingen ook doorverspreiden aan rest v queries
+		o veranderingen ook doorverspreiden aan rest v queries?
 	* GET /open-connections
-		(welke details moeten er teruggegeven worden?)
+		o welke details moeten er teruggegeven worden?
 	* GET /vacancies/matching
-		(moet nog wel wat gebeuren:
-			* ook checken of user een hoger diploma heeft dan hetgene opgelijst:
-				zou gedaan kunnen worden door alle diplomas op te lijsten?
-					bijv #user1 heeft LagereSchoolDiploma, MiddelbareSchoolDiploma, Bachelor of Science, Master of Science, ? 
-					kan zonder al te veel moeite in RDF naar mijn weten
-					zouden mss ook best diploma en veld waarin dat diploma behaald is scheiden
-				zou ook gedaan kunnen door RDF klasses te gebruiken, denk ik (Gilles) ?
-			* ook checken op work experience:
-				op het moment is het een beetje onduidelijk hoe de work experience werkt
-					in de voorbeelden heb ik (Gilles) gewoon gezegd "4 years" maar niet als wat of waar
-				gaan we huidige work experience dan in een lijst moeten omzetten of zo
-					(gaat de prettifier wel gruwelijk breken, maar da kan wel gemaakt worden)
-					->	(moet ook zo volgens de usage scenarios)
+		o wat als user een hoger diploma heeft dan hetgene opgelijst:
+			* zou gedaan kunnen worden door alle diplomas op te lijsten?
+				bijv #user1 heeft LagereSchoolDiploma, MiddelbareSchoolDiploma, Bachelor of Science, Master of Science, ? 
+				kan zonder al te veel moeite in RDF naar mijn weten
+				zouden mss ook best diploma en veld waarin dat diploma behaald is scheiden
+			* zou ook gedaan kunnen door RDF klasses te gebruiken, denk ik (Gilles) ?
+		o work experience:
+			omgaan met de nieuwe versie van work experience
 		)
 	* PUT /profile/company
 	* GET /profile/company/:id
@@ -39,7 +31,15 @@ Endpoints:
 	* PUT /vacancy/
 		(staat in verslag als /vacancy/:details, mss beter om met xform-url-encoded te werken?)
 	* GET /vacancy/:id/matching
-		(herbruik functie /vacancies/matching)
+		(herbruik functie /vacancies/matching, maar sorteer op lengte van werkervaring (?))
+
+	NIEUW:
+	* GET /profile/user/:id/workExperience
+		geeft alle werkervaring van die gebruiker terug
+		check
+	* POST /profile/user/:id/workExperience
+		neemt een veld en een duratie (aangenomen dat dat in jaar is)
+		check
 
 Algemeen:
 	* Security toevoegen

@@ -45,6 +45,43 @@ module.exports = class UserInfoHandler {
 		return output;
 	}
 
+	async getWorkExperience(){
+		var query = `SELECT ?field ?duration WHERE 
+		{
+			?p linkrec:userid $id .
+			?p linkrec:workExperience ?exp .
+			?exp linkrec:field ?field .
+			?exp linkrec:workDuration ?duration .
+		}`;
+		let qb = new QueryBuilder(query);
+		qb.bindParamAsInt('$id', this.userID);
+		
+		// Execute the query and reform into the desired output
+		let output = await qe.executeGetToOutput(qb.result());
+		return output;
+	}
+
+	async addWorkExperience(params){
+		var query = `INSERT 
+		{
+			?p linkrec:workExperience 
+			[
+				linkrec:field $field ;
+				linkrec:workDuration $duration
+			]
+		}
+		WHERE {
+			?p linkrec:userid $idTyped .
+		}`;
+		let qb = new QueryBuilder(query);
+		qb.bindParamAsString('$field', params.field);
+		qb.bindParamAsString('$duration', params.duration);
+		qb.bindParamAsInt('$idTyped', this.userID);
+		
+		// Execute the query and reform into the desired output
+		return await qe.executeUpdateQuery(qb.result());
+	}
+
 	async addNewUser(){
 		var query = `
 			INSERT DATA {
@@ -68,7 +105,6 @@ module.exports = class UserInfoHandler {
 				?p a linkrec:User .
 				?p linkrec:BIO $bio .
 				?p linkrec:maxDistance $maxDistance .
-				?p linkrec:workExperience $workExp .
 			}
 			WHERE {
 				?p linkrec:userid $idTyped .
@@ -83,7 +119,6 @@ module.exports = class UserInfoHandler {
 		qb.bindParamAsString('$long', params.long);
 		qb.bindParamAsString('$bio', params.bio);
 		qb.bindParamAsString('$maxDistance', params.maxDistance);
-		qb.bindParamAsString('$workExp', params.workExperience);
 		qb.bindParamAsInt('$idTyped', this.userID);
 
 		let output = await qe.executeUpdateQuery(qb.result());
@@ -205,6 +240,75 @@ module.exports = class UserInfoHandler {
 		return true;
 	}
 
+	async deleteJobHunting(){
+		var query = `DELETE {
+			?p linkrec:jobhunting ?j .
+		} WHERE 
+		{
+			?p linkrec:userid $id .
+			?p linkrec:jobhunting ?j .
+		}`;
+		let qb = new QueryBuilder(query);
+		qb.bindParamAsInt('$id', this.userID);
+
+		let result = await qe.executeUpdateQuery(qb.result());
+		// defer dealing with errors
+		return result;
+	}
+
+	async insertJobHunting(){
+		var query = `INSERT 
+		{
+			?p linkrec:jobhunting "true".
+		} WHERE 
+		{
+			?p linkrec:userid $id .
+		}`; 
+		let qb = new QueryBuilder(query);
+		qb.bindParamAsInt('$id', this.userID);
+
+		let result = await qe.executeUpdateQuery(qb.result());
+		// defer dealing with errors
+		return result;
+	}
+
+	/*
+	async insertNotJobHunting(){
+		var query = `INSERT 
+		{
+			?p linkrec:jobhunting "false".
+		} WHERE 
+		{
+			?p linkrec:userid $id .
+		}`; 
+		let qb = new QueryBuilder(query);
+		qb.bindParamAsInt('$id', this.userID);
+
+		let result = await qe.executeUpdateQuery(qb.result());
+		// defer dealing with errors
+		return result;
+	}
+	*/
+
+	async setJobHunting(res, isJobHunting){
+		if(isJobHunting === undefined){
+			return;
+		}
+
+		let result = await this.deleteJobHunting();
+		if (!qe.updateQuerySuccesful(result)) {
+			//this just makes sure the service doesn't perform queries on wrong data
+			res.send("Error: could not delete previous jobhunting data.");
+			return result;
+		}
+
+		if(isJobHunting)
+			result = await this.insertJobHunting();
+		// if the user did set themselves as job hunting, this'll show the correct response to that;
+		// if the user did not, then this'll show the output of deleteJobHunting, which is also what we want.
+		return result;
+	}
+
 	hasNeededParams(params){
 		if(params.name === undefined)
 			return false;		
@@ -222,9 +326,11 @@ module.exports = class UserInfoHandler {
 			return false;
 		if(params.maxDistance === undefined)
 			return false;
-		if(params.workExperience === undefined)
-			return false;
 		return true;
+	}
+
+	hasEditPermission(userID){
+		return this.userID === userID;
 	}
 
 	async getOpenConnections(){
