@@ -73,8 +73,9 @@ router.post('/', async (req, res) => {
 router.post('/test', async (req, res) => {
     let token = req.body.token;
     
+    let userId;
     try{
-        let userId = authenticate(token);
+        userId = authenticate(token);
     }catch(err){
         res.send(err);
         return;
