@@ -2,7 +2,7 @@
 Endpoints:
 	* POST /login
 	* POST /profile/user/:id
-		o nog een aantal params
+		o alleen degrees nog, eerst ns bespreken hoe?
 	* GET /profile/user/:id
 		o checken of huidige user toegang mag hebben
 			volgens overleaf:
