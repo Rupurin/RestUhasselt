@@ -158,7 +158,11 @@ module.exports = class UserInfoHandler {
 			return false;
 		}
 		return true;
-		//res.send(result);
+	}
+
+	async updateName(res, newname){
+		let success = await this.deleteUserName(res);
+		return success && await this.insertUserName(res, newname);
 	}
 
 	async deleteEmail(res){		
@@ -193,6 +197,11 @@ module.exports = class UserInfoHandler {
 			return false;;
 		}
 		return true;
+	}
+
+	async updateEmail(res, newmail){
+		let success = await this.deleteEmail(res);
+		return success && await this.insertEmail(res, newmail);
 	}
 
 	async deleteLocation(res){
@@ -240,6 +249,134 @@ module.exports = class UserInfoHandler {
 		return true;
 	}
 
+	async updateLocation(res, newlat, newlong){
+		let success = await this.deleteLocation(res);
+		return success && await this.insertLocation(res, newlat, newlong);
+	}
+
+	async deleteMaxDistance(res){
+		var query = `DELETE {
+			?p linkrec:maxDistance ?dist .
+		} WHERE 
+		{
+			?p linkrec:userid $id .
+			?p linkrec:maxDistance ?dist .
+		}`;
+		let qb = new QueryBuilder(query);
+		qb.bindParamAsInt('$id', this.userID);
+
+		let result = await qe.executeUpdateQuery(qb.result());
+		if (!qe.updateQuerySuccesful(result)) {
+			res.send("Deletion of previous data did not succeed.\n" + result);
+			return false;
+		}
+		return true;
+	}
+
+	async insertMaxDistance(res, newdist){
+		var query = `INSERT 
+		{
+			?p linkrec:maxDistance $mdist .
+		} WHERE 
+		{
+			?p linkrec:userid $id .
+		}`; 
+		let qb = new QueryBuilder(query);
+		qb.bindParamAsInt('$id', this.userID);
+		qb.bindParamAsInt('$mdist', newdist);
+
+		let result = await qe.executeUpdateQuery(qb.result());
+		if (!qe.updateQuerySuccesful(result)) {
+			res.send("Insertion of new data did not succeed.\n" + result);
+			return false;
+		}
+		return true;
+	}
+
+	async updateMaxDistance(res, newdist){
+		let success = await this.deleteMaxDistance(res);
+		return success && await this.insertMaxDistance(res, newdist);		
+	}
+
+	async deleteBio(res){
+		var query = `DELETE {
+			?p linkrec:BIO ?bio .
+		} WHERE 
+		{
+			?p linkrec:userid $id .
+			?p linkrec:BIO ?bio .
+		}`;
+		let qb = new QueryBuilder(query);
+		qb.bindParamAsInt('$id', this.userID);
+
+		let result = await qe.executeUpdateQuery(qb.result());
+		if (!qe.updateQuerySuccesful(result)) {
+			res.send("Deletion of previous data did not succeed.\n" + result);
+			return false;
+		}
+		return true;
+	}
+
+	async insertBio(res, newbio){
+		var query = `INSERT 
+		{
+			?p linkrec:BIO $bio .
+		} WHERE 
+		{
+			?p linkrec:userid $id .
+		}`; 
+		let qb = new QueryBuilder(query);
+		qb.bindParamAsInt('$id', this.userID);
+		qb.bindParamAsString('$bio', newbio);
+
+		let result = await qe.executeUpdateQuery(qb.result());
+		if (!qe.updateQuerySuccesful(result)) {
+			res.send("Insertion of new data did not succeed.\n" + result);
+			return false;
+		}
+		return true;
+	}
+
+	async updateBio(res, newbio){
+		let success = await this.deleteBio(res);
+		return success && await this.insertBio(res, newbio);		
+	}
+
+	async updateInfo(res, params){
+		let anythingchanged = false;
+		let success = true;
+
+		if(params.name !== undefined){
+			success = await this.updateName(res, params.name);
+			anythingchanged = true;
+		}
+		if(params.email !== undefined){
+			success = success && await this.updateEmail(res, params.email);
+			anythingchanged = true;
+		}
+		if(params.lat !== undefined && params.long !== undefined){
+			success = success && await this.updateLocation(res, params.lat, params.long);
+			anythingchanged = true;
+		}
+		if(params.maxDistance !== undefined){
+			success = success && await this.updateMaxDistance(res, params.maxDistance);
+			anythingchanged = true;
+		}
+		if(params.bio !== undefined){
+			success = success && await this.updateBio(res, params.bio);
+			anythingchanged = true;
+		}
+
+		if(!anythingchanged){
+			res.send("No valid parameters were passed.");
+		}
+		else{
+			if(success){
+				res.send("Update succesfull!");
+			}
+		}
+	}
+
 	async deleteJobHunting(){
 		var query = `DELETE {
 			?p linkrec:jobhunting ?j .
@@ -273,6 +410,7 @@ module.exports = class UserInfoHandler {
 	}
 
 	/*
+	//left in just in case it's ever needed again (I doubt it)
 	async insertNotJobHunting(){
 		var query = `INSERT 
 		{

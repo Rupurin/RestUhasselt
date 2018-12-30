@@ -100,27 +100,6 @@ router.post('/:id(\\d+)/setJobHunting', async (req, res) =>{
 	res.send(result);
 });
 
-async function updateUserName(res, id, newname){
-	let handler = new UserInfoHandler(id);
-	let success = await handler.deleteUserName(res);
-	success = success && await handler.insertUserName(res, newname);
-	return success;
-}
-
-async function updateEmail(res, id, newemail){
-	let handler = new UserInfoHandler(id);
-	let success = await handler.deleteEmail(res);
-	success = success && await handler.insertEmail(res, newemail);
-	return success;
-}
-
-async function updateLocation(res, id, newlat, newlong){
-	let handler = new UserInfoHandler(id);
-	let success = await handler.deleteLocation(res);
-	success = success && await handler.insertLocation(res, newlat, newlong);
-	return success;
-}
-
 router.post('/:id(\\d+)', async (req, res) => {
 	let handler = new UserInfoHandler(req.params.id);
 	let exists = await handler.thisUserExists();
@@ -136,32 +115,7 @@ router.post('/:id(\\d+)', async (req, res) => {
 	}
 
 	// now that the user has been confirmed to exist & have permission, handle changes
-	let id = req.params.id;
-	let anythingchanged = false;
-	let success = true;
-
-	if(req.body.name !== undefined){
-		 success = success && updateUserName(res, id, req.body.name);
-		 anythingchanged = true;
-	}
-	if(req.body.email !== undefined){
-		success = success &&updateEmail(res, id, req.body.email);
-		anythingchanged = true;
-	}
-
-	if(req.body.lat !== undefined && req.body.long !== undefined){
-		success = success &&updateLocation(res, id, req.body.lat, req.body.long);
-		anythingchanged = true;
-	}
-
-	if(!anythingchanged){
-		res.send("No valid parameters were passed.");
-	}
-	else{
-		if(success){
-			res.send("Update succesfull!");
-		}
-	}
+	await handler.updateInfo(res, req.body);
 });
 
 router.put('/', async (req, res) => {
