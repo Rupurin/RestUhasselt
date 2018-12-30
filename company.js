@@ -11,6 +11,7 @@ var qe = new QueryExecutor();
 
 var CompanyHandler = require('./CompanyHandler');
 
+//get the info of one company
 router.get('/:id(\\d+)', async (req, res) => {
 	let handler = new CompanyHandler(req.params.id);
 	let output = await handler.getCompanyInfo();
@@ -18,5 +19,11 @@ router.get('/:id(\\d+)', async (req, res) => {
 	res.send(output);
 });
 
+//get a list of all the companys
+router.get('/', async (req, res) => {
+	let output = await CompanyHandler.getCompanyList();
+	// send the output
+	res.send(output);
+});
 
 module.exports = router;
