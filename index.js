@@ -23,6 +23,10 @@ app.use('/company', company);
 // routes all /vacancies/... requests via vacancies.js
 var vacancies = require('./vacancies');
 app.use('/vacancies', vacancies);
+//routes all /login requests via authentication.js
+var authentication = require('./authentication');
+app.use('/login', authentication.router);
+
 
 // Wouldn't this endpoint be better in /profile/users/...?
 app.get('/open-connections', async (req, res) => {

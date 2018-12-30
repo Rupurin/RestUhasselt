@@ -14,6 +14,7 @@
     <rdf:Description rdf:ID="user1">
         <rdf:type rdf:resource="User" />
         <foaf:name>Frank Neven</foaf:name>
+        <linkrec:pass>myPasword</linkrec:pass>
         <linkrec:based_near geo:lat="51.47026" geo:long="-2.59466"/>
         <linkrec:degree>
             <rdf:Description>
@@ -48,6 +49,7 @@
     <rdf:Description rdf:ID="user2">
         <rdf:type rdf:resource="User" />
         <foaf:name>Voorbeeld Usertwee</foaf:name>
+        <linkrec:pass>my secure password</linkrec:pass>
         <linkrec:based_near geo:lat="50.8132068" geo:long="4.3800335"/>
         <linkrec:degree>
             <rdf:Description>
@@ -64,6 +66,7 @@
     <rdf:Description rdf:ID="user3">
         <rdf:type rdf:resource="User" />
         <foaf:name>Nogeen Voorbeeld</foaf:name>
+        <linkrec:pass>bijvoorbeeld</linkrec:pass>
         <linkrec:based_near geo:lat="51.47026" geo:long="-2.59466"/>
         <linkrec:degree>
             <rdf:Description>
@@ -94,6 +97,26 @@
         </vcard:hasTelephone>
         <vcard:email>corky@example.com</vcard:email>
         <linkrec:BIO>lol</linkrec:BIO>
+        <linkrec:companyid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</linkrec:companyid>
+    </rdf:Description>
+	
+	<rdf:Description rdf:ID="business2">
+        <rdf:type rdf:resource="Business" />
+        <vcard:title>amamaan</vcard:title>
+        <vcard:hasAddress rdf:parseType="Resource">
+            <vcard:street-address>15 Jimbo Street</vcard:street-address>
+            <vcard:locality>Jimbo Town</vcard:locality>
+            <vcard:postal-code>4575</vcard:postal-code>
+            <vcard:country-name>Rusia</vcard:country-name>
+            <rdf:type rdf:resource="http://www.w3.org/2006/vcard/ns#Home" />
+        </vcard:hasAddress>
+        <vcard:hasTelephone rdf:parseType="Resource">
+            <vcard:hasValue rdf:resource="tel:+12345678910" />
+            <rdf:type rdf:resource="http://www.w3.org/2006/vcard/ns#Home" />
+            <rdf:type rdf:resource="http://www.w3.org/2006/vcard/ns#Voice" />
+        </vcard:hasTelephone>
+        <vcard:email>hello.world@example.com</vcard:email>
+        <linkrec:BIO>online retail store for dice</linkrec:BIO>
         <linkrec:companyid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</linkrec:companyid>
     </rdf:Description>
 

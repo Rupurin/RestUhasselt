@@ -45,6 +45,26 @@ module.exports = class UserInfoHandler {
 		return output;
 	}
 
+	/**
+	 * returns the id and password of the user
+	 * @param {string} userName the username of the person you want to get info about
+	 */
+	static async getUserInfo(userName){
+		var query = `SELECT DISTINCT ?id ?pass WHERE 
+		{
+			?p foaf:name $name .
+			?p linkrec:userid ?id .
+			?p linkrec:pass ?pass .
+		}
+		LIMIT 1`;
+		let qb = new QueryBuilder(query);
+		qb.bindParamAsString('$name', userName);
+		
+		// Execute the query and reform into the desired output
+		let output = await qe.executeGetToOutput(qb.result());
+		return output;
+	}
+
 	async getWorkExperience(){
 		var query = `SELECT ?field ?duration WHERE 
 		{
@@ -348,4 +368,6 @@ module.exports = class UserInfoHandler {
 		let output = await qe.executeGetToOutput(qb.result());
 		return output;
 	}
+
+	
 }
