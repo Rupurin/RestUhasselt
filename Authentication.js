@@ -16,7 +16,7 @@ var UserInfoHandler = require('./UserInfoHandler');
 // PRIVATE and PUBLIC key
 var privateKEY  = fs.readFileSync('./keys/privateKey.ppk', 'utf8');
 var publicKEY  = fs.readFileSync('./keys/PublickKey', 'utf8');
-var tokenTime = "120s";
+var tokenTime = "1d"; //"120s";
 var tokenCreator = "UHasselt-wis-Jana-Steven-Gilles"
 var tokenSubject = "wis-api";
 var tokenAlgoritme = "RS256";

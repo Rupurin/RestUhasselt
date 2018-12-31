@@ -1,6 +1,9 @@
 
 Endpoints:
 	* POST /login
+		o Overal verificatie met thisUserId vervangen door verificatie met token.
+		o Paswoorden in DB encrypteren?
+			(https://www.npmjs.com/package/bcrypt)
 	* POST /profile/user/:id
 		o alleen degrees nog, eerst ns bespreken hoe?
 	* GET /profile/user/:id

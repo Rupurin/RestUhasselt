@@ -3,6 +3,8 @@ var router = express.Router()
 router.use(express.json());
 router.use(express.urlencoded({extended:true}));
 
+//needed for authentication of the JWT
+var Authentication = require('./authentication');
 //this is needed to build the queries
 var QueryBuilder = require('./querybuilder');
 //this is needed to execute the queries
@@ -63,7 +65,15 @@ router.post('/:id(\\d+)/workExperience', async (req, res) =>{
 		return;
 	}
 	
-	let hasEditPermission = handler.hasEditPermission(req.body.thisUserID);
+	let userId;
+    try{
+        userId = Authentication.authenticate(req.body.token);
+    }catch(err){
+        res.send(err);
+        return;
+    }
+
+	let hasEditPermission = handler.hasEditPermission(userId);
 	if(!hasEditPermission){
 		res.send("You do not have permission to edit this information.");
 		return;
@@ -84,9 +94,17 @@ router.post('/:id(\\d+)/setJobHunting', async (req, res) =>{
 	if(!exists){
 		res.send("That user does not exist.");
 		return;
-	}	
-	
-	let hasEditPermission = handler.hasEditPermission(req.body.thisUserID);
+	}
+
+	let userId;
+    try{
+        userId = Authentication.authenticate(req.body.token);
+    }catch(err){
+        res.send(err);
+        return;
+    }
+
+	let hasEditPermission = handler.hasEditPermission(userId);
 	if(!hasEditPermission){
 		res.send("You do not have permission to edit this information.");
 		return;
@@ -108,7 +126,15 @@ router.post('/:id(\\d+)', async (req, res) => {
 		return;
 	}	
 	
-	let hasEditPermission = handler.hasEditPermission(req.body.thisUserID);
+	let userId;
+    try{
+        userId = Authentication.authenticate(req.body.token);
+    }catch(err){
+        res.send(err);
+        return;
+    }
+
+	let hasEditPermission = handler.hasEditPermission(userId);
 	if(!hasEditPermission){
 		res.send("You do not have permission to edit this information.");
 		return;
@@ -153,14 +179,29 @@ router.put('/', async (req, res) => {
 });
 
 router.post('/:id(\\d+)/connect', async (req, res) => {
-	if(req.body.thisUserID === undefined){
-		res.send("No current user defined.");
+	let userId;
+    try{
+        userId = Authentication.authenticate(req.body.token);
+    }catch(err){
+        res.send(err);
+        return;
+    }
+
+    let handler = new UserInfoHandler(userId);
+	let hasEditPermission = handler.hasEditPermission(userId);
+	if(!hasEditPermission){
+		res.send("You do not have permission to edit this information.");
 		return;
 	}
 
-	let userExists = await qe.checkUserExists(req.body.thisUserID);
+	let userExists = await qe.checkUserExists(userId);
 	if(!userExists){
 		res.send("The user that's attempting to connect does not exist.");
+		return;
+	}
+
+	if(userId === req.params.id){
+		res.send("You cannot connect with yourself.");
 		return;
 	}
 
@@ -178,7 +219,7 @@ router.post('/:id(\\d+)/connect', async (req, res) => {
 			?y linkrec:userid $connectingUser .
 		}`;
 	let qb = new QueryBuilder(query);
-	qb.bindParamAsInt('$connectingUser', req.body.thisUserID);
+	qb.bindParamAsInt('$connectingUser', userId);
 	qb.bindParamAsInt('$connectedUser', req.params.id);
 
 	let result = await qe.executeUpdateQuery(qb.result());
