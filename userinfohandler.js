@@ -125,6 +125,7 @@ module.exports = class UserInfoHandler {
 				?p a linkrec:User .
 				?p linkrec:BIO $bio .
 				?p linkrec:maxDistance $maxDistance .
+				?p linkrec:pass $password .
 			}
 			WHERE {
 				?p linkrec:userid $idTyped .
@@ -140,6 +141,9 @@ module.exports = class UserInfoHandler {
 		qb.bindParamAsString('$bio', params.bio);
 		qb.bindParamAsString('$maxDistance', params.maxDistance);
 		qb.bindParamAsInt('$idTyped', this.userID);
+		const bcrypt = require('bcrypt');
+		let hash = await bcrypt.hash(params.password, 10);
+		qb.bindParamAsString('$password', hash);
 
 		let output = await qe.executeUpdateQuery(qb.result());
 		return output;
@@ -483,6 +487,8 @@ module.exports = class UserInfoHandler {
 		if(params.bio === undefined)
 			return false;
 		if(params.maxDistance === undefined)
+			return false;
+		if(params.password === undefined)
 			return false;
 		return true;
 	}

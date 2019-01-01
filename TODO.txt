@@ -1,9 +1,7 @@
 
 Endpoints:
 	* POST /login
-		o Overal verificatie met thisUserId vervangen door verificatie met token.
-		o Paswoorden in DB encrypteren?
-			(https://www.npmjs.com/package/bcrypt)
+		o ook voor company accounts
 	* POST /profile/user/:id
 		o alleen degrees nog, eerst ns bespreken hoe?
 	* GET /profile/user/:id
@@ -32,7 +30,7 @@ Endpoints:
 		(Steven heeft hieraan gewerkt. Denk dat het af is voor het moment?)
 	* POST /profile/company/:id
 	* PUT /vacancy/
-		(staat in verslag als /vacancy/:details, mss beter om met xform-url-encoded te werken?)
+		(staat in verslag als /vacancy/:details, wss met xform-url-encoded werken?)
 	* GET /vacancy/:id/matching
 		(herbruik functie /vacancies/matching, maar sorteer op lengte van werkervaring (?))
 

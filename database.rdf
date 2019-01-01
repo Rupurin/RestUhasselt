@@ -14,7 +14,7 @@
     <rdf:Description rdf:ID="user1">
         <rdf:type rdf:resource="User" />
         <foaf:name>Frank Neven</foaf:name>
-        <linkrec:pass>myPasword</linkrec:pass>
+        <linkrec:pass>$2b$10$YT3GaEV48ftm6PWjAhvuDOabbUjtf1Ny9pTUgtBjTBDhGmbYaYY8.</linkrec:pass>
         <linkrec:based_near geo:lat="51.47026" geo:long="-2.59466"/>
         <linkrec:degree>
             <rdf:Description>
@@ -49,7 +49,7 @@
     <rdf:Description rdf:ID="user2">
         <rdf:type rdf:resource="User" />
         <foaf:name>Voorbeeld Usertwee</foaf:name>
-        <linkrec:pass>my secure password</linkrec:pass>
+        <linkrec:pass>$2b$10$wIqUmzifUS9f8egZm6wLUu.rGG1TMi54nB6PIAhmWW3lieGUlFVFm</linkrec:pass>
         <linkrec:based_near geo:lat="50.8132068" geo:long="4.3800335"/>
         <linkrec:degree>
             <rdf:Description>
@@ -66,7 +66,7 @@
     <rdf:Description rdf:ID="user3">
         <rdf:type rdf:resource="User" />
         <foaf:name>Nogeen Voorbeeld</foaf:name>
-        <linkrec:pass>bijvoorbeeld</linkrec:pass>
+        <linkrec:pass>$2b$10$ttDe80YlwfJdieDxtGZBZOjhNd8O6ag4skkyduCiD2QAhyTsapc5K</linkrec:pass>
         <linkrec:based_near geo:lat="51.47026" geo:long="-2.59466"/>
         <linkrec:degree>
             <rdf:Description>

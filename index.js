@@ -34,13 +34,22 @@ app.get('/open-connections', async (req, res) => {
 		res.send("No current user defined.");
 		return;
 	}
-	let userExists = await qe.checkUserExists(req.body.thisUserID);
+
+	let userId;
+    try{
+        userId = Authentication.authenticate(req.body.token);
+    }catch(err){
+        res.send(err);
+        return;
+    }
+
+	let userExists = await qe.checkUserExists(userId);
 	if(!userExists){
 		res.send("The user that's attempting to connect does not exist.");
 		return;
 	}
 
-	var handler = new UserInfoHandler(req.body.thisUserID);
+	var handler = new UserInfoHandler(userID);
 	let output = await handler.getOpenConnections();
 	// send the output
 	res.send(output);

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Rupurin/RestUhasselt#readme",
   "dependencies": {
+    "bcrypt": "^3.0.3",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "fs": "0.0.1-security",

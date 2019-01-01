@@ -13,6 +13,9 @@ var qe = new QueryExecutor();
 
 var UserInfoHandler = require('./UserInfoHandler');
 
+// required for encryption & matching
+const bcrypt = require('bcrypt');
+
 // PRIVATE and PUBLIC key
 var privateKEY  = fs.readFileSync('./keys/privateKey.ppk', 'utf8');
 var publicKEY  = fs.readFileSync('./keys/PublickKey', 'utf8');
@@ -45,7 +48,8 @@ router.post('/', async (req, res) => {
 		res.send("error: User does not exists.");
 		return;
     }
-    if(userInfo.pass !== pass){
+    let matches = await bcrypt.compare(pass, userInfo.pass);
+    if(!matches){
 		res.send("error: Incorrect password.");
 		return;
     }
@@ -81,6 +85,25 @@ router.post('/test', async (req, res) => {
         return;
     }
     res.send(userId);
+});
+
+router.post('/encrypt', async (req, res) => {
+    const saltRounds = 10;
+
+    var hash = await bcrypt.hash(req.body.string, saltRounds);
+    res.send(hash);
+});
+
+router.post('/match', async (req, res) => {
+    const saltRounds = 10;
+
+    var hash = await bcrypt.compare(req.body.string, req.body.hash);
+    if(hash){
+        res.send("matches");
+    }
+    else{
+        res.send("does not match");
+    }
 });
 
 /**
