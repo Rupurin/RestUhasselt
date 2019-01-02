@@ -79,10 +79,52 @@ router.post('/:id(\\d+)/workExperience', async (req, res) =>{
 		return;
 	}
 
+	if(req.body.field === undefined || req.body.duration === undefined){
+		res.send("You have not included a field or a duration variable.");
+		return;
+	}
+
 	//do the actual query
 	let result = await handler.addWorkExperience(req.body);
 	if (!qe.updateQuerySuccesful(result)) {
 		res.send("Setting work experience did not succeed.\n" + result);
+		return;
+	}
+	res.send(result);
+});
+
+router.post('/:id(\\d+)/workExperience/remove', async (req, res) =>{
+	let handler = new UserInfoHandler(req.params.id);
+	let exists = await handler.thisUserExists();
+	if(!exists){
+		res.send("That user does not exist.");
+		return;
+	}
+	
+	let userId;
+    try{
+        userId = Authentication.authenticate(req.body.token);
+    }catch(err){
+        res.send(err);
+        return;
+    }
+
+	let hasEditPermission = handler.hasEditPermission(userId);
+	if(!hasEditPermission){
+		res.send("You do not have permission to edit this information.");
+		return;
+	}
+
+	if(req.body.field === undefined || req.body.duration === undefined){
+		res.send("You have not included a field or a duration variable.");
+		return;
+	}
+
+
+	//do the actual query
+	let result = await handler.removeWorkExperience(req.body);
+	if (!qe.updateQuerySuccesful(result)) {
+		res.send("Removing work experience did not succeed.\n" + result);
 		return;
 	}
 	res.send(result);
@@ -187,19 +229,6 @@ router.post('/:id(\\d+)/connect', async (req, res) => {
         return;
     }
 
-    let handler = new UserInfoHandler(userId);
-	let hasEditPermission = handler.hasEditPermission(userId);
-	if(!hasEditPermission){
-		res.send("You do not have permission to edit this information.");
-		return;
-	}
-
-	let userExists = await qe.checkUserExists(userId);
-	if(!userExists){
-		res.send("The user that's attempting to connect does not exist.");
-		return;
-	}
-
 	if(userId === req.params.id){
 		res.send("You cannot connect with yourself.");
 		return;
@@ -211,21 +240,10 @@ router.post('/:id(\\d+)/connect', async (req, res) => {
 		return;
 	}
 
-	var query = `
-		INSERT {
-			?x linkrec:connected ?y .
-		} WHERE {
-			?x linkrec:userid $connectedUser .
-			?y linkrec:userid $connectingUser .
-		}`;
-	let qb = new QueryBuilder(query);
-	qb.bindParamAsInt('$connectingUser', userId);
-	qb.bindParamAsInt('$connectedUser', req.params.id);
-
-	let result = await qe.executeUpdateQuery(qb.result());
+	let handler = new UserInfoHandler(userId);
+	let result = await handler.connectTo(req.params.id);
 	if (!qe.updateQuerySuccesful(result)) {
 		res.send("Making a connection did not succeed.\n" + result);
-		return;
 	}
 
 	res.send(result);

@@ -44,8 +44,8 @@ router.post('/', async (req, res) => {
 		return;
     }
     userInfo = JSON.parse(await userInfo)[0];
-    if(userInfo.id === undefined){
-		res.send("error: User does not exists.");
+    if(userInfo === undefined || userInfo.id === undefined){
+		res.send("error: User does not exist.");
 		return;
     }
     let matches = await bcrypt.compare(pass, userInfo.pass);

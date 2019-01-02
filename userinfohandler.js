@@ -102,6 +102,30 @@ module.exports = class UserInfoHandler {
 		return await qe.executeUpdateQuery(qb.result());
 	}
 
+	async removeWorkExperience(params){
+		var query = `DELETE
+		{
+			?p linkrec:workExperience ?exp .
+			?exp linkrec:field ?field .
+			?exp linkrec:workDuration ?duration .
+		}
+		WHERE {
+			?p linkrec:userid $idTyped .
+			?p linkrec:workExperience ?exp .
+			?exp linkrec:field $field .
+			?exp linkrec:field ?field .
+			?exp linkrec:workDuration $duration .
+			?exp linkrec:workDuration ?duration .
+		}`;
+		let qb = new QueryBuilder(query);
+		qb.bindParamAsString('$field', params.field);
+		qb.bindParamAsString('$duration', params.duration);
+		qb.bindParamAsInt('$idTyped', this.userID);
+		
+		// Execute the query and reform into the desired output
+		return await qe.executeUpdateQuery(qb.result());
+	}
+
 	async addNewUser(){
 		var query = `
 			INSERT DATA {
@@ -513,5 +537,19 @@ module.exports = class UserInfoHandler {
 		return output;
 	}
 
-	
+	async connectTo(otherUser){
+		var query = `
+			INSERT {
+				?x linkrec:connected ?y .
+			} WHERE {
+				?x linkrec:userid $connectedUser .
+				?y linkrec:userid $connectingUser .
+			}`;
+		let qb = new QueryBuilder(query);
+		qb.bindParamAsInt('$connectingUser', this.userID);
+		qb.bindParamAsInt('$connectedUser', otherUser);
+
+		let result = await qe.executeUpdateQuery(qb.result());
+		return result;
+	}	
 }

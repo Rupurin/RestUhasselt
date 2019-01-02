@@ -2,8 +2,6 @@
 Endpoints:
 	* POST /login
 		o ook voor company accounts
-	* POST /profile/user/:id
-		o alleen degrees nog, eerst ns bespreken hoe?
 	* GET /profile/user/:id
 		o checken of huidige user toegang mag hebben
 			volgens overleaf:
@@ -11,20 +9,14 @@ Endpoints:
 				* business accounts
 				* friends
 			moeten we dat wel zo nauw beperken?
-	* POST /job-hunting
-		o veranderingen ook doorverspreiden aan rest v queries?
-	* GET /open-connections
-		o welke details moeten er teruggegeven worden?
 	* GET /vacancies/matching
-		o wat als user een hoger diploma heeft dan hetgene opgelijst:
-			* zou gedaan kunnen worden door alle diplomas op te lijsten?
+		o wat als user een hoger diploma heeft dan hetgene opgelijst in de vacancy?
+			* zullen we doen door elk diploma apart op te lijsten
 				bijv #user1 heeft LagereSchoolDiploma, MiddelbareSchoolDiploma, Bachelor of Science, Master of Science, ? 
 				kan zonder al te veel moeite in RDF naar mijn weten
 				zouden mss ook best diploma en veld waarin dat diploma behaald is scheiden
-			* zou ook gedaan kunnen door RDF klasses te gebruiken, denk ik (Gilles) ?
-		o work experience:
-			omgaan met de nieuwe versie van work experience
-		)
+					-> zullen hier maar voor gaan, zeker
+					(ook nog endpoints toevoegen voor diplomas GET & POST)
 	* PUT /profile/company
 	* GET /profile/company/:id
 		(Steven heeft hieraan gewerkt. Denk dat het af is voor het moment?)
@@ -41,12 +33,18 @@ Endpoints:
 	* POST /profile/user/:id/workExperience
 		neemt een veld en een duratie (aangenomen dat dat in jaar is)
 		check
+	* POST /profile/user/:id/workExperience/remove
+		neemt een veld en een duratie (en een token) en verwijdert die van de DB
+		check
 
 Algemeen:
 	* Security toevoegen
 		(bijv. inloggen mogelijk maken & afdwingen)
+		Check (op het moment)
 	* overal error codes zetten & fatsoenlijkere errorberichten geven
+		TODO
 	* alles ns testen op bugs enz
+		work in progress
 
 Verslag:
 	* aanpassen van beschrijving endpoints aan uiteindelijke implementatie
