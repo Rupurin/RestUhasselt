@@ -3,6 +3,8 @@ var router = express.Router()
 router.use(express.json());
 router.use(express.urlencoded({extended:true}));
 
+//needed for authentication of the JWT
+var Authentication = require('./authentication');
 //this is needed to build the queries
 var QueryBuilder = require('./querybuilder');
 //this is needed to execute the queries
@@ -14,8 +16,7 @@ var UserInfoHandler = require('./UserInfoHandler');
 var VacancyInfoHandler = require('./VacancyInfoHandler');
 
 router.get('/', async (req, res) => {
-	var handler = new VacancyInfoHandler();
-	let output = await handler.getAllVacancies();
+	let output = await VacancyInfoHandler.getAllVacancies();
 	// send the output
 	res.send(output);
 });
@@ -29,30 +30,32 @@ router.get('/:id(\\d+)', async (req, res) => {
 
 //(based on https://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula)
 function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
-  var R = 6371; // Radius of the earth in km
-  var dLat = deg2rad(lat2-lat1);  // deg2rad below
-  var dLon = deg2rad(lon2-lon1); 
-  var a = 
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2)
-    ; 
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-  var d = R * c; // Distance in km
-  return d;
+	var R = 6371; // Radius of the earth in km
+	var dLat = deg2rad(lat2-lat1);	// deg2rad below
+	var dLon = deg2rad(lon2-lon1); 
+	var a = 
+		Math.sin(dLat/2) * Math.sin(dLat/2) +
+		Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+		Math.sin(dLon/2) * Math.sin(dLon/2)
+		; 
+	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+	var d = R * c; // Distance in km
+	return d;
 }
 
 function deg2rad(deg) {
-  return deg * (Math.PI/180);
+	return deg * (Math.PI/180);
 }
 
-function vacancyMatchesUser(vacancy, user){
-	//for now, let's make it suuuper basic
+async function vacancyMatchesUser(vacancy, user, userId){
+	let handler = new UserInfoHandler(userId);
 
-	// this could be upgraded with 
 	var reqDegree = vacancy["requiredDegree"];
-	if(reqDegree !== "None" && reqDegree !== user["degreename"]){
-		return false;
+	if(reqDegree !== "None"){
+		let hasDegree = await handler.hasDegree(reqDegree);
+		//console.log(`User ${userId} has ${reqDegree} is ` + hasDegree);
+		if(!hasDegree)
+			return false;
 	}
 
 	//calculate if the vacancy is within the user's range
@@ -72,24 +75,25 @@ function vacancyMatchesUser(vacancy, user){
 }
 
 router.get('/matching', async (req, res) => {
-	//make sure req.body.userID is defined and exists!
-	if(req.body.thisUserID === undefined){
-		res.send("Please include the 'thisUserID' field.");
-		return;
-	}
+	let userId;
+    try{
+        userId = Authentication.authenticate(req.body.token);
+    }catch(err){
+        res.send(err);
+        return;
+    }
 
 	// Get the user's information
-	let userhandler = new UserInfoHandler(req.body.thisUserID);
+	let userhandler = new UserInfoHandler(userId);
 	let user = await userhandler.getUserInfo();
 	// that returns a string so turn it back into JSON
 	user = JSON.parse(user);
-	// it only returns one user, so let's just take that user
+	// that operation can only return one user, which is who we want
 	user = user[0];
 
 	//get all vacancies
-	let vacancyhandler = new VacancyInfoHandler();
 	// TODO: find a way to pre-emptively prune vacancies that won't ever match
-	let allVacancies = await vacancyhandler.getAllActiveVacancies();
+	let allVacancies = await VacancyInfoHandler.getAllActiveVacancies();
 	// that returns a string so turn that back into JSON
 	allVacancies = JSON.parse(allVacancies);
 
@@ -97,8 +101,10 @@ router.get('/matching', async (req, res) => {
 	for(var singleVacancyObj in allVacancies){
 		let singleVacancy = allVacancies[singleVacancyObj];
 		//console.log(JSON.stringify(singleVacancy, null, ' '));
-		if(vacancyMatchesUser(singleVacancy, user))
+		let matches = await vacancyMatchesUser(singleVacancy, user, userId);
+		if(matches){
 			matchingVacancies.push(singleVacancy);
+		}
 	}
 
 	res.send(matchingVacancies);

@@ -20,8 +20,25 @@ module.exports = class UserInfoHandler {
 		return qe.checkUserExists(this.userID);
 	}
 
+	static async getAllUsers(){
+		var query = `SELECT DISTINCT ?name ?email ?bio ?lat ?long ?maxDistance WHERE 
+		{
+			?p foaf:name ?name .
+			?p vcard:email ?email .
+			?p linkrec:based_near ?loc .
+			?loc geo:lat ?lat .
+			?loc geo:long ?long .
+			?p linkrec:BIO ?bio .
+		}`;
+		let qb = new QueryBuilder(query);
+		
+		// Execute the query and reform into the desired output
+		let output = await qe.executeGetToOutput(qb.result());
+		return output;
+	}
+
 	async getUserInfo(){
-		var query = `SELECT DISTINCT ?name ?degreename ?degreeorganization ?email ?bio ?lat ?long ?maxDistance WHERE 
+		var query = `SELECT DISTINCT ?name ?email ?bio ?lat ?long ?maxDistance WHERE 
 		{
 			?p linkrec:userid $id .
 			?p foaf:name ?name .
@@ -29,13 +46,8 @@ module.exports = class UserInfoHandler {
 			?p linkrec:based_near ?loc .
 			?loc geo:lat ?lat .
 			?loc geo:long ?long .
+			?p linkrec:BIO ?bio .
 			?p linkrec:maxDistance ?maxDistance .
-			OPTIONAL {
-				?p linkrec:degree ?degree .
-				?degree rdf:value ?degreename .
-				?degree vcard:organization ?degreeorganization .
-				?p linkrec:BIO ?bio .
-			}
 		}`;
 		let qb = new QueryBuilder(query);
 		qb.bindParamAsInt('$id', this.userID);
@@ -63,6 +75,21 @@ module.exports = class UserInfoHandler {
 		// Execute the query and reform into the desired output
 		let output = await qe.executeGetToOutput(qb.result());
 		return output;
+	}
+
+	async hasDegree(degree){
+		var query = `
+			ASK {
+				?p linkrec:userid $id .
+				?p linkrec:degree ?degree .
+				?degree rdf:value $reqDegree .
+			}
+		`;
+		let qb = new QueryBuilder(query);
+		qb.bindParamAsInt('$id', this.userID);
+		qb.bindParamAsString('$reqDegree', degree);
+
+		return await qe.executeAskQuery(qb.result());
 	}
 
 	async getWorkExperience(){

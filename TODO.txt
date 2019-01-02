@@ -14,7 +14,6 @@ Endpoints:
 			* zullen we doen door elk diploma apart op te lijsten
 				bijv #user1 heeft LagereSchoolDiploma, MiddelbareSchoolDiploma, Bachelor of Science, Master of Science, ? 
 				kan zonder al te veel moeite in RDF naar mijn weten
-				zouden mss ook best diploma en veld waarin dat diploma behaald is scheiden
 					-> zullen hier maar voor gaan, zeker
 					(ook nog endpoints toevoegen voor diplomas GET & POST)
 	* PUT /profile/company

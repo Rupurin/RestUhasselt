@@ -12,7 +12,7 @@ Hiermee vraag je alle users op met het diploma "Master of Science":
 
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX linkrec: <http://linkrec.be/terms>
+PREFIX linkrec: <http://linkrec.be/terms/>
 
 SELECT ?name
 WHERE {

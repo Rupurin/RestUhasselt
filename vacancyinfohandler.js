@@ -8,7 +8,7 @@ module.exports = class VacancyInfoHandler {
 		this.vacancyID = id;
 	}
 
-	async getAllVacancies(){
+	static async getAllVacancies(){
 		var query = `SELECT ?jobTitle ?organizerName ?requiredDegree ?recruiter ?lat ?long ?bio ?status WHERE 
 		{
 			?v linkrec:jobTitle ?jobTitle .
@@ -28,7 +28,7 @@ module.exports = class VacancyInfoHandler {
 		return await qe.executeGetToOutput(qb.result());
 	}
 
-	async getAllActiveVacancies(){
+	static async getAllActiveVacancies(){
 		var query = `SELECT ?jobTitle ?organizerName ?requiredDegree ?recruiter ?lat ?long ?bio WHERE 
 		{
 			?v linkrec:jobTitle ?jobTitle .

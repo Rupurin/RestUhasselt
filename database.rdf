@@ -18,6 +18,24 @@
         <linkrec:based_near geo:lat="51.47026" geo:long="-2.59466"/>
         <linkrec:degree>
             <rdf:Description>
+                <rdf:value>Primary education</rdf:value>
+                <vcard:organization>Don Bosco</vcard:organization>
+            </rdf:Description>
+        </linkrec:degree>
+        <linkrec:degree>
+            <rdf:Description>
+                <rdf:value>Secondary education</rdf:value>
+                <vcard:organization>Atheneum Hasselt</vcard:organization>
+            </rdf:Description>
+        </linkrec:degree>
+        <linkrec:degree>
+            <rdf:Description>
+                <rdf:value>Bachelor of Science</rdf:value>
+                <vcard:organization>UHasselt</vcard:organization>
+            </rdf:Description>
+        </linkrec:degree>
+        <linkrec:degree>
+            <rdf:Description>
                 <rdf:value>Master of Science</rdf:value>
                 <vcard:organization>UHasselt</vcard:organization>
             </rdf:Description>
@@ -53,10 +71,22 @@
         <linkrec:based_near geo:lat="50.8132068" geo:long="4.3800335"/>
         <linkrec:degree>
             <rdf:Description>
-                <rdf:value>Master of Science</rdf:value>
-                <vcard:organization>ULB</vcard:organization>
+                <rdf:value>Primary education</rdf:value>
+                <vcard:organization>Don Bosco</vcard:organization>
             </rdf:Description>
         </linkrec:degree>
+        <linkrec:degree>
+            <rdf:Description>
+                <rdf:value>Secondary education</rdf:value>
+                <vcard:organization>Atheneum Hasselt</vcard:organization>
+            </rdf:Description>
+        </linkrec:degree>
+        <linkrec:workExperience>
+            <rdf:Description>
+                <linkrec:field>Helpdesk</linkrec:field>
+                <linkrec:workDuration>1</linkrec:workDuration>
+            </rdf:Description>
+        </linkrec:workExperience>
         <linkrec:maxDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#int">25</linkrec:maxDistance>
         <vcard:email>example02@fakemail.com</vcard:email>
         <linkrec:BIO>bloh</linkrec:BIO>
@@ -68,6 +98,18 @@
         <foaf:name>Nogeen Voorbeeld</foaf:name>
         <linkrec:pass>$2b$10$ttDe80YlwfJdieDxtGZBZOjhNd8O6ag4skkyduCiD2QAhyTsapc5K</linkrec:pass>
         <linkrec:based_near geo:lat="51.47026" geo:long="-2.59466"/>
+        <linkrec:degree>
+            <rdf:Description>
+                <rdf:value>Primary education</rdf:value>
+                <vcard:organization>Don Bosco</vcard:organization>
+            </rdf:Description>
+        </linkrec:degree>
+        <linkrec:degree>
+            <rdf:Description>
+                <rdf:value>Secondary education</rdf:value>
+                <vcard:organization>Atheneum Hasselt</vcard:organization>
+            </rdf:Description>
+        </linkrec:degree>
         <linkrec:degree>
             <rdf:Description>
                 <rdf:value>Bachelor of Science</rdf:value>

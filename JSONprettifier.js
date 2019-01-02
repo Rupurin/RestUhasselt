@@ -22,7 +22,6 @@ module.exports = class JSONPrettifier {
 		let tmp = obj.results.bindings;
 		tmp = this.simplifyResponse(tmp);
 		tmp = JSON.stringify(tmp, null, ' ');
-		//console.log(tmp);
 		return tmp;
 	}
 }

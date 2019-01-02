@@ -14,20 +14,7 @@ var qe = new QueryExecutor();
 var UserInfoHandler = require('./UserInfoHandler');
 
 router.get('/', async (req, res) => {
-	//TODO: move this to userinfohandler
-	var query = `SELECT DISTINCT ?name ?degreename ?degreeorganization ?email ?bio WHERE 
-	{
-		?p foaf:name ?name .
-		?p linkrec:degree ?degree .
-		?degree rdf:value ?degreename .
-		?degree vcard:organization ?degreeorganization .
-		?p vcard:email ?email .
-		?p linkrec:BIO ?bio .
-	}`;
-	qb = new QueryBuilder(query);
-
-	// Execute the query and reform into the desired output
-	let output = await qe.executeGetToOutput(qb.result());
+	let output = await UserInfoHandler.getAllUsers();
 	// send the output
 	res.send(output);
 });
