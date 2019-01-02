@@ -56,7 +56,8 @@ module.exports = class QueryBuilder {
 	}
 
 	bindParam(paramname, paramval){
-		this.query = this.query.replace(paramname, paramval);
+		while(this.query.indexOf(paramname) !== -1)
+			this.query = this.query.replace(paramname, paramval);
 		this.prefixesHandled = false;
 	}
 

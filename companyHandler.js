@@ -25,15 +25,15 @@ module.exports = class CompanyHandler {
 	 * returns an empty json if the company does not exists
 	 */
     async getCompanyInfo(){
-		var query = `SELECT DISTINCT ?title ?adressStreet ?adressCity ?adressPostalCode ?adressCountry ?telephone ?email ?bio WHERE 
+		var query = `SELECT DISTINCT ?title ?addressStreet ?addressCity ?addressPostalCode ?addressCountry ?telephone ?email ?bio WHERE 
 		{
 			?p vcard:agent $id .
             ?p vcard:title ?title .
             ?p vcard:hasAddress ?address .
-            ?address vcard:street-address ?adressStreet .
-            ?address vcard:locality ?adressCity .
-            ?address vcard:postal-code ?adressPostalCode .
-            ?address vcard:country-name ?adressCountry .
+            ?address vcard:street-address ?addressStreet .
+            ?address vcard:locality ?addressCity .
+            ?address vcard:postal-code ?addressPostalCode .
+            ?address vcard:country-name ?addressCountry .
             
             OPTIONAL {
                 ?p vcard:hasTelephone ?phone .
@@ -46,29 +46,27 @@ module.exports = class CompanyHandler {
 		qb.bindParamAsInt('$id', this.companyID);
 		
 		// Execute the query and reform into the desired output
-		let output = await qe.executeGetToOutput(qb.result());
-		return output;
+		return await qe.executeGetToOutput(qb.result());
 	}
 
 	/**
 	 * returns a list of all the existing companys on the server 
 	 */
 	static async getCompanyList(){
-		var query = `SELECT DISTINCT ?id ?title ?adressStreet ?adressCity ?adressPostalCode ?adressCountry ?telephone ?email ?bio WHERE 
+		var query = `SELECT DISTINCT ?id ?title ?addressStreet ?addressCity ?addressPostalCode ?addressCountry ?telephone ?email ?bio WHERE 
 		{
 			?p vcard:agent ?id .
             ?p vcard:title ?title .
             ?p vcard:hasAddress ?address .
-            ?address vcard:street-address ?adressStreet .
-            ?address vcard:locality ?adressCity .
-            ?address vcard:postal-code ?adressPostalCode .
-            ?address vcard:country-name ?adressCountry .
+            ?address vcard:street-address ?addressStreet .
+            ?address vcard:locality ?addressCity .
+            ?address vcard:postal-code ?addressPostalCode .
+            ?address vcard:country-name ?addressCountry .
 		}`;
 		let qb = new QueryBuilder(query);
 		
 		// Execute the query and reform into the desired output
-		let output = await qe.executeGetToOutput(qb.result());
-		return output;
+		return await qe.executeGetToOutput(qb.result());
 	}
 
 	/**
@@ -81,16 +79,16 @@ module.exports = class CompanyHandler {
 		if(requestBody.title === undefined){
 			return false;
 		}
-		if(requestBody.adressStreet === undefined){
+		if(requestBody.addressStreet === undefined){
 			return false;
 		}
-		if(requestBody.adressCity === undefined){
+		if(requestBody.addressCity === undefined){
 			return false;
 		}
-		if(requestBody.adressPostalCode === undefined){
+		if(requestBody.addressPostalCode === undefined){
 			return false;
 		}
-		if(requestBody.adressCountry === undefined){
+		if(requestBody.addressCountry === undefined){
 			return false;
 		}
 		return true
@@ -102,71 +100,87 @@ module.exports = class CompanyHandler {
 	async addNewCompany(){
 		var query = `
 			INSERT DATA {
+				<http://linkrec.be/terms#company$id> a linkrec:Company .
 				<http://linkrec.be/terms#company$id> vcard:agent $idTyped .
+				<http://linkrec.be/terms#company$id> vcard:hasAddress [] .
+				<http://linkrec.be/terms#company$id> vcard:hasTelephone [] .
 			}
 		`;
 		var qb = new QueryBuilder(query);
-		qb.bindParam('$id', this.companyID);
 		qb.bindParamAsInt('$idTyped', this.companyID);
-
+		qb.bindParam('$id', this.companyID);
+		
 		return await qe.executeUpdateQuery(qb.result());
 	}
 
+	/**
+	 * update the values of the company (the company must exists)
+	 * TODO split delete statements in seperate deletes because the entire delete fails if one item does not exists
+	 * @param requestBody.title
+	 * @param requestBody.address
+	 * @param requestBody.addressStreet
+	 * @param requestBody.addressCity
+	 * @param requestBody.addressPostalCode
+	 * @param requestBody.addressCountry
+	 * @param requestBody.email
+	 * @param requestBody.BIO
+	 * @param requestBody.telephone
+	 */
 	async updateCompanyInfo(requestBody){
-		var remove = `DELETE { 
-            ?p vcard:title ?title .
-            ?p vcard:hasAddress ?address .
-            ?address vcard:street-address ?adressStreet .
-            ?address vcard:locality ?adressCity .
-            ?address vcard:postal-code ?adressPostalCode .
-			?address vcard:country-name ?adressCountry .`;
-			
-		var insert = `INSERT { 
-			?p a linkrec:Company .
-            ?p vcard:title $title .
-            ?p vcard:hasAddress [ vcard:street-address $adressStreet ;
-            					  vcard:locality $adressCity ;
-								  vcard:postal-code $adressPostalCode ;
-								  vcard:country-name $adressCountry 
-								] . `;
+		var links = "";
 
-		var where = `WHERE {?p vcard:agent $id . }`;
-
+		if(requestBody.title !== undefined){
+			links += "?p vcard:title $title .\n";
+		}
+		if(requestBody.addressStreet !== undefined){
+			links += "?address vcard:street-address $addressStreet .\n";
+		}
+		if(requestBody.addressCity !== undefined){
+			links += "?address vcard:locality $addressCity .\n";
+		}
+		if(requestBody.addressPostalCode !== undefined){
+			links += "?address vcard:postal-code $addressPostalCode .\n";
+		}
+		if(requestBody.addressCountry !== undefined){
+			links += "?address vcard:country-name $addressCountry .\n";
+		}
 		if(requestBody.email !== undefined){
-			remove += "?p vcard:email ?email ."
-			insert += "?p vcard:email $email ."
+			links += "?p vcard:email $email .\n";
 		}
 		if(requestBody.bio !== undefined){
-			remove += "?p linkrec:BIO ?email ."
-			insert += "?p linkrec:BIO $bio ."
+			links += "?p linkrec:BIO $bio .\n";
 		}
 		if(requestBody.telephone !== undefined){
-			remove += `?p vcard:hasTelephone ?phone .
-					   ?phone vcard:hasValue ?telephone .`
-			insert += `?p vcard:hasTelephone [vcard:hasValue $telephone ; a vcard:Home; a vcard:Voice].`
+			links += `?phone vcard:hasValue $telephone .
+					  ?phone a vcard:Home .
+					  ?phone a vcard:Voice .\n`;
 		}
-		remove += "}";
-		insert += "}";
-		let query = remove + insert + where;
 
+		var remove = "DELETE { " + links.replace(/\$/g, "?") + " }\n"; 
+		var insert = "INSERT { " + links + "}\n";
+		var where = "WHERE {?p vcard:agent $id .\n ?p vcard:hasAddress ?address .\n ?p vcard:hasTelephone ?phone .\n";
+		let query = remove + where + links.replace(/\$/g, "?") + " };\n"  + insert  + where + " };";
 		var qb = new QueryBuilder(query);
+
 		qb.bindParamAsInt('$id', this.companyID);
-		qb.bindParamAsString('$title', requestBody.title);
-		qb.bindParamAsString('$adressStreet', requestBody.adressStreet);
-		qb.bindParamAsString('$adressCity', requestBody.adressCity);
-		qb.bindParam('$adressPostalCode', requestBody.adressPostalCode);
-		qb.bindParamAsString('$adressCountry', requestBody.adressCountry);
 
-		if(requestBody.email !== undefined){
-			qb.bindParam('$email', requestBody.email);
-		}
-		if(requestBody.bio !== undefined){
-			qb.bindParam('$bio', requestBody.bio);
-		}
-		if(requestBody.telephone !== undefined){
-			qb.bindParam('$telephone', requestBody.telephone);
-		}
-
+		if(requestBody.title !== undefined)
+			qb.bindParamAsString('$title', requestBody.title);
+		if(requestBody.addressStreet !== undefined)
+			qb.bindParamAsString('$addressStreet', requestBody.addressStreet);
+		if(requestBody.addressCity !== undefined)
+			qb.bindParamAsString('$addressCity', requestBody.addressCity);
+		if(requestBody.addressPostalCode !== undefined)
+			qb.bindParamAsString('$addressPostalCode', requestBody.addressPostalCode);
+		if(requestBody.addressCountry !== undefined)
+			qb.bindParamAsString('$addressCountry', requestBody.addressCountry);
+		if(requestBody.email !== undefined)
+			qb.bindParamAsString('$email', requestBody.email);
+		if(requestBody.bio !== undefined)
+			qb.bindParamAsString('$bio', requestBody.bio);
+		if(requestBody.telephone !== undefined)
+			qb.bindParamAsString('$telephone', "tel:" + requestBody.telephone);
+		
 		return await qe.executeUpdateQuery(qb.result());
 	}
 }

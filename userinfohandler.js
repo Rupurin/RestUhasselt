@@ -160,8 +160,8 @@ module.exports = class UserInfoHandler {
 			}
 		`;
 		var qb = new QueryBuilder(query);
-		qb.bindParam('$id', this.userID);
 		qb.bindParamAsInt('$idTyped', this.userID);
+		qb.bindParam('$id', this.userID);
 
 		return await qe.executeUpdateQuery(qb.result());
 	}

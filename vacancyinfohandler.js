@@ -79,8 +79,8 @@ module.exports = class VacancyInfoHandler {
 			}
 		`;
 		var qb = new QueryBuilder(query);
-		qb.bindParam('$id', this.vacancyID);
 		qb.bindParamAsInt('$idTyped', this.vacancyID);
+		qb.bindParam('$id', this.vacancyID);
 
 		return await qe.executeUpdateQuery(qb.result());
 	}

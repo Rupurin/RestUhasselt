@@ -10,6 +10,7 @@ Endpoints:
 				* friends
 			moeten we dat wel zo nauw beperken?
 	* POST /profile/company/:id
+		nog een kleine bug
 	* GET /vacancy/:id/matching
 		(herbruik functie /vacancies/matching? valt te bezien)
 
@@ -30,6 +31,7 @@ Endpoints:
 		voegt nieuw diploma toe
 		todo
 
+	* sparql injection preventie
 Algemeen:
 	* Security gebruiken
 		zie authentication.js voor een voorbeeld
