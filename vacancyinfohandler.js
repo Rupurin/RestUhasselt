@@ -9,7 +9,7 @@ module.exports = class VacancyInfoHandler {
 	}
 
 	static async getAllVacancies(){
-		var query = `SELECT ?jobTitle ?organizerName ?requiredDegree ?recruiter ?lat ?long ?bio ?status WHERE 
+		var query = `SELECT ?jobTitle ?organizerName ?requiredDegree ?recruiter ?lat ?long ?bio ?status ?field WHERE 
 		{
 			?v linkrec:jobTitle ?jobTitle .
 			?v linkrec:organizer ?org .
@@ -21,6 +21,7 @@ module.exports = class VacancyInfoHandler {
 			?loc geo:long ?long .
 			?v linkrec:BIO ?bio .
 			?v linkrec:vacancyStatus ?status .
+			?v linkrec:field ?field .
 		}`;
 		let qb = new QueryBuilder(query);
 
@@ -29,7 +30,7 @@ module.exports = class VacancyInfoHandler {
 	}
 
 	static async getAllActiveVacancies(){
-		var query = `SELECT ?jobTitle ?organizerName ?requiredDegree ?recruiter ?lat ?long ?bio WHERE 
+		var query = `SELECT ?jobTitle ?organizerName ?requiredDegree ?recruiter ?lat ?long ?bio ?field WHERE 
 		{
 			?v linkrec:jobTitle ?jobTitle .
 			?v linkrec:organizer ?org .
@@ -41,6 +42,7 @@ module.exports = class VacancyInfoHandler {
 			?loc geo:long ?long .
 			?v linkrec:BIO ?bio .
 			?v linkrec:vacancyStatus "active" .
+			?v linkrec:field ?field .
 		}`;
 		let qb = new QueryBuilder(query);
 
@@ -49,7 +51,7 @@ module.exports = class VacancyInfoHandler {
 	}
 
 	async getVacancyInfo(){
-		var query = `SELECT ?jobTitle ?organizerName ?requiredDegree ?recruiter ?lat ?long ?bio WHERE 
+		var query = `SELECT ?jobTitle ?organizerName ?requiredDegree ?recruiter ?lat ?long ?bio ?field WHERE 
 		{
 			?v linkrec:jobTitle ?jobTitle .
 			?v linkrec:organizer ?org .
@@ -61,6 +63,7 @@ module.exports = class VacancyInfoHandler {
 			?loc geo:long ?long .
 			?v linkrec:BIO ?bio .
 			?v linkrec:vacancyID $id .
+			?v linkrec:field ?field .
 		}`;
 		let qb = new QueryBuilder(query);
 		qb.bindParamAsInt('$id', this.vacancyID);
@@ -95,6 +98,7 @@ module.exports = class VacancyInfoHandler {
 				?v linkrec:BIO $bio .
 				?v linkrec:vacancyStatus $status .
 				?v linkrec:location [geo:lat $lat ; geo:long $long ].
+				?v linkrec:field $field .
 			}
 			WHERE {
 				?v linkrec:vacancyID $VacancyID .
@@ -109,9 +113,9 @@ module.exports = class VacancyInfoHandler {
 		qb.bindParamAsString('$long', params.long);
 		qb.bindParamAsString('$bio', params.bio);
 		qb.bindParamAsString('$status', params.status);
+		qb.bindParamAsString('$field', params.field);
 		qb.bindParamAsInt('$VacancyID', this.vacancyID);
 		qb.bindParamAsInt('$CompanyID', params.companyID);
-		console.log(qb.result());
 
 		let output = await qe.executeUpdateQuery(qb.result());
 		return output;
@@ -133,6 +137,8 @@ module.exports = class VacancyInfoHandler {
 		if(params.bio === undefined)
 			return false;
 		if(params.status === undefined)
+			return false;
+		if(params.field === undefined)
 			return false;
 		return true;
 	}

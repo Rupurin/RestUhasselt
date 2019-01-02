@@ -9,9 +9,6 @@ Endpoints:
 				* business accounts
 				* friends
 			moeten we dat wel zo nauw beperken?
-	* GET /vacancies/matching
-		o heeft nog niet echt een "ranking", maar bon
-		o checkt nog niet op werkervaring
 	* PUT /profile/company
 	* GET /profile/company/:id
 		(Steven heeft hieraan gewerkt. Denk dat het af is voor het moment?)

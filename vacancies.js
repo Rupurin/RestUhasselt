@@ -97,6 +97,10 @@ async function vacancyMatchesUser(vacancy, user, userId){
 			return false;
 	}
 
+	var field = vacancy["field"];
+	let fieldExperience = await handler.getYearsOfWorkExperienceInField(field);
+	vacancy["experience"] = fieldExperience;
+
 	//calculate if the vacancy is within the user's range
 	var lat1 = parseFloat(vacancy["lat"]);
 	var lon1 = parseFloat(vacancy["long"]);
@@ -109,7 +113,6 @@ async function vacancyMatchesUser(vacancy, user, userId){
 		return false;
 
 	vacancy["distance"] = distance + " km";
-
 	return true;
 }
 
@@ -145,6 +148,8 @@ router.get('/matching', async (req, res) => {
 		}
 	}
 
+	// sort based on work experience
+	matchingVacancies.sort((a,b) => b.experience - a.experience);
 	res.send(matchingVacancies);
 })
 

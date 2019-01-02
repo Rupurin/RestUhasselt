@@ -578,5 +578,47 @@ module.exports = class UserInfoHandler {
 
 		let result = await qe.executeUpdateQuery(qb.result());
 		return result;
-	}	
+	}
+
+	async hasExperienceInField(field){		
+		var query = `
+			ASK {
+				?p linkrec:userid $id .
+				?p linkrec:workExperience ?exp .
+				?exp linkrec:field $field .
+			}
+		`;
+		let qb = new QueryBuilder(query);
+		qb.bindParamAsInt('$id', this.userID);
+		qb.bindParamAsString('$field', field);
+
+		return await qe.executeAskQuery(qb.result());
+	}
+
+	async getYearsOfWorkExperienceInField(field){
+		let hasExp = await this.hasExperienceInField(field);
+
+		if(!hasExp)
+			return 0;
+
+		//we know the user has experience in that field, so let's just take the largest number
+		// the experience ought to be a total, but just to be sure we're limiting it to 1 answer
+		var query = 
+		`
+			SELECT DISTINCT ?duration {
+				?p linkrec:userid $id .
+				?p linkrec:workExperience ?exp .
+				?exp linkrec:field $field .
+				?exp linkrec:workDuration ?duration .
+			}
+		`
+		let qb = new QueryBuilder(query);
+		qb.bindParamAsInt("$id", this.userID);
+		qb.bindParamAsString("$field", field);
+
+		let output = await qe.executeGetToOutput(qb.result());
+		let yrs = JSON.parse(output)[0]["duration"];
+
+		return parseInt(yrs, 10);
+	}
 }
