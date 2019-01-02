@@ -133,7 +133,7 @@ module.exports = class QueryExecutor {
 	}
 
 	async checkCompanyExists(id){
-		let query = `ASK {?c linkrec:companyid $id .}`;
+		let query = `ASK {?c vcard:agent $id .}`;
 		let qb = new QueryBuilder(query);
 		qb.bindParamAsInt('$id', id);
 		return await this.executeAskQuery(qb.result());

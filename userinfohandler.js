@@ -66,7 +66,7 @@ module.exports = class UserInfoHandler {
 		{
 			?p foaf:name $name .
 			?p linkrec:userid ?id .
-			?p linkrec:pass ?pass .
+			?p vcard:key ?pass .
 		}
 		LIMIT 1`;
 		let qb = new QueryBuilder(query);
@@ -176,7 +176,7 @@ module.exports = class UserInfoHandler {
 				?p a linkrec:User .
 				?p linkrec:BIO $bio .
 				?p linkrec:maxDistance $maxDistance .
-				?p linkrec:pass $password .
+				?p vcard:key $password .
 			}
 			WHERE {
 				?p linkrec:userid $idTyped .
@@ -485,7 +485,7 @@ module.exports = class UserInfoHandler {
 	}
 
 	/*
-	//left in just in case it's ever needed again (I doubt it)
+	//left just in case it's ever needed again (I doubt it)
 	async insertNotJobHunting(){
 		var query = `INSERT 
 		{

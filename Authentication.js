@@ -58,52 +58,13 @@ router.post('/', async (req, res) => {
         issuer:  tokenCreator,
         subject:  tokenSubject,
         expiresIn:  tokenTime,
-        algorithm:  tokenAlgoritme   // RSASSA [ "RS256", "RS384", "RS512" ]
+        algorithm:  tokenAlgoritme
     };
     payload = {Userid: userInfo.id};
 
     let Token = jwt.sign(payload, privateKEY, signOptions);
 
     res.send(Token);
-});
-
-/**
- * example of the token validation
- * it wil return the user id inside the token
- * or wil return the error if the token is invalid
- * @param post
- *      token
- */
-router.post('/test', async (req, res) => {
-    let token = req.body.token;
-    
-    let userId;
-    try{
-        userId = authenticate(token);
-    }catch(err){
-        res.send(err);
-        return;
-    }
-    res.send(userId);
-});
-
-router.post('/encrypt', async (req, res) => {
-    const saltRounds = 10;
-
-    var hash = await bcrypt.hash(req.body.string, saltRounds);
-    res.send(hash);
-});
-
-router.post('/match', async (req, res) => {
-    const saltRounds = 10;
-
-    var hash = await bcrypt.compare(req.body.string, req.body.hash);
-    if(hash){
-        res.send("matches");
-    }
-    else{
-        res.send("does not match");
-    }
 });
 
 /**
@@ -124,5 +85,50 @@ function authenticate(token){
 
     return payload.Userid;
 }
+
+/**
+ * example of the token validation
+ * it wil return the user id inside the token
+ * or wil return the error if the token is invalid
+ * @param post
+ *      token
+ */
+router.post('/test', async (req, res) => {
+    let token = req.body.token;
+    
+    let userId;
+    try{
+        userId = authenticate(token);
+    }catch(err){
+        //authentication unsuccesfull respond with error
+        res.send(err);
+        return;
+    }
+
+    //authentication success userId = the id of the logged in user
+    res.send(userId);
+});
+
+
+//bcrypt testing call?
+router.post('/encrypt', async (req, res) => {
+    const saltRounds = 10;
+
+    var hash = await bcrypt.hash(req.body.string, saltRounds);
+    res.send(hash);
+});
+
+//bcrypt testing call?
+router.post('/match', async (req, res) => {
+    const saltRounds = 10;
+
+    var hash = await bcrypt.compare(req.body.string, req.body.hash);
+    if(hash){
+        res.send("matches");
+    }
+    else{
+        res.send("does not match");
+    }
+});
 
 module.exports = {router, authenticate};

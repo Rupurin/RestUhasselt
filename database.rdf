@@ -14,7 +14,7 @@
     <rdf:Description rdf:ID="user1">
         <rdf:type rdf:resource="User" />
         <foaf:name>Frank Neven</foaf:name>
-        <linkrec:pass>$2b$10$YT3GaEV48ftm6PWjAhvuDOabbUjtf1Ny9pTUgtBjTBDhGmbYaYY8.</linkrec:pass>
+        <vcard:key>$2b$10$YT3GaEV48ftm6PWjAhvuDOabbUjtf1Ny9pTUgtBjTBDhGmbYaYY8.</vcard:key>
         <linkrec:based_near geo:lat="51.47026" geo:long="-2.59466"/>
         <linkrec:degree>
             <rdf:Description>
@@ -67,7 +67,7 @@
     <rdf:Description rdf:ID="user2">
         <rdf:type rdf:resource="User" />
         <foaf:name>Voorbeeld Usertwee</foaf:name>
-        <linkrec:pass>$2b$10$wIqUmzifUS9f8egZm6wLUu.rGG1TMi54nB6PIAhmWW3lieGUlFVFm</linkrec:pass>
+        <vcard:key>$2b$10$wIqUmzifUS9f8egZm6wLUu.rGG1TMi54nB6PIAhmWW3lieGUlFVFm</vcard:key>
         <linkrec:based_near geo:lat="50.8132068" geo:long="4.3800335"/>
         <linkrec:degree>
             <rdf:Description>
@@ -96,7 +96,7 @@
     <rdf:Description rdf:ID="user3">
         <rdf:type rdf:resource="User" />
         <foaf:name>Nogeen Voorbeeld</foaf:name>
-        <linkrec:pass>$2b$10$ttDe80YlwfJdieDxtGZBZOjhNd8O6ag4skkyduCiD2QAhyTsapc5K</linkrec:pass>
+        <vcard:key>$2b$10$ttDe80YlwfJdieDxtGZBZOjhNd8O6ag4skkyduCiD2QAhyTsapc5K</vcard:key>
         <linkrec:based_near geo:lat="51.47026" geo:long="-2.59466"/>
         <linkrec:degree>
             <rdf:Description>
@@ -121,9 +121,31 @@
         <linkrec:BIO>bleh</linkrec:BIO>
         <linkrec:userid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</linkrec:userid>
     </rdf:Description>
+	
+	<rdf:Description rdf:ID="user4">
+        <rdf:type rdf:resource="User" />
+        <foaf:name>Bedrijfs leider1</foaf:name>
+        <vcard:key>$2b$10$ttDe80YlwfJdieDxtGZBZOjhNd8O6ag4skkyduCiD2QAhyTsapc5K</vcard:key>
+        <linkrec:based_near geo:lat="51.47026" geo:long="-2.59466"/>
+        <linkrec:maxDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#int">100</linkrec:maxDistance>
+        <vcard:email>corky@example.com</vcard:email>
+        <linkrec:BIO>bleh</linkrec:BIO>
+        <linkrec:userid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</linkrec:userid>
+    </rdf:Description>
+	
+	<rdf:Description rdf:ID="user5">
+        <rdf:type rdf:resource="User" />
+        <foaf:name>Bedrijfs leider2</foaf:name>
+        <vcard:key>$2b$10$ttDe80YlwfJdieDxtGZBZOjhNd8O6ag4skkyduCiD2QAhyTsapc5K</vcard:key>
+        <linkrec:based_near geo:lat="51.47026" geo:long="-2.59466"/>
+        <linkrec:maxDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#int">100</linkrec:maxDistance>
+        <vcard:email>hello.world@example.com</vcard:email>
+        <linkrec:BIO>bleh</linkrec:BIO>
+        <linkrec:userid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</linkrec:userid>
+    </rdf:Description>
 
-    <rdf:Description rdf:ID="business1">
-        <rdf:type rdf:resource="Business" />
+    <rdf:Description rdf:ID="company4">
+        <rdf:type rdf:resource="Company" />
         <vcard:title>Gogle</vcard:title>
         <vcard:hasAddress rdf:parseType="Resource">
             <vcard:street-address>111 Lake Drive</vcard:street-address>
@@ -139,11 +161,11 @@
         </vcard:hasTelephone>
         <vcard:email>corky@example.com</vcard:email>
         <linkrec:BIO>lol</linkrec:BIO>
-        <linkrec:companyid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</linkrec:companyid>
+        <vcard:agent rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</vcard:agent>
     </rdf:Description>
 	
-	<rdf:Description rdf:ID="business2">
-        <rdf:type rdf:resource="Business" />
+	<rdf:Description rdf:ID="company5">
+        <rdf:type rdf:resource="Company" />
         <vcard:title>Emazon</vcard:title>
         <vcard:hasAddress rdf:parseType="Resource">
             <vcard:street-address>15 Jimbo Street</vcard:street-address>
@@ -159,14 +181,14 @@
         </vcard:hasTelephone>
         <vcard:email>hello.world@example.com</vcard:email>
         <linkrec:BIO>online retail store for dice</linkrec:BIO>
-        <linkrec:companyid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</linkrec:companyid>
+        <vcard:agent rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</vcard:agent>
     </rdf:Description>
 
     <rdf:Description rdf:ID="job1">
         <rdf:type rdf:resource="Vacancy" />
         <linkrec:BIO>blah</linkrec:BIO>
         <linkrec:jobTitle>Software Engineer</linkrec:jobTitle>
-        <linkrec:organizer rdf:resource="http://linkrec.be/terms/#business1" />
+        <linkrec:organizer rdf:resource="http://linkrec.be/terms/#company1" />
         <linkrec:requiredDegreeName>Master of Science</linkrec:requiredDegreeName>
         <linkrec:recruiterEmail>corky@example.com</linkrec:recruiterEmail>
         <linkrec:location geo:lat="50.812068" geo:long="4.3800335" />
@@ -179,7 +201,7 @@
         <rdf:type rdf:resource="Vacancy" />
         <linkrec:BIO>entry-level helpdesk job</linkrec:BIO>
         <linkrec:jobTitle>User-facing Software Assistant</linkrec:jobTitle>
-        <linkrec:organizer rdf:resource="http://linkrec.be/terms/#business1" />
+        <linkrec:organizer rdf:resource="http://linkrec.be/terms/#company1" />
         <linkrec:requiredDegreeName>None</linkrec:requiredDegreeName>
         <linkrec:recruiterEmail>corky@example.com</linkrec:recruiterEmail>
         <linkrec:location geo:lat="51.47026" geo:long="-2.59466" />
@@ -192,7 +214,7 @@
         <rdf:type rdf:resource="Vacancy" />
         <linkrec:BIO>Secretary</linkrec:BIO>
         <linkrec:jobTitle>Administrative Assistant</linkrec:jobTitle>
-        <linkrec:organizer rdf:resource="http://linkrec.be/terms/#business1" />
+        <linkrec:organizer rdf:resource="http://linkrec.be/terms/#company1" />
         <linkrec:requiredDegreeName>Master of Science</linkrec:requiredDegreeName>
         <linkrec:recruiterEmail>corky@example.com</linkrec:recruiterEmail>
         <linkrec:location geo:lat="51.47026" geo:long="-2.59466" />
