@@ -15,6 +15,10 @@ module.exports = class CompanyHandler {
 	getCompanyID(){
 		return this.companyID;
     }
+
+    async thisCompanyExists(){
+		return qe.checkCompanyExists(this.companyID);
+	}
 	
 	/**
 	 * the info of the company

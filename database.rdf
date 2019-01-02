@@ -144,7 +144,7 @@
 	
 	<rdf:Description rdf:ID="business2">
         <rdf:type rdf:resource="Business" />
-        <vcard:title>amamaan</vcard:title>
+        <vcard:title>Emazon</vcard:title>
         <vcard:hasAddress rdf:parseType="Resource">
             <vcard:street-address>15 Jimbo Street</vcard:street-address>
             <vcard:locality>Jimbo Town</vcard:locality>
@@ -159,7 +159,7 @@
         </vcard:hasTelephone>
         <vcard:email>hello.world@example.com</vcard:email>
         <linkrec:BIO>online retail store for dice</linkrec:BIO>
-        <linkrec:companyid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</linkrec:companyid>
+        <linkrec:companyid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</linkrec:companyid>
     </rdf:Description>
 
     <rdf:Description rdf:ID="job1">
@@ -194,7 +194,7 @@
         <linkrec:requiredDegreeName>Master of Science</linkrec:requiredDegreeName>
         <linkrec:recruiterEmail>corky@example.com</linkrec:recruiterEmail>
         <linkrec:location geo:lat="51.47026" geo:long="-2.59466" />
-        <linkrec:vacancyID rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</linkrec:vacancyID>
+        <linkrec:vacancyID rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</linkrec:vacancyID>
         <linkrec:vacancyStatus>active</linkrec:vacancyStatus>
     </rdf:Description>
 

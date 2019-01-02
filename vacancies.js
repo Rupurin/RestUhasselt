@@ -14,11 +14,50 @@ var qe = new QueryExecutor();
 var UserInfoHandler = require('./UserInfoHandler');
 // intermediary class to handle vacancy information
 var VacancyInfoHandler = require('./VacancyInfoHandler');
+// intermediary class to handle company information
+var CompanyInfoHandler = require('./CompanyHandler');
 
 router.get('/', async (req, res) => {
 	let output = await VacancyInfoHandler.getAllVacancies();
 	// send the output
 	res.send(output);
+});
+
+router.put('/', async(req, res) => {
+	if(!VacancyInfoHandler.hasNeededParams(req.body)){
+		res.send("You're missing parameters.");
+		return;
+	}
+
+	let company = new CompanyInfoHandler(req.body.companyID);
+	let exists = await company.thisCompanyExists();
+	if(!exists){
+		res.send("That company does not exist.");
+		return;
+	}
+
+	// STEP 1: get the latest ID
+	var id = await qe.getMaximumVacancyID();
+	if(id === -1){
+		res.send("Something went wrong trying to create the new vacancy.");
+		return;
+	}
+	let handler = new VacancyInfoHandler(id + 1);
+
+	// STEP 2: insert the new user so we can add his bits and bobs
+	let result = await handler.addNewVacancy();
+	if (!qe.updateQuerySuccesful(result)) {
+		res.send("Insertion of new vacancy did not succeed.\n" + result);
+		return;
+	}
+
+	result = await handler.addVacancyInfo(req.body);
+	if (!qe.updateQuerySuccesful(result)) {
+		res.send("Adding the information of the new vacancy did not succeed.\n" + result);
+		return;
+	}
+
+	res.send("Inserting the new vacancy was succesful.");
 });
 
 router.get('/:id(\\d+)', async (req, res) => {
@@ -91,8 +130,7 @@ router.get('/matching', async (req, res) => {
 	// that operation can only return one user, which is who we want
 	user = user[0];
 
-	//get all vacancies
-	// TODO: find a way to pre-emptively prune vacancies that won't ever match
+	//get all vacancies that are active
 	let allVacancies = await VacancyInfoHandler.getAllActiveVacancies();
 	// that returns a string so turn that back into JSON
 	allVacancies = JSON.parse(allVacancies);

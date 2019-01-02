@@ -74,8 +74,44 @@ module.exports = class QueryExecutor {
 		try{
 			output = JSON.parse(result);
 		} catch(err){
-			//result is the error explanation so send that along
-			res.send(result);
+			return -1;
+		}
+		var id = output.results.bindings[0]["id"]["value"];
+		return parseInt(id);
+	}
+
+	async getMaximumVacancyID(){
+		var query = `SELECT ?id WHERE 
+		{
+				?p linkrec:vacancyID ?id .
+		}   ORDER BY DESC (?id)
+		LIMIT 1`;
+		var qb = new QueryBuilder(query);
+
+		let result = await this.executeGetQuery(qb.result());
+		let output;
+		try{
+			output = JSON.parse(result);
+		} catch(err){
+			return -1;
+		}
+		var id = output.results.bindings[0]["id"]["value"];
+		return parseInt(id);
+	}
+
+	async getMaximumCompanyID(){
+		var query = `SELECT ?id WHERE 
+		{
+				?p linkrec:companyid ?id .
+		}   ORDER BY DESC (?id)
+		LIMIT 1`;
+		var qb = new QueryBuilder(query);
+
+		let result = await this.executeGetQuery(qb.result());
+		let output;
+		try{
+			output = JSON.parse(result);
+		} catch(err){
 			return -1;
 		}
 		var id = output.results.bindings[0]["id"]["value"];
@@ -84,6 +120,20 @@ module.exports = class QueryExecutor {
 
 	async checkUserExists(id){
 		let query = `ASK {?p linkrec:userid $id .}`;
+		let qb = new QueryBuilder(query);
+		qb.bindParamAsInt('$id', id);
+		return await this.executeAskQuery(qb.result());
+	}
+
+	async checkVacancyExists(id){
+		let query = `ASK {?v linkrec:vacancyID $id .}`;
+		let qb = new QueryBuilder(query);
+		qb.bindParamAsInt('$id', id);
+		return await this.executeAskQuery(qb.result());
+	}
+
+	async checkCompanyExists(id){
+		let query = `ASK {?c linkrec:companyid $id .}`;
 		let qb = new QueryBuilder(query);
 		qb.bindParamAsInt('$id', id);
 		return await this.executeAskQuery(qb.result());

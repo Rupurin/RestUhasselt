@@ -10,20 +10,14 @@ Endpoints:
 				* friends
 			moeten we dat wel zo nauw beperken?
 	* GET /vacancies/matching
-		o wat als user een hoger diploma heeft dan hetgene opgelijst in de vacancy?
-			* zullen we doen door elk diploma apart op te lijsten
-				bijv #user1 heeft LagereSchoolDiploma, MiddelbareSchoolDiploma, Bachelor of Science, Master of Science, ? 
-				kan zonder al te veel moeite in RDF naar mijn weten
-					-> zullen hier maar voor gaan, zeker
-					(ook nog endpoints toevoegen voor diplomas GET & POST)
+		o heeft nog niet echt een "ranking", maar bon
+		o checkt nog niet op werkervaring
 	* PUT /profile/company
 	* GET /profile/company/:id
 		(Steven heeft hieraan gewerkt. Denk dat het af is voor het moment?)
 	* POST /profile/company/:id
-	* PUT /vacancy/
-		(staat in verslag als /vacancy/:details, wss met xform-url-encoded werken?)
 	* GET /vacancy/:id/matching
-		(herbruik functie /vacancies/matching, maar sorteer op lengte van werkervaring (?))
+		(herbruik functie /vacancies/matching? valt te bezien)
 
 	NIEUW:
 	* GET /profile/user/:id/workExperience
@@ -35,6 +29,12 @@ Endpoints:
 	* POST /profile/user/:id/workExperience/remove
 		neemt een veld en een duratie (en een token) en verwijdert die van de DB
 		check
+	* GET /profile/user/:id/degrees
+		geeft alle diplomas van een gebruiker terug
+		todo
+	* POST /profile/user/:id/degrees
+		voegt nieuw diploma toe
+		todo
 
 Algemeen:
 	* Security toevoegen
