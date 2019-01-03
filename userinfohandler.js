@@ -1,3 +1,5 @@
+'use strict'
+
 var QueryBuilder = require('./QueryBuilder')
 var JSONPrettifier = require('./JSONprettifier');
 var QueryExecutor = require('./QueryExecutor');
@@ -21,7 +23,7 @@ module.exports = class UserInfoHandler {
 	}
 
 	static async getAllUsers(){
-		var query = `SELECT DISTINCT ?name ?email ?bio ?lat ?long ?maxDistance WHERE 
+		var query = `SELECT DISTINCT ?name ?email ?bio ?lat ?long WHERE 
 		{
 			?p foaf:name ?name .
 			?p vcard:email ?email .
@@ -38,7 +40,7 @@ module.exports = class UserInfoHandler {
 	}
 
 	async getUserInfo(){
-		var query = `SELECT DISTINCT ?name ?email ?bio ?lat ?long ?maxDistance WHERE 
+		var query = `SELECT ?name ?email ?bio ?lat ?long ?maxDistance WHERE 
 		{
 			?p linkrec:userid $id .
 			?p foaf:name ?name .
@@ -90,6 +92,27 @@ module.exports = class UserInfoHandler {
 		qb.bindParamAsString('$reqDegree', degree);
 
 		return await qe.executeAskQuery(qb.result());
+	}
+
+	async addDegree(title, organization){
+		var query = `INSERT 
+		{
+			?p linkrec:degree 
+			[
+				rdf:value $title ;
+				vcard:organization $org
+			]
+		}
+		WHERE {
+			?p linkrec:userid $idTyped .
+		}`;
+		let qb = new QueryBuilder(query);
+		qb.bindParamAsString('$title', title);
+		qb.bindParamAsString('$org', organization);
+		qb.bindParamAsInt('$idTyped', this.userID);
+		
+		// Execute the query and reform into the desired output
+		return await qe.executeUpdateQuery(qb.result());
 	}
 
 	async getWorkExperience(){
@@ -211,7 +234,7 @@ module.exports = class UserInfoHandler {
 
 		let result = await qe.executeUpdateQuery(qb.result());
 		if (!qe.updateQuerySuccesful(result)) {
-			res.send("Deletion of previous data did not succeed.\n" + result);
+			res.status(500).send("Deletion of previous data did not succeed.\n" + result);
 			return false;
 		}
 		return true;
@@ -229,7 +252,7 @@ module.exports = class UserInfoHandler {
 
 		let result = await qe.executeUpdateQuery(qb.result());
 		if (!qe.updateQuerySuccesful(result)) {
-			res.send("Insertion of new data did not succeed.\n" + result);
+			res.status(500).send("Insertion of new data did not succeed.\n" + result);
 			return false;
 		}
 		return true;
@@ -251,7 +274,7 @@ module.exports = class UserInfoHandler {
 
 		let result = await qe.executeUpdateQuery(qb.result());
 		if (!qe.updateQuerySuccesful(result)) {
-			res.send("Deletion of previous data did not succeed.\n" + result);
+			res.status(500).send("Deletion of previous data did not succeed.\n" + result);
 			return false;
 		}
 		return true;
@@ -268,7 +291,7 @@ module.exports = class UserInfoHandler {
 
 		let result = await qe.executeUpdateQuery(qb.result());
 		if (!qe.updateQuerySuccesful(result)) {
-			res.send("Insertion of new data did not succeed.\n" + result);
+			res.status(500).send("Insertion of new data did not succeed.\n" + result);
 			return false;;
 		}
 		return true;
@@ -295,7 +318,7 @@ module.exports = class UserInfoHandler {
 
 		let result = await qe.executeUpdateQuery(qb.result());
 		if (!qe.updateQuerySuccesful(result)) {
-			res.send("Deletion of previous data did not succeed.\n" + result);
+			res.status(500).send("Deletion of previous data did not succeed.\n" + result);
 			return false;
 		}
 		return true;
@@ -318,7 +341,7 @@ module.exports = class UserInfoHandler {
 
 		let result = await qe.executeUpdateQuery(qb.result());
 		if (!qe.updateQuerySuccesful(result)) {
-			res.send("Insertion of new data did not succeed.\n" + result);
+			res.status(500).send("Insertion of new data did not succeed.\n" + result);
 			return false;
 		}
 		return true;
@@ -342,7 +365,7 @@ module.exports = class UserInfoHandler {
 
 		let result = await qe.executeUpdateQuery(qb.result());
 		if (!qe.updateQuerySuccesful(result)) {
-			res.send("Deletion of previous data did not succeed.\n" + result);
+			res.status(500).send("Deletion of previous data did not succeed.\n" + result);
 			return false;
 		}
 		return true;
@@ -362,7 +385,7 @@ module.exports = class UserInfoHandler {
 
 		let result = await qe.executeUpdateQuery(qb.result());
 		if (!qe.updateQuerySuccesful(result)) {
-			res.send("Insertion of new data did not succeed.\n" + result);
+			res.status(500).send("Insertion of new data did not succeed.\n" + result);
 			return false;
 		}
 		return true;
@@ -386,7 +409,7 @@ module.exports = class UserInfoHandler {
 
 		let result = await qe.executeUpdateQuery(qb.result());
 		if (!qe.updateQuerySuccesful(result)) {
-			res.send("Deletion of previous data did not succeed.\n" + result);
+			res.status(500).send("Deletion of previous data did not succeed.\n" + result);
 			return false;
 		}
 		return true;
@@ -406,7 +429,7 @@ module.exports = class UserInfoHandler {
 
 		let result = await qe.executeUpdateQuery(qb.result());
 		if (!qe.updateQuerySuccesful(result)) {
-			res.send("Insertion of new data did not succeed.\n" + result);
+			res.status(500).send("Insertion of new data did not succeed.\n" + result);
 			return false;
 		}
 		return true;
@@ -443,7 +466,7 @@ module.exports = class UserInfoHandler {
 		}
 
 		if(!anythingchanged){
-			res.send("No valid parameters were passed.");
+			res.status(400).send("No valid parameters were passed.");
 		}
 		else{
 			if(success){
@@ -511,7 +534,7 @@ module.exports = class UserInfoHandler {
 		let result = await this.deleteJobHunting();
 		if (!qe.updateQuerySuccesful(result)) {
 			//this just makes sure the service doesn't perform queries on wrong data
-			res.send("Error: could not delete previous jobhunting data.");
+			res.status(500).send("Error: could not delete previous jobhunting data.");
 			return result;
 		}
 
@@ -578,6 +601,22 @@ module.exports = class UserInfoHandler {
 
 		let result = await qe.executeUpdateQuery(qb.result());
 		return result;
+	}
+
+	async getDegrees(){
+		var query = `
+		SELECT ?title ?org {
+			?x linkrec:userid $id .
+			?x linkrec:degree ?degree .
+			?degree rdf:value ?title .
+			?degree vcard:organization ?org .
+		}`;
+		let qb = new QueryBuilder(query);
+		qb.bindParamAsInt('$id', this.userID);
+
+		// Execute the query and reform into the desired output
+		let output = await qe.executeGetToOutput(qb.result());
+		return output;
 	}
 
 	async hasExperienceInField(field){		

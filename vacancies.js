@@ -1,3 +1,5 @@
+'use strict'
+
 var express = require('express')
 var router = express.Router()
 router.use(express.json());
@@ -92,7 +94,6 @@ async function vacancyMatchesUser(vacancy, user, userId){
 	var reqDegree = vacancy["requiredDegree"];
 	if(reqDegree !== "None"){
 		let hasDegree = await handler.hasDegree(reqDegree);
-		//console.log(`User ${userId} has ${reqDegree} is ` + hasDegree);
 		if(!hasDegree)
 			return false;
 	}
@@ -141,7 +142,6 @@ router.get('/matching', async (req, res) => {
 	var matchingVacancies = [];
 	for(var singleVacancyObj in allVacancies){
 		let singleVacancy = allVacancies[singleVacancyObj];
-		//console.log(JSON.stringify(singleVacancy, null, ' '));
 		let matches = await vacancyMatchesUser(singleVacancy, user, userId);
 		if(matches){
 			matchingVacancies.push(singleVacancy);

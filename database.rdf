@@ -188,7 +188,7 @@
         <rdf:type rdf:resource="Vacancy" />
         <linkrec:BIO>blah</linkrec:BIO>
         <linkrec:jobTitle>Software Engineer</linkrec:jobTitle>
-        <linkrec:organizer rdf:resource="http://linkrec.be/terms/#company1" />
+        <linkrec:organizer rdf:resource="http://linkrec.be/terms/#company4" />
         <linkrec:requiredDegreeName>Master of Science</linkrec:requiredDegreeName>
         <linkrec:recruiterEmail>corky@example.com</linkrec:recruiterEmail>
         <linkrec:location geo:lat="50.812068" geo:long="4.3800335" />
@@ -201,7 +201,7 @@
         <rdf:type rdf:resource="Vacancy" />
         <linkrec:BIO>entry-level helpdesk job</linkrec:BIO>
         <linkrec:jobTitle>User-facing Software Assistant</linkrec:jobTitle>
-        <linkrec:organizer rdf:resource="http://linkrec.be/terms/#company1" />
+        <linkrec:organizer rdf:resource="http://linkrec.be/terms/#company4" />
         <linkrec:requiredDegreeName>None</linkrec:requiredDegreeName>
         <linkrec:recruiterEmail>corky@example.com</linkrec:recruiterEmail>
         <linkrec:location geo:lat="51.47026" geo:long="-2.59466" />
@@ -214,7 +214,7 @@
         <rdf:type rdf:resource="Vacancy" />
         <linkrec:BIO>Secretary</linkrec:BIO>
         <linkrec:jobTitle>Administrative Assistant</linkrec:jobTitle>
-        <linkrec:organizer rdf:resource="http://linkrec.be/terms/#company1" />
+        <linkrec:organizer rdf:resource="http://linkrec.be/terms/#company5" />
         <linkrec:requiredDegreeName>Master of Science</linkrec:requiredDegreeName>
         <linkrec:recruiterEmail>corky@example.com</linkrec:recruiterEmail>
         <linkrec:location geo:lat="51.47026" geo:long="-2.59466" />

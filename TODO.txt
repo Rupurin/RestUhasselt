@@ -26,17 +26,20 @@ Endpoints:
 		check
 	* GET /profile/user/:id/degrees
 		geeft alle diplomas van een gebruiker terug
-		todo
+		check
 	* POST /profile/user/:id/degrees
 		voegt nieuw diploma toe
-		todo
+		check
+	* (verwijderen van een diploma lijkt me niet gepast)
 
 	* sparql injection preventie
+
 Algemeen:
 	* Security gebruiken
 		zie authentication.js voor een voorbeeld
 	* overal error codes zetten & fatsoenlijkere errorberichten geven
 		TODO
+	* overal 'use strict' toepassen
 	* alles ns testen op bugs enz
 		work in progress
 
