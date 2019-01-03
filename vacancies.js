@@ -27,21 +27,21 @@ router.get('/', async (req, res) => {
 
 router.put('/', async(req, res) => {
 	if(!VacancyInfoHandler.hasNeededParams(req.body)){
-		res.send("You're missing parameters.");
+		res.status(400).send("You're missing parameters.");
 		return;
 	}
 
 	let company = new CompanyInfoHandler(req.body.companyID);
 	let exists = await company.thisCompanyExists();
 	if(!exists){
-		res.send("That company does not exist.");
+		res.status(400).send("That company does not exist.");
 		return;
 	}
 
 	// STEP 1: get the latest ID
 	var id = await qe.getMaximumVacancyID();
 	if(id === -1){
-		res.send("Something went wrong trying to create the new vacancy.");
+		res.status(500).send("Something went wrong trying to create the new vacancy.");
 		return;
 	}
 	let handler = new VacancyInfoHandler(id + 1);
@@ -49,13 +49,13 @@ router.put('/', async(req, res) => {
 	// STEP 2: insert the new user so we can add his bits and bobs
 	let result = await handler.addNewVacancy();
 	if (!qe.updateQuerySuccesful(result)) {
-		res.send("Insertion of new vacancy did not succeed.\n" + result);
+		res.status(500).send("Insertion of new vacancy did not succeed.\n" + result);
 		return;
 	}
 
 	result = await handler.addVacancyInfo(req.body);
 	if (!qe.updateQuerySuccesful(result)) {
-		res.send("Adding the information of the new vacancy did not succeed.\n" + result);
+		res.status(500).send("Adding the information of the new vacancy did not succeed.\n" + result);
 		return;
 	}
 
@@ -64,6 +64,13 @@ router.put('/', async(req, res) => {
 
 router.get('/:id(\\d+)', async (req, res) => {
 	let handler = new VacancyInfoHandler(req.params.id);
+
+	let exists = await handler.thisVacancyExists();
+	if(!exists){
+		res.status(404).send("That vacancy does not exist.");
+		return;
+	}
+
 	let output = await handler.getVacancyInfo();
 	// send the output
 	res.send(output);
@@ -100,6 +107,11 @@ async function vacancyMatchesUser(vacancy, user, userId){
 
 	var field = vacancy["field"];
 	let fieldExperience = await handler.getYearsOfWorkExperienceInField(field);
+	fieldExperience = parseInt(fieldExperience, 10);
+	let reqExperience = parseInt(vacancy["minexp"],10);
+
+	if(reqExperience > fieldExperience)
+		return false;
 	vacancy["experience"] = fieldExperience;
 
 	//calculate if the vacancy is within the user's range
@@ -122,7 +134,7 @@ router.get('/matching', async (req, res) => {
     try{
         userId = Authentication.authenticate(req.body.token);
     }catch(err){
-        res.send(err);
+        res.status(401).send(err);
         return;
     }
 
@@ -151,6 +163,53 @@ router.get('/matching', async (req, res) => {
 	// sort based on work experience
 	matchingVacancies.sort((a,b) => b.experience - a.experience);
 	res.send(matchingVacancies);
-})
+});
+
+router.get('/:id(\\d+)/matching', async (req, res) => {
+	//TODO: check that the vacancy exists:
+	// make a function that handles both existance and active status
+	let vacancyhandler = new VacancyInfoHandler(req.params.id);
+
+	let exists = await vacancyhandler.thisVacancyExists();
+	if(!exists){
+		res.status(404).send("That vacancy does not exist.");
+		return;
+	}
+
+	let open = await vacancyhandler.thisVacancyIsOpen();
+	if(!open){
+		res.status(400).send("That vacancy is not open at this moment.");
+		return;
+	}
+
+	let vacancy = await vacancyhandler.getVacancyInfo();
+	vacancy = JSON.parse(vacancy);
+	vacancy = vacancy[0];
+
+	//get all users that are looking for a job
+	let allUsers = await UserInfoHandler.getAllJobHunters();
+	allUsers = JSON.parse(allUsers);
+
+	var matchingVacancies = [];
+	for(var singleUserObj in allUsers){
+		let singleUser = allUsers[singleUserObj];
+		let matches = await vacancyMatchesUser(vacancy, singleUser, singleUser["id"]);
+		if(matches){
+			// that function has some new data which we'll move to the results
+			singleUser["experience"] = vacancy["experience"];
+			singleUser["distance"] = vacancy["distance"];
+			matchingVacancies.push(singleUser);
+		}
+	}
+
+	// sort based on work experience
+	matchingVacancies.sort((a,b) => b.experience - a.experience);
+	res.send(matchingVacancies);
+
+	/*
+	Beetje verklaring bij de resultaten: 
+	dit checkt niet op maximum afstand, en daarom kan het meer resultaten teruggeven.
+	*/
+});
 
 module.exports = router;

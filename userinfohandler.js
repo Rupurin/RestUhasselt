@@ -39,6 +39,25 @@ module.exports = class UserInfoHandler {
 		return output;
 	}
 
+	static async getAllJobHunters(){
+		var query = `SELECT ?name ?email ?bio ?lat ?long ?id WHERE 
+		{
+			?p foaf:name ?name .
+			?p vcard:email ?email .
+			?p linkrec:based_near ?loc .
+			?loc geo:lat ?lat .
+			?loc geo:long ?long .
+			?p linkrec:BIO ?bio .
+			?p linkrec:jobhunting ?jb .
+			?p linkrec:userid ?id .
+		}`;
+		let qb = new QueryBuilder(query);
+		
+		// Execute the query and reform into the desired output
+		let output = await qe.executeGetToOutput(qb.result());
+		return output;
+	}
+
 	async getUserInfo(){
 		var query = `SELECT ?name ?email ?bio ?lat ?long ?maxDistance WHERE 
 		{

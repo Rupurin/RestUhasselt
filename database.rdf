@@ -53,7 +53,7 @@
         <linkrec:workExperience>
             <rdf:Description>
                 <linkrec:field>Databases</linkrec:field>
-                <linkrec:workDuration>3</linkrec:workDuration>
+                <linkrec:workDuration>9</linkrec:workDuration>
             </rdf:Description>
         </linkrec:workExperience>
         <linkrec:workExperience>
@@ -62,6 +62,7 @@
                 <linkrec:workDuration>99</linkrec:workDuration>
             </rdf:Description>
         </linkrec:workExperience>
+        <linkrec:jobhunting>true</linkrec:jobhunting>
     </rdf:Description>
 
     <rdf:Description rdf:ID="user2">
@@ -91,6 +92,7 @@
         <vcard:email>example02@fakemail.com</vcard:email>
         <linkrec:BIO>bloh</linkrec:BIO>
         <linkrec:userid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</linkrec:userid>
+        <linkrec:jobhunting>true</linkrec:jobhunting>
     </rdf:Description>
 
     <rdf:Description rdf:ID="user3">
@@ -195,6 +197,7 @@
         <linkrec:vacancyID rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</linkrec:vacancyID>
         <linkrec:vacancyStatus>active</linkrec:vacancyStatus>
         <linkrec:field>Databases</linkrec:field>
+        <linkrec:minimumExperience>4</linkrec:minimumExperience>
     </rdf:Description>
 
     <rdf:Description rdf:ID="job2">
@@ -208,6 +211,7 @@
         <linkrec:vacancyID rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</linkrec:vacancyID>
         <linkrec:vacancyStatus>fulfilled</linkrec:vacancyStatus>
         <linkrec:field>Databases</linkrec:field>
+        <linkrec:minimumExperience>1</linkrec:minimumExperience>
     </rdf:Description>
 
     <rdf:Description rdf:ID="job3">
@@ -221,6 +225,7 @@
         <linkrec:vacancyID rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</linkrec:vacancyID>
         <linkrec:vacancyStatus>active</linkrec:vacancyStatus>
         <linkrec:field>Programming</linkrec:field>
+        <linkrec:minimumExperience>0</linkrec:minimumExperience>
     </rdf:Description>
 
 </rdf:RDF>

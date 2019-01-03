@@ -11,8 +11,6 @@ Endpoints:
 			moeten we dat wel zo nauw beperken?
 	* POST /profile/company/:id
 		nog een kleine bug
-	* GET /vacancy/:id/matching
-		(herbruik functie /vacancies/matching? valt te bezien)
 
 	NIEUW:
 	* GET /profile/user/:id/workExperience
@@ -38,7 +36,7 @@ Algemeen:
 	* Security gebruiken
 		zie authentication.js voor een voorbeeld
 	* overal error codes zetten & fatsoenlijkere errorberichten geven
-		TODO
+		denk dat we overal wel de error codes hebben?
 	* overal 'use strict' toepassen
 	* alles ns testen op bugs enz
 		work in progress

@@ -8,8 +8,25 @@ module.exports = class VacancyInfoHandler {
 		this.vacancyID = id;
 	}
 
+	async thisVacancyExists(){
+		return qe.checkVacancyExists(this.vacancyID);
+	}
+
+	async thisVacancyIsOpen(){		
+		var query = `
+			ASK {
+				?p linkrec:vacancyID $id .
+				?p linkrec:vacancyStatus "active" .
+			}
+		`;
+		let qb = new QueryBuilder(query);
+		qb.bindParamAsInt('$id', this.vacancyID);
+
+		return await qe.executeAskQuery(qb.result());
+	}
+
 	static async getAllVacancies(){
-		var query = `SELECT ?jobTitle ?organizerName ?requiredDegree ?recruiter ?lat ?long ?bio ?status ?field WHERE 
+		var query = `SELECT ?jobTitle ?organizerName ?requiredDegree ?recruiter ?lat ?long ?bio ?status ?field ?minexp WHERE 
 		{
 			?v linkrec:jobTitle ?jobTitle .
 			?v linkrec:organizer ?org .
@@ -22,6 +39,7 @@ module.exports = class VacancyInfoHandler {
 			?v linkrec:BIO ?bio .
 			?v linkrec:vacancyStatus ?status .
 			?v linkrec:field ?field .
+			?v linkrec:minimumExperience ?minexp .
 		}`;
 		let qb = new QueryBuilder(query);
 
@@ -30,7 +48,7 @@ module.exports = class VacancyInfoHandler {
 	}
 
 	static async getAllActiveVacancies(){
-		var query = `SELECT ?jobTitle ?organizerName ?requiredDegree ?recruiter ?lat ?long ?bio ?field WHERE 
+		var query = `SELECT ?jobTitle ?organizerName ?requiredDegree ?recruiter ?lat ?long ?bio ?field ?minexp WHERE 
 		{
 			?v linkrec:jobTitle ?jobTitle .
 			?v linkrec:organizer ?org .
@@ -43,6 +61,7 @@ module.exports = class VacancyInfoHandler {
 			?v linkrec:BIO ?bio .
 			?v linkrec:vacancyStatus "active" .
 			?v linkrec:field ?field .
+			?v linkrec:minimumExperience ?minexp .
 		}`;
 		let qb = new QueryBuilder(query);
 
@@ -51,7 +70,7 @@ module.exports = class VacancyInfoHandler {
 	}
 
 	async getVacancyInfo(){
-		var query = `SELECT ?jobTitle ?organizerName ?requiredDegree ?recruiter ?lat ?long ?bio ?field WHERE 
+		var query = `SELECT ?jobTitle ?organizerName ?requiredDegree ?recruiter ?lat ?long ?bio ?field ?minexp WHERE 
 		{
 			?v linkrec:jobTitle ?jobTitle .
 			?v linkrec:organizer ?org .
@@ -64,6 +83,7 @@ module.exports = class VacancyInfoHandler {
 			?v linkrec:BIO ?bio .
 			?v linkrec:vacancyID $id .
 			?v linkrec:field ?field .
+			?v linkrec:minimumExperience ?minexp .
 		}`;
 		let qb = new QueryBuilder(query);
 		qb.bindParamAsInt('$id', this.vacancyID);
@@ -99,6 +119,7 @@ module.exports = class VacancyInfoHandler {
 				?v linkrec:vacancyStatus $status .
 				?v linkrec:location [geo:lat $lat ; geo:long $long ].
 				?v linkrec:field $field .
+				?v linkrec:minimumExperience $minexp .
 			}
 			WHERE {
 				?v linkrec:vacancyID $VacancyID .
@@ -114,6 +135,7 @@ module.exports = class VacancyInfoHandler {
 		qb.bindParamAsString('$bio', params.bio);
 		qb.bindParamAsString('$status', params.status);
 		qb.bindParamAsString('$field', params.field);
+		qb.bindParamAsString('$minexp', params.minimumExperience);
 		qb.bindParamAsInt('$VacancyID', this.vacancyID);
 		qb.bindParamAsInt('$CompanyID', params.companyID);
 
@@ -139,6 +161,8 @@ module.exports = class VacancyInfoHandler {
 		if(params.status === undefined)
 			return false;
 		if(params.field === undefined)
+			return false;
+		if(params.minimumExperience === undefined)
 			return false;
 		return true;
 	}
