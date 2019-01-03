@@ -40,7 +40,7 @@ module.exports = class UserInfoHandler {
 	}
 
 	static async getAllJobHunters(){
-		var query = `SELECT ?name ?email ?bio ?lat ?long ?id WHERE 
+		var query = `SELECT ?name ?email ?bio ?lat ?long ?maxDistance ?id WHERE 
 		{
 			?p foaf:name ?name .
 			?p vcard:email ?email .
@@ -50,6 +50,7 @@ module.exports = class UserInfoHandler {
 			?p linkrec:BIO ?bio .
 			?p linkrec:jobhunting ?jb .
 			?p linkrec:userid ?id .
+			?p linkrec:maxDistance ?maxDistance .
 		}`;
 		let qb = new QueryBuilder(query);
 		
