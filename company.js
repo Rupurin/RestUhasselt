@@ -7,7 +7,7 @@ router.use(express.urlencoded({extended:true}));
 //needed for authentication of the JWT
 var Authentication = require('./authentication');
 //this is needed to build the queries
-var QueryBuilder = require('./querybuilder');
+var QueryBuilder = require('./QueryBuilder');
 //this is needed to execute the queries
 var QueryExecutor = require('./queryexecutor');
 var qe = new QueryExecutor();

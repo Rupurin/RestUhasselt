@@ -204,7 +204,7 @@ module.exports = class UserInfoHandler {
 		`;
 		var qb = new QueryBuilder(query);
 		qb.bindParamAsInt('$idTyped', this.userID);
-		qb.bindParam('$id', this.userID);
+		qb.bindParamAsNumber('$id', this.userID);
 
 		return await qe.executeUpdateQuery(qb.result());
 	}

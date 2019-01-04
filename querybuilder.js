@@ -55,19 +55,32 @@ module.exports = class QueryBuilder {
 		this.prefixesHandled = true;
 	}
 
+	/**
+	 * replaces all occurences of the paramname with the value
+	 * @deprecated warning this method is not sparql injection save
+	 * @param {string} paramname name of the 
+	 * @param {string} paramval make sure no sparql injection code is present in this parameter
+	 */
 	bindParam(paramname, paramval){
 		while(this.query.indexOf(paramname) !== -1)
 			this.query = this.query.replace(paramname, paramval);
 		this.prefixesHandled = false;
 	}
 
+	bindParamAsNumber(paramname, paramval){
+		let newval = parseInt(paramval, 10);//sparql injection prevention
+		this.bindParam(paramname, newval);
+	}
+
 	bindParamAsInt(paramname, paramval){
-		let newval = '"' + paramval + '"^^xsd:int';
+		let newval = '"' + parseInt(paramval, 10) + '"^^xsd:int';//sparql injection prevention
 		this.bindParam(paramname, newval);
 	}
 
 	bindParamAsString(paramname, paramval){
-		let newval = '"' + paramval + '"';
+		let newval = paramval.replace(/"/g, "\\\"");//sparql injection prevention
+		newval = paramval.replace(/\\/g, "\\\\");//sparql injection prevention
+		newval = '"' + newval + '"';
 		this.bindParam(paramname, newval);
 	}
 
