@@ -6,7 +6,7 @@ const fs   = require('fs');//read public/private keys
 const jwt  = require('jsonwebtoken');
 
 //this is needed to build the queries
-var QueryBuilder = require('./querybuilder');
+var QueryBuilder = require('./QueryBuilder');
 //this is needed to execute the queries
 var QueryExecutor = require('./queryexecutor');
 var qe = new QueryExecutor();

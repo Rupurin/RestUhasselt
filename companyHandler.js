@@ -108,14 +108,13 @@ module.exports = class CompanyHandler {
 		`;
 		var qb = new QueryBuilder(query);
 		qb.bindParamAsInt('$idTyped', this.companyID);
-		qb.bindParam('$id', this.companyID);
+		qb.bindParamAsNumber('$id', this.companyID);
 		
 		return await qe.executeUpdateQuery(qb.result());
 	}
 
 	/**
 	 * update the values of the company (the company must exists)
-	 * TODO split delete statements in seperate deletes because the entire delete fails if one item does not exists
 	 * @param requestBody.title
 	 * @param requestBody.address
 	 * @param requestBody.addressStreet
@@ -156,10 +155,15 @@ module.exports = class CompanyHandler {
 					  ?phone a vcard:Voice .\n`;
 		}
 
-		var remove = "DELETE { " + links.replace(/\$/g, "?") + " }\n"; 
+		var deleteStatement = "DELETE{ $statement }WHERE{?p vcard:agent $id .\n ?p vcard:hasAddress ?address .\n ?p vcard:hasTelephone ?phone . $statement };";
+		var remove = "";
+		let seperateStatements = links.split("\n");
+		for(var i = 0; i < seperateStatements.lenght; ++i){
+			remove += deleteStatement.replace(/\$statement/g, seperateStatements[i].replace(/\$/g, "?"));
+		}
 		var insert = "INSERT { " + links + "}\n";
-		var where = "WHERE {?p vcard:agent $id .\n ?p vcard:hasAddress ?address .\n ?p vcard:hasTelephone ?phone .\n";
-		let query = remove + where + links.replace(/\$/g, "?") + " };\n"  + insert  + where + " };";
+		var where = "WHERE {?p vcard:agent $id .\n ?p vcard:hasAddress ?address .\n ?p vcard:hasTelephone ?phone .\n};";
+		let query = remove + insert  + where;
 		var qb = new QueryBuilder(query);
 
 		qb.bindParamAsInt('$id', this.companyID);

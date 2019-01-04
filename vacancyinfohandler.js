@@ -100,7 +100,7 @@ module.exports = class VacancyInfoHandler {
 		`;
 		var qb = new QueryBuilder(query);
 		qb.bindParamAsInt('$idTyped', this.vacancyID);
-		qb.bindParam('$id', this.vacancyID);
+		qb.bindParamAsNumber('$id', this.vacancyID);
 
 		return await qe.executeUpdateQuery(qb.result());
 	}

@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 //this is needed to build the queries
-var QueryBuilder = require('./querybuilder');
+var QueryBuilder = require('./QueryBuilder');
 //this is needed to execute the queries
 var QueryExecutor = require('./queryexecutor');
 var qe = new QueryExecutor();
