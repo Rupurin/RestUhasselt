@@ -129,7 +129,7 @@ async function vacancyMatchesUser(vacancy, user, userId){
 	var lat2 = parseFloat(user["lat"]);
 	var lon2 = parseFloat(user["long"]);
 	var distance = getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2);
-	console.log(distance);
+	//console.log(distance);
 
 	var userMaxDistance = parseInt(user["maxDistance"], 10);
 	if(distance > userMaxDistance)

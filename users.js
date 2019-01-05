@@ -259,13 +259,13 @@ router.put('/:id(\\d+)/degrees', async (req, res) => {
 		return;
 	}
 
-	let otheruserExists = await qe.checkUserExists(req.params.id);
+	var handler = new UserInfoHandler(req.params.id);
+	let otheruserExists = await handler.thisUserExists();
 	if(!otheruserExists){
 		res.status(404).send("The user that's being connected to does not exist.");
 		return;
 	}
 
-	var handler = new UserInfoHandler(userId);
 	let hasEditPermission = handler.hasEditPermission(userId);
 	if(!hasEditPermission){
 		res.status(401).send("You do not have permission to edit this information.");
@@ -283,6 +283,41 @@ router.put('/:id(\\d+)/degrees', async (req, res) => {
 		res.status(500).send("Adding a degree did not succeed.\n" + result);
 	}
 	res.send("New degree inserted succesfully.");
+});
+
+router.post('/:id(\\d+)/degrees/remove', async (req, res) => {
+	let userId;
+	try{
+		userId = Authentication.authenticate(req.body.token);
+	}catch(err){
+		res.status(401).send(err);
+		return;
+	}
+
+	var handler = new UserInfoHandler(req.params.id);
+	let otheruserExists = await handler.thisUserExists();
+	if(!otheruserExists){
+		res.status(404).send("The user that's being connected to does not exist.");
+		return;
+	}
+
+	let hasEditPermission = handler.hasEditPermission(userId);
+	if(!hasEditPermission){
+		res.status(401).send("You do not have permission to edit this information.");
+		return;
+	}
+	
+	// check that all the params are there.
+	if(req.body.title === undefined || req.body.organization === undefined){
+		res.status(400).send("Needed params are missing. Aborting POST request.");
+		return;
+	}
+
+	let result = await handler.removeDegree(req.body.title, req.body.organization);
+	if (!qe.updateQuerySuccesful(result)) {
+		res.status(500).send("Removing degree did not succeed.\n" + result);
+	}
+	res.send("Degree removed succesfully.");
 });
 
 module.exports = router;

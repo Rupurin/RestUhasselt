@@ -135,6 +135,30 @@ module.exports = class UserInfoHandler {
 		return await qe.executeUpdateQuery(qb.result());
 	}
 
+	async removeDegree(title, organization){
+		var query = `DELETE
+		{
+			?p linkrec:degree ?deg .
+			?deg rdf:value ?title.
+			?deg vcard:organization ?org .
+		}
+		WHERE {
+			?p linkrec:userid $idTyped .
+			?p linkrec:degree ?deg .
+			?deg rdf:value $title .
+			?deg rdf:value ?title .
+			?deg vcard:organization $org .
+			?deg vcard:organization ?org .
+		}`;
+		let qb = new QueryBuilder(query);
+		qb.bindParamAsString('$title', title);
+		qb.bindParamAsString('$org', organization);
+		qb.bindParamAsInt('$idTyped', this.userID);
+		
+		// Execute the query and reform into the desired output
+		return await qe.executeUpdateQuery(qb.result());
+	}
+
 	async getWorkExperience(){
 		var query = `SELECT ?field ?duration WHERE 
 		{
