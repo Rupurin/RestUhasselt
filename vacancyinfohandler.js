@@ -105,7 +105,7 @@ module.exports = class VacancyInfoHandler {
 		return await qe.executeUpdateQuery(qb.result());
 	}
 
-	async addVacancyInfo(params){
+	async addVacancyInfo(params, companyID){
 		//?v linkrec:location [ geo:lat $lat ; geo:long $long ] .
 		//that inserts location twice. Not for users, just here. Somehow.
 		let query = `
@@ -123,7 +123,7 @@ module.exports = class VacancyInfoHandler {
 			}
 			WHERE {
 				?v linkrec:vacancyID $VacancyID .
-				?c linkrec:companyid $CompanyID .
+				?c vcard:agent $CompanyID .
 			}
 		`
 		let qb = new QueryBuilder(query);
@@ -137,7 +137,7 @@ module.exports = class VacancyInfoHandler {
 		qb.bindParamAsString('$field', params.field);
 		qb.bindParamAsString('$minexp', params.minimumExperience);
 		qb.bindParamAsInt('$VacancyID', this.vacancyID);
-		qb.bindParamAsInt('$CompanyID', params.companyID);
+		qb.bindParamAsInt('$CompanyID', companyID);
 
 		let output = await qe.executeUpdateQuery(qb.result());
 		return output;
@@ -161,6 +161,9 @@ module.exports = class VacancyInfoHandler {
 		if(params.field === undefined)
 			return false;
 		if(params.minimumExperience === undefined)
+			return false;
+
+		if(params.token === undefined)
 			return false;
 		return true;
 	}

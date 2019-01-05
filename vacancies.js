@@ -62,7 +62,7 @@ router.put('/', async(req, res) => {
 		return;
 	}
 
-	result = await handler.addVacancyInfo(req.body);
+	result = await handler.addVacancyInfo(req.body, companyID);
 	if (!qe.updateQuerySuccesful(result)) {
 		res.status(500).send("Adding the information of the new vacancy did not succeed.\n" + result);
 		return;
