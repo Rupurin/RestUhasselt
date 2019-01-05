@@ -158,8 +158,10 @@ module.exports = class CompanyHandler {
 		var deleteStatement = "DELETE{ $statement }WHERE{?p vcard:agent $id .\n ?p vcard:hasAddress ?address .\n ?p vcard:hasTelephone ?phone . $statement };";
 		var remove = "";
 		let seperateStatements = links.split("\n");
-		for(var i = 0; i < seperateStatements.lenght; ++i){
-			remove += deleteStatement.replace(/\$statement/g, seperateStatements[i].replace(/\$/g, "?"));
+		for(var data in seperateStatements){
+			if(seperateStatements[data] ==="")
+				continue;
+			remove += deleteStatement.replace(/\$statement/g, seperateStatements[data].replace(/\$/g, "?"));
 		}
 		var insert = "INSERT { " + links + "}\n";
 		var where = "WHERE {?p vcard:agent $id .\n ?p vcard:hasAddress ?address .\n ?p vcard:hasTelephone ?phone .\n};";

@@ -13,19 +13,13 @@
 
     <rdf:Description rdf:ID="user1">
         <rdf:type rdf:resource="User" />
-        <foaf:name>Frank Neven</foaf:name>
+        <foaf:name>Jajar Bings</foaf:name>
         <vcard:key>$2b$10$YT3GaEV48ftm6PWjAhvuDOabbUjtf1Ny9pTUgtBjTBDhGmbYaYY8.</vcard:key>
         <linkrec:based_near geo:lat="51.47026" geo:long="-2.59466"/>
         <linkrec:degree>
             <rdf:Description>
-                <rdf:value>Primary education</rdf:value>
-                <vcard:organization>Don Bosco</vcard:organization>
-            </rdf:Description>
-        </linkrec:degree>
-        <linkrec:degree>
-            <rdf:Description>
-                <rdf:value>Secondary education</rdf:value>
-                <vcard:organization>Atheneum Hasselt</vcard:organization>
+                <rdf:value>Comedian</rdf:value>
+                <vcard:organization>Lucas Studios</vcard:organization>
             </rdf:Description>
         </linkrec:degree>
         <linkrec:degree>
@@ -41,8 +35,8 @@
             </rdf:Description>
         </linkrec:degree>
         <linkrec:maxDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#int">50</linkrec:maxDistance>
-        <vcard:email>example@fakemail.com</vcard:email>
-        <linkrec:BIO>blah</linkrec:BIO>
+        <vcard:email>Jarjar.Bings@fakemail.com</vcard:email>
+        <linkrec:BIO>Jajar is funny!</linkrec:BIO>
         <linkrec:userid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</linkrec:userid>
         <linkrec:workExperience>
             <rdf:Description>
@@ -56,30 +50,18 @@
                 <linkrec:workDuration>9</linkrec:workDuration>
             </rdf:Description>
         </linkrec:workExperience>
-        <linkrec:workExperience>
-            <rdf:Description>
-                <linkrec:field>lolwtfbbq</linkrec:field>
-                <linkrec:workDuration>99</linkrec:workDuration>
-            </rdf:Description>
-        </linkrec:workExperience>
         <linkrec:jobhunting>true</linkrec:jobhunting>
     </rdf:Description>
 
     <rdf:Description rdf:ID="user2">
         <rdf:type rdf:resource="User" />
-        <foaf:name>Voorbeeld Usertwee</foaf:name>
+        <foaf:name>Han Solo</foaf:name>
         <vcard:key>$2b$10$wIqUmzifUS9f8egZm6wLUu.rGG1TMi54nB6PIAhmWW3lieGUlFVFm</vcard:key>
         <linkrec:based_near geo:lat="50.8132068" geo:long="4.3800335"/>
         <linkrec:degree>
             <rdf:Description>
-                <rdf:value>Primary education</rdf:value>
-                <vcard:organization>Don Bosco</vcard:organization>
-            </rdf:Description>
-        </linkrec:degree>
-        <linkrec:degree>
-            <rdf:Description>
-                <rdf:value>Secondary education</rdf:value>
-                <vcard:organization>Atheneum Hasselt</vcard:organization>
+                <rdf:value>Bachelor of economics</rdf:value>
+                <vcard:organization>UHasselt</vcard:organization>
             </rdf:Description>
         </linkrec:degree>
         <linkrec:workExperience>
@@ -90,37 +72,31 @@
         </linkrec:workExperience>
         <linkrec:maxDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#int">25</linkrec:maxDistance>
         <vcard:email>example02@fakemail.com</vcard:email>
-        <linkrec:BIO>bloh</linkrec:BIO>
+        <linkrec:BIO>Als een rondreizende handelaar heb ik veel ervarning met verschillende mensen.</linkrec:BIO>
         <linkrec:userid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</linkrec:userid>
         <linkrec:jobhunting>true</linkrec:jobhunting>
     </rdf:Description>
 
     <rdf:Description rdf:ID="user3">
         <rdf:type rdf:resource="User" />
-        <foaf:name>Nogeen Voorbeeld</foaf:name>
+        <foaf:name>Chewie Wookie</foaf:name>
         <vcard:key>$2b$10$ttDe80YlwfJdieDxtGZBZOjhNd8O6ag4skkyduCiD2QAhyTsapc5K</vcard:key>
         <linkrec:based_near geo:lat="51.47026" geo:long="-2.59466"/>
         <linkrec:degree>
             <rdf:Description>
-                <rdf:value>Primary education</rdf:value>
-                <vcard:organization>Don Bosco</vcard:organization>
+                <rdf:value>Highschool degree of Construction</rdf:value>
+                <vcard:organization>VTST</vcard:organization>
             </rdf:Description>
         </linkrec:degree>
-        <linkrec:degree>
+		 <linkrec:workExperience>
             <rdf:Description>
-                <rdf:value>Secondary education</rdf:value>
-                <vcard:organization>Atheneum Hasselt</vcard:organization>
+                <linkrec:field>Construction Worker</linkrec:field>
+                <linkrec:workDuration>7</linkrec:workDuration>
             </rdf:Description>
-        </linkrec:degree>
-        <linkrec:degree>
-            <rdf:Description>
-                <rdf:value>Bachelor of Science</rdf:value>
-                <vcard:organization>Leuven</vcard:organization>
-            </rdf:Description>
-        </linkrec:degree>
+        </linkrec:workExperience>
         <linkrec:maxDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#int">100</linkrec:maxDistance>
         <vcard:email>example03@fakemail.com</vcard:email>
-        <linkrec:BIO>bleh</linkrec:BIO>
+        <linkrec:BIO>uhahahaha</linkrec:BIO>
         <linkrec:userid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</linkrec:userid>
     </rdf:Description>
 	
@@ -131,7 +107,7 @@
         <linkrec:based_near geo:lat="51.47026" geo:long="-2.59466"/>
         <linkrec:maxDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#int">100</linkrec:maxDistance>
         <vcard:email>corky@example.com</vcard:email>
-        <linkrec:BIO>bleh</linkrec:BIO>
+        <linkrec:BIO>Ik ben een profesionele bedrijfs leider.</linkrec:BIO>
         <linkrec:userid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</linkrec:userid>
     </rdf:Description>
 	
@@ -142,7 +118,7 @@
         <linkrec:based_near geo:lat="51.47026" geo:long="-2.59466"/>
         <linkrec:maxDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#int">100</linkrec:maxDistance>
         <vcard:email>hello.world@example.com</vcard:email>
-        <linkrec:BIO>bleh</linkrec:BIO>
+        <linkrec:BIO>Ik ben een profesionele bedrijfs leider.</linkrec:BIO>
         <linkrec:userid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</linkrec:userid>
     </rdf:Description>
 
@@ -162,7 +138,7 @@
             <rdf:type rdf:resource="http://www.w3.org/2006/vcard/ns#Voice" />
         </vcard:hasTelephone>
         <vcard:email>corky@example.com</vcard:email>
-        <linkrec:BIO>lol</linkrec:BIO>
+        <linkrec:BIO>We know everthing.</linkrec:BIO>
         <vcard:agent rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</vcard:agent>
     </rdf:Description>
 	
