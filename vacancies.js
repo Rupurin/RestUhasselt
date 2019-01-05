@@ -19,12 +19,28 @@ var VacancyInfoHandler = require('./VacancyInfoHandler');
 // intermediary class to handle company information
 var CompanyInfoHandler = require('./CompanyHandler');
 
+/**
+ * return a list of all the vacancies
+ */
 router.get('/', async (req, res) => {
 	let output = await VacancyInfoHandler.getAllVacancies();
 	// send the output
 	res.send(output);
 });
 
+/**
+ * creates a new vacancy for the company that is authorized by the token
+ * @param req.body.token
+ * @param req.body.jobTitle
+ * @param req.body.recruiterEmail
+ * @param req.body.requiredDegreeName
+ * @param req.body.lat
+ * @param req.body.long
+ * @param req.body.bio
+ * @param req.body.status
+ * @param req.body.field
+ * @param req.body.minimumExperience
+ */
 router.put('/', async(req, res) => {
 	if(!VacancyInfoHandler.hasNeededParams(req.body)){
 		res.status(400).send("You're missing parameters.");
@@ -71,6 +87,10 @@ router.put('/', async(req, res) => {
 	res.send("Inserting the new vacancy was succesful.");
 });
 
+
+/**
+ * return the info about a vancany
+ */
 router.get('/:id(\\d+)', async (req, res) => {
 	let handler = new VacancyInfoHandler(req.params.id);
 
@@ -139,6 +159,10 @@ async function vacancyMatchesUser(vacancy, user, userId){
 	return true;
 }
 
+/**
+ * return all the vacancies that match for the user
+ * @param req.body.token
+ */
 router.get('/matching', async (req, res) => {
 	let userId;
     try{
@@ -175,6 +199,12 @@ router.get('/matching', async (req, res) => {
 	res.send(matchingVacancies);
 });
 
+
+/**
+ * return all the users that match a vacancy
+ * @param req.params.id //url parameter
+ * @param req.body.token
+ */
 router.get('/:id(\\d+)/matching', async (req, res) => {
 	//TODO: check that the vacancy exists:
 	// make a function that handles both existance and active status

@@ -163,9 +163,6 @@ module.exports = class VacancyInfoHandler {
 			return false;
 		if(params.minimumExperience === undefined)
 			return false;
-
-		if(params.token === undefined)
-			return false;
 		return true;
 	}
 }
