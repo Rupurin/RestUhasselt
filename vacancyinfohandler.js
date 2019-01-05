@@ -150,8 +150,6 @@ module.exports = class VacancyInfoHandler {
 			return false;
 		if(params.requiredDegreeName === undefined)
 			return false;
-		if(params.companyID === undefined)
-			return false;
 		if(params.lat === undefined)
 			return false;
 		if(params.long === undefined)

@@ -31,7 +31,16 @@ router.put('/', async(req, res) => {
 		return;
 	}
 
-	let company = new CompanyInfoHandler(req.body.companyID);
+	let token = req.body.token;
+    let companyID;
+    try{
+        companyID = Authentication.authenticate(token);
+    }catch(err){
+        //authentication unsuccesfull respond with error
+		res.status(401).send(err);
+        return;
+	}
+	let company = new CompanyInfoHandler(companyID);
 	let exists = await company.thisCompanyExists();
 	if(!exists){
 		res.status(400).send("That company does not exist.");
