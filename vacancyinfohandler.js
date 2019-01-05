@@ -70,11 +70,12 @@ module.exports = class VacancyInfoHandler {
 	}
 
 	async getVacancyInfo(){
-		var query = `SELECT ?jobTitle ?organizerName ?requiredDegree ?recruiter ?lat ?long ?bio ?field ?minexp WHERE 
+		var query = `SELECT ?jobTitle ?organizerName ?organizerID ?requiredDegree ?recruiter ?lat ?long ?bio ?field ?minexp WHERE 
 		{
 			?v linkrec:jobTitle ?jobTitle .
 			?v linkrec:organizer ?org .
 			?org vcard:title ?organizerName .
+			?org vcard:agent ?organizerID .
 			?v linkrec:requiredDegreeName ?requiredDegree .
 			?v linkrec:recruiterEmail ?recruiter .
 			?v linkrec:location ?loc .

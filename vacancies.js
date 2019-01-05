@@ -196,6 +196,19 @@ router.get('/:id(\\d+)/matching', async (req, res) => {
 	vacancy = JSON.parse(vacancy);
 	vacancy = vacancy[0];
 
+	let companyID;
+    try{
+        companyID = Authentication.authenticate(req.body.token);
+    }catch(err){
+        res.status(401).send(err);
+        return;
+	}
+	if(vacancy.organizerID !== companyID){
+		res.status(401).send("You are not the owner of this vacancy.");
+		return;
+	}
+	
+
 	//get all users that are looking for a job
 	let allUsers = await UserInfoHandler.getAllJobHunters();
 	allUsers = JSON.parse(allUsers);
