@@ -14,7 +14,10 @@ var qe = new QueryExecutor();
 
 var CompanyHandler = require('./CompanyHandler');
 
-//get the info of one company
+/**
+ * get the info of one company
+ * @param req.params.id //url parameter
+ */
 router.get('/:id(\\d+)', async (req, res) => {
 	let handler = new CompanyHandler(req.params.id);
 	let output = await handler.getCompanyInfo();
@@ -22,13 +25,29 @@ router.get('/:id(\\d+)', async (req, res) => {
 	res.status(200).send(output);
 });
 
-//get a list of all the companys
+/**
+ * get a list of all the companys
+ */
 router.get('/list', async (req, res) => {
 	let output = await CompanyHandler.getCompanyList();
 	// send the output
 	res.status(200).send(output);
 });
 
+/**
+ * changes info about a company
+ * @param req.body.token
+ * optional:
+ * @param req.body.title
+ * @param req.body.address
+ * @param req.body.addressStreet
+ * @param req.body.addressCity
+ * @param req.body.addressPostalCode
+ * @param req.body.addressCountry
+ * @param req.body.email
+ * @param req.body.BIO
+ * @param req.body.telephone
+ */
 router.post('/', async (req, res) => {
 	//authentication
 	let token = req.body.token;
@@ -58,7 +77,20 @@ router.post('/', async (req, res) => {
 	res.status(200).send("Updated company succesfully.");
 });
 
-//create a new company
+/**
+ * creates a new company
+ * @param req.body.token
+ * @param req.body.title
+ * @param req.body.address
+ * @param req.body.addressStreet
+ * @param req.body.addressCity
+ * @param req.body.addressPostalCode
+ * @param req.body.addressCountry
+ * optional:
+ * @param req.body.email
+ * @param req.body.BIO
+ * @param req.body.telephone
+ */
 router.put('/', async (req, res) => {
 	//authentication
 	let token = req.body.token;

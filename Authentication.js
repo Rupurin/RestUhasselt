@@ -26,9 +26,8 @@ var tokenAlgoritme = "RS256";
 
 /**
  * create and returns an authentication token
- * @param post:
- *      userName = name of the user
- *      userPass = password of the user
+ * @param req.body.userName
+ * @param req.body.userPass
  */
 router.post('/', async (req, res) => {
     let name = req.body.userName;
@@ -71,7 +70,7 @@ router.post('/', async (req, res) => {
  * validates the authentication token.
  * @return the user id if the token is valid
  * @throws an exception with the error information if the token was not valid
- * @param {string} token the authentication token
+ * @param {jwt} token the authentication token
  */
 function authenticate(token){
     var verifyOptions = {
@@ -90,8 +89,7 @@ function authenticate(token){
  * example of the token validation
  * it wil return the user id inside the token
  * or wil return the error if the token is invalid
- * @param post
- *      token
+ * @param req.body.token
  */
 router.post('/test', async (req, res) => {
     let token = req.body.token;
