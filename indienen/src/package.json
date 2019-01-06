@@ -1,0 +1,30 @@
+{
+  "name": "restuhasselt",
+  "version": "1.0.0",
+  "description": "REST API for Web Information Systems",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rupurin/RestUhasselt.git"
+  },
+  "author": "Steven Moonen, Gilles Ravert, Jana Voes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rupurin/RestUhasselt/issues"
+  },
+  "homepage": "https://github.com/Rupurin/RestUhasselt#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.3",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "fs": "0.0.1-security",
+    "helmet": "^3.14.0",
+    "isomorphic-fetch": "^2.2.1",
+    "jsonwebtoken": "^8.4.0",
+    "mysql": "^2.16.0",
+    "sparql-http-client": "^1.0.2"
+  }
+}

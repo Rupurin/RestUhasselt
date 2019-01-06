@@ -1,0 +1,207 @@
+<?xml version="1.0" ?>
+<!DOCTYPE rdf:RDF [
+<!ENTITY ulb "http://code.ulb.ac.be/example/terms/">
+]>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:vcard="http://www.w3.org/2006/vcard/ns#"
+    xmlns:geo="http://www.opengis.net/ont/geosparql#"
+    xmlns:linkrec="http://linkrec.be/terms/"
+    xml:base="http://linkrec.be/terms/"
+    >
+
+    <rdf:Description rdf:ID="user1">
+        <rdf:type rdf:resource="User" />
+        <foaf:name>Jajar Bings</foaf:name>
+        <vcard:key>$2b$10$YT3GaEV48ftm6PWjAhvuDOabbUjtf1Ny9pTUgtBjTBDhGmbYaYY8.</vcard:key>
+        <linkrec:based_near geo:lat="51.47026" geo:long="-2.59466"/>
+        <linkrec:degree>
+            <rdf:Description>
+                <rdf:value>Comedian</rdf:value>
+                <vcard:organization>Lucas Studios</vcard:organization>
+            </rdf:Description>
+        </linkrec:degree>
+        <linkrec:degree>
+            <rdf:Description>
+                <rdf:value>Bachelor of Science</rdf:value>
+                <vcard:organization>UHasselt</vcard:organization>
+            </rdf:Description>
+        </linkrec:degree>
+        <linkrec:degree>
+            <rdf:Description>
+                <rdf:value>Master of Science</rdf:value>
+                <vcard:organization>UHasselt</vcard:organization>
+            </rdf:Description>
+        </linkrec:degree>
+        <linkrec:maxDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#int">50</linkrec:maxDistance>
+        <vcard:email>Jarjar.Bings@fakemail.com</vcard:email>
+        <linkrec:BIO>Jajar is funny!</linkrec:BIO>
+        <linkrec:userid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</linkrec:userid>
+        <linkrec:workExperience>
+            <rdf:Description>
+                <linkrec:field>Programming</linkrec:field>
+                <linkrec:workDuration>5</linkrec:workDuration>
+            </rdf:Description>
+        </linkrec:workExperience>
+        <linkrec:workExperience>
+            <rdf:Description>
+                <linkrec:field>Databases</linkrec:field>
+                <linkrec:workDuration>9</linkrec:workDuration>
+            </rdf:Description>
+        </linkrec:workExperience>
+        <linkrec:jobhunting>true</linkrec:jobhunting>
+    </rdf:Description>
+
+    <rdf:Description rdf:ID="user2">
+        <rdf:type rdf:resource="User" />
+        <foaf:name>Han Solo</foaf:name>
+        <vcard:key>$2b$10$wIqUmzifUS9f8egZm6wLUu.rGG1TMi54nB6PIAhmWW3lieGUlFVFm</vcard:key>
+        <linkrec:based_near geo:lat="50.8132068" geo:long="4.3800335"/>
+        <linkrec:degree>
+            <rdf:Description>
+                <rdf:value>Bachelor of economics</rdf:value>
+                <vcard:organization>UHasselt</vcard:organization>
+            </rdf:Description>
+        </linkrec:degree>
+        <linkrec:workExperience>
+            <rdf:Description>
+                <linkrec:field>Helpdesk</linkrec:field>
+                <linkrec:workDuration>1</linkrec:workDuration>
+            </rdf:Description>
+        </linkrec:workExperience>
+        <linkrec:maxDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#int">25</linkrec:maxDistance>
+        <vcard:email>example02@fakemail.com</vcard:email>
+        <linkrec:BIO>Als een rondreizende handelaar heb ik veel ervarning met verschillende mensen.</linkrec:BIO>
+        <linkrec:userid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</linkrec:userid>
+        <linkrec:jobhunting>true</linkrec:jobhunting>
+    </rdf:Description>
+
+    <rdf:Description rdf:ID="user3">
+        <rdf:type rdf:resource="User" />
+        <foaf:name>Chewie Wookie</foaf:name>
+        <vcard:key>$2b$10$ttDe80YlwfJdieDxtGZBZOjhNd8O6ag4skkyduCiD2QAhyTsapc5K</vcard:key>
+        <linkrec:based_near geo:lat="51.47026" geo:long="-2.59466"/>
+        <linkrec:degree>
+            <rdf:Description>
+                <rdf:value>Highschool degree of Construction</rdf:value>
+                <vcard:organization>VTST</vcard:organization>
+            </rdf:Description>
+        </linkrec:degree>
+		 <linkrec:workExperience>
+            <rdf:Description>
+                <linkrec:field>Construction Worker</linkrec:field>
+                <linkrec:workDuration>7</linkrec:workDuration>
+            </rdf:Description>
+        </linkrec:workExperience>
+        <linkrec:maxDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#int">100</linkrec:maxDistance>
+        <vcard:email>example03@fakemail.com</vcard:email>
+        <linkrec:BIO>uhahahaha</linkrec:BIO>
+        <linkrec:userid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</linkrec:userid>
+    </rdf:Description>
+	
+	<rdf:Description rdf:ID="user4">
+        <rdf:type rdf:resource="User" />
+        <foaf:name>Bedrijfs leider1</foaf:name>
+        <vcard:key>$2b$10$ttDe80YlwfJdieDxtGZBZOjhNd8O6ag4skkyduCiD2QAhyTsapc5K</vcard:key>
+        <linkrec:based_near geo:lat="51.47026" geo:long="-2.59466"/>
+        <linkrec:maxDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#int">100</linkrec:maxDistance>
+        <vcard:email>corky@example.com</vcard:email>
+        <linkrec:BIO>Ik ben een profesionele bedrijfs leider.</linkrec:BIO>
+        <linkrec:userid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</linkrec:userid>
+    </rdf:Description>
+	
+	<rdf:Description rdf:ID="user5">
+        <rdf:type rdf:resource="User" />
+        <foaf:name>Bedrijfs leider2</foaf:name>
+        <vcard:key>$2b$10$ttDe80YlwfJdieDxtGZBZOjhNd8O6ag4skkyduCiD2QAhyTsapc5K</vcard:key>
+        <linkrec:based_near geo:lat="51.47026" geo:long="-2.59466"/>
+        <linkrec:maxDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#int">100</linkrec:maxDistance>
+        <vcard:email>hello.world@example.com</vcard:email>
+        <linkrec:BIO>Ik ben een profesionele bedrijfs leider.</linkrec:BIO>
+        <linkrec:userid rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</linkrec:userid>
+    </rdf:Description>
+
+    <rdf:Description rdf:ID="company4">
+        <rdf:type rdf:resource="Company" />
+        <vcard:title>Gogle</vcard:title>
+        <vcard:hasAddress rdf:parseType="Resource">
+            <vcard:street-address>111 Lake Drive</vcard:street-address>
+            <vcard:locality>WonderCity</vcard:locality>
+            <vcard:postal-code>5555</vcard:postal-code>
+            <vcard:country-name>Australia</vcard:country-name>
+            <rdf:type rdf:resource="http://www.w3.org/2006/vcard/ns#Home" />
+        </vcard:hasAddress>
+        <vcard:hasTelephone rdf:parseType="Resource">
+            <vcard:hasValue rdf:resource="tel:+61755555555" />
+            <rdf:type rdf:resource="http://www.w3.org/2006/vcard/ns#Home" />
+            <rdf:type rdf:resource="http://www.w3.org/2006/vcard/ns#Voice" />
+        </vcard:hasTelephone>
+        <vcard:email>corky@example.com</vcard:email>
+        <linkrec:BIO>We know everthing.</linkrec:BIO>
+        <vcard:agent rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</vcard:agent>
+    </rdf:Description>
+	
+	<rdf:Description rdf:ID="company5">
+        <rdf:type rdf:resource="Company" />
+        <vcard:title>Emazon</vcard:title>
+        <vcard:hasAddress rdf:parseType="Resource">
+            <vcard:street-address>15 Jimbo Street</vcard:street-address>
+            <vcard:locality>Jimbo Town</vcard:locality>
+            <vcard:postal-code>4575</vcard:postal-code>
+            <vcard:country-name>Rusia</vcard:country-name>
+            <rdf:type rdf:resource="http://www.w3.org/2006/vcard/ns#Home" />
+        </vcard:hasAddress>
+        <vcard:hasTelephone rdf:parseType="Resource">
+            <vcard:hasValue rdf:resource="tel:+12345678910" />
+            <rdf:type rdf:resource="http://www.w3.org/2006/vcard/ns#Home" />
+            <rdf:type rdf:resource="http://www.w3.org/2006/vcard/ns#Voice" />
+        </vcard:hasTelephone>
+        <vcard:email>hello.world@example.com</vcard:email>
+        <linkrec:BIO>online retail store for dice</linkrec:BIO>
+        <vcard:agent rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</vcard:agent>
+    </rdf:Description>
+
+    <rdf:Description rdf:ID="job1">
+        <rdf:type rdf:resource="Vacancy" />
+        <linkrec:BIO>blah</linkrec:BIO>
+        <linkrec:jobTitle>Software Engineer</linkrec:jobTitle>
+        <linkrec:organizer rdf:resource="http://linkrec.be/terms/#company4" />
+        <linkrec:requiredDegreeName>Master of Science</linkrec:requiredDegreeName>
+        <linkrec:recruiterEmail>corky@example.com</linkrec:recruiterEmail>
+        <linkrec:location geo:lat="50.812068" geo:long="4.3800335" />
+        <linkrec:vacancyID rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</linkrec:vacancyID>
+        <linkrec:vacancyStatus>active</linkrec:vacancyStatus>
+        <linkrec:field>Databases</linkrec:field>
+        <linkrec:minimumExperience>4</linkrec:minimumExperience>
+    </rdf:Description>
+
+    <rdf:Description rdf:ID="job2">
+        <rdf:type rdf:resource="Vacancy" />
+        <linkrec:BIO>entry-level helpdesk job</linkrec:BIO>
+        <linkrec:jobTitle>User-facing Software Assistant</linkrec:jobTitle>
+        <linkrec:organizer rdf:resource="http://linkrec.be/terms/#company4" />
+        <linkrec:requiredDegreeName>None</linkrec:requiredDegreeName>
+        <linkrec:recruiterEmail>corky@example.com</linkrec:recruiterEmail>
+        <linkrec:location geo:lat="51.47026" geo:long="-2.59466" />
+        <linkrec:vacancyID rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</linkrec:vacancyID>
+        <linkrec:vacancyStatus>fulfilled</linkrec:vacancyStatus>
+        <linkrec:field>Databases</linkrec:field>
+        <linkrec:minimumExperience>1</linkrec:minimumExperience>
+    </rdf:Description>
+
+    <rdf:Description rdf:ID="job3">
+        <rdf:type rdf:resource="Vacancy" />
+        <linkrec:BIO>Secretary</linkrec:BIO>
+        <linkrec:jobTitle>Administrative Assistant</linkrec:jobTitle>
+        <linkrec:organizer rdf:resource="http://linkrec.be/terms/#company5" />
+        <linkrec:requiredDegreeName>Master of Science</linkrec:requiredDegreeName>
+        <linkrec:recruiterEmail>corky@example.com</linkrec:recruiterEmail>
+        <linkrec:location geo:lat="51.47026" geo:long="-2.59466" />
+        <linkrec:vacancyID rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</linkrec:vacancyID>
+        <linkrec:vacancyStatus>active</linkrec:vacancyStatus>
+        <linkrec:field>Programming</linkrec:field>
+        <linkrec:minimumExperience>0</linkrec:minimumExperience>
+    </rdf:Description>
+
+</rdf:RDF>

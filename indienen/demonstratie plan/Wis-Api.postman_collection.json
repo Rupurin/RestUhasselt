@@ -1,0 +1,1034 @@
+{
+	"info": {
+		"_postman_id": "9361cd0b-f8d5-4897-8a0f-ff99e9f510c0",
+		"name": "Wis-Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Create new user",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Anakin Skywalker",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "R2D2 C3PO",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "Anakin.Skywalker@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "lat",
+									"value": "51.47026",
+									"type": "text"
+								},
+								{
+									"key": "long",
+									"value": "-2.59466",
+									"type": "text"
+								},
+								{
+									"key": "maxDistance",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "degreename",
+									"value": "Bachelor of Science",
+									"type": "text"
+								},
+								{
+									"key": "degreeorganization",
+									"value": "The Jedy Order",
+									"type": "text"
+								},
+								{
+									"key": "bio",
+									"value": "Ik heb mijn bachelor diploma aan de universiteit van Coruscant behaald en ben op zoek naar een stage voor mijn Master diploma.",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/profile/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"profile",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Anakin_skywalker",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userName",
+									"value": "Anakin Skywalker",
+									"type": "text"
+								},
+								{
+									"key": "userPass",
+									"value": "R2D2 C3PO",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user info",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyaWQiOiI2IiwiaWF0IjoxNTQ2NzE0MTQzLCJleHAiOjE1NDY4MDA1NDMsImlzcyI6IlVIYXNzZWx0LXdpcy1KYW5hLVN0ZXZlbi1HaWxsZXMiLCJzdWIiOiJ3aXMtYXBpIn0.GAR8l_6AYh-qFKIRkUfgE3r5psdRReJIOtaCR8lxwJ9Um8TpbrWfG-DwC4JH3bRvSrnVTXFAEkScOC42GPWeunNBUdamqRDyh2Gul0Kw7BnUBeIvqBJPx3Cr8F7yU1vvtQem_jIyLHGGtecGcCchgD_7PctE02vMfj2oxK6j4Mg2d2w9LM5HTH8dtSqGN9pNmgmP7ZH90NSSx0Bg34ohMuydXFI4BMXdtRiQ7tE3wqMG3x1FHjtzb31CXv_O7BAzW-bbFYq8fp0lpLgdBBG1XIQs4hVKH0Fvo9P2UvVOwu0KagV52AkylffEyPWiTEuQaOXaiTxuvHvfQhomZYhvTQ",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Darth Vader",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "Darth.Vader@deathstar.com",
+									"type": "text"
+								},
+								{
+									"key": "lat",
+									"value": "52",
+									"type": "text"
+								},
+								{
+									"key": "long",
+									"value": "-2",
+									"type": "text"
+								},
+								{
+									"key": "maxDistance",
+									"value": "150",
+									"type": "text"
+								},
+								{
+									"key": "bio",
+									"value": "Tijdens een ongeluk ben ik mijn benen en rechter arm verloren. Maar ik ben gemotiveerd om een nieuwe baan te vinden.",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/profile/users/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"profile",
+								"users",
+								"6"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Spock",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Degree",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyaWQiOiI2IiwiaWF0IjoxNTQ2NzE0MTQzLCJleHAiOjE1NDY4MDA1NDMsImlzcyI6IlVIYXNzZWx0LXdpcy1KYW5hLVN0ZXZlbi1HaWxsZXMiLCJzdWIiOiJ3aXMtYXBpIn0.GAR8l_6AYh-qFKIRkUfgE3r5psdRReJIOtaCR8lxwJ9Um8TpbrWfG-DwC4JH3bRvSrnVTXFAEkScOC42GPWeunNBUdamqRDyh2Gul0Kw7BnUBeIvqBJPx3Cr8F7yU1vvtQem_jIyLHGGtecGcCchgD_7PctE02vMfj2oxK6j4Mg2d2w9LM5HTH8dtSqGN9pNmgmP7ZH90NSSx0Bg34ohMuydXFI4BMXdtRiQ7tE3wqMG3x1FHjtzb31CXv_O7BAzW-bbFYq8fp0lpLgdBBG1XIQs4hVKH0Fvo9P2UvVOwu0KagV52AkylffEyPWiTEuQaOXaiTxuvHvfQhomZYhvTQ",
+									"type": "text"
+								},
+								{
+									"key": "organization",
+									"value": "The Jedy Order",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Master of force Science",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/profile/users/6/degrees",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"profile",
+								"users",
+								"6",
+								"degrees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Degree",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyaWQiOiIxIiwiaWF0IjoxNTQ2NzAyNDY0LCJleHAiOjE1NDY3ODg4NjQsImlzcyI6IlVIYXNzZWx0LXdpcy1KYW5hLVN0ZXZlbi1HaWxsZXMiLCJzdWIiOiJ3aXMtYXBpIn0.GBetcYGeO4VYoKDYn0_YX1eZa6nyn4IySt8ZwgOphSG9--5GsSqy2CZladvaLiWXMb0eDVQIJiCgrh_W18ZoeGDitWhU0-lXJdEGRaPlgIej9y-Nz7NQwigBhXZKSfBFxovMr8pVBwlztPhPktgt3k_MZUBtfVIeg9ZP-IVEKL-9uEU-B6KO5E6R_8LlJMd4ySYJhLDS-FYFKBMpoa4MvvdXJvGdb6t9tSPrDmP6xzs3kBQZ-w_lz92qwAaDN1MKO4g_39yDFHkxmItzbbPdNpCWw_lyI1DrEq-5wbbdOkrl9BVzQnIgjolP5QNYmQHjkcsxxwcHf0Z2DRONb5CsZA",
+									"type": "text"
+								},
+								{
+									"key": "organization",
+									"value": "The Jedy Order",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Master of Force science",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/profile/users/1/degrees/remove",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"profile",
+								"users",
+								"1",
+								"degrees",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add work experience",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyaWQiOiI2IiwiaWF0IjoxNTQ2NzE0MTQzLCJleHAiOjE1NDY4MDA1NDMsImlzcyI6IlVIYXNzZWx0LXdpcy1KYW5hLVN0ZXZlbi1HaWxsZXMiLCJzdWIiOiJ3aXMtYXBpIn0.GAR8l_6AYh-qFKIRkUfgE3r5psdRReJIOtaCR8lxwJ9Um8TpbrWfG-DwC4JH3bRvSrnVTXFAEkScOC42GPWeunNBUdamqRDyh2Gul0Kw7BnUBeIvqBJPx3Cr8F7yU1vvtQem_jIyLHGGtecGcCchgD_7PctE02vMfj2oxK6j4Mg2d2w9LM5HTH8dtSqGN9pNmgmP7ZH90NSSx0Bg34ohMuydXFI4BMXdtRiQ7tE3wqMG3x1FHjtzb31CXv_O7BAzW-bbFYq8fp0lpLgdBBG1XIQs4hVKH0Fvo9P2UvVOwu0KagV52AkylffEyPWiTEuQaOXaiTxuvHvfQhomZYhvTQ",
+									"type": "text"
+								},
+								{
+									"key": "field",
+									"value": "Military",
+									"type": "text"
+								},
+								{
+									"key": "duration",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/profile/users/6/workExperience",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"profile",
+								"users",
+								"6",
+								"workExperience"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove work experience",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyaWQiOiIxIiwiaWF0IjoxNTQ2NzAyNDY0LCJleHAiOjE1NDY3ODg4NjQsImlzcyI6IlVIYXNzZWx0LXdpcy1KYW5hLVN0ZXZlbi1HaWxsZXMiLCJzdWIiOiJ3aXMtYXBpIn0.GBetcYGeO4VYoKDYn0_YX1eZa6nyn4IySt8ZwgOphSG9--5GsSqy2CZladvaLiWXMb0eDVQIJiCgrh_W18ZoeGDitWhU0-lXJdEGRaPlgIej9y-Nz7NQwigBhXZKSfBFxovMr8pVBwlztPhPktgt3k_MZUBtfVIeg9ZP-IVEKL-9uEU-B6KO5E6R_8LlJMd4ySYJhLDS-FYFKBMpoa4MvvdXJvGdb6t9tSPrDmP6xzs3kBQZ-w_lz92qwAaDN1MKO4g_39yDFHkxmItzbbPdNpCWw_lyI1DrEq-5wbbdOkrl9BVzQnIgjolP5QNYmQHjkcsxxwcHf0Z2DRONb5CsZA",
+									"type": "text"
+								},
+								{
+									"key": "field",
+									"value": "Military",
+									"type": "text"
+								},
+								{
+									"key": "duration",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/profile/users/1/workExperience/remove",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"profile",
+								"users",
+								"1",
+								"workExperience",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set Job Hunting",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyaWQiOiIxIiwiaWF0IjoxNTQ2NzAyNDY0LCJleHAiOjE1NDY3ODg4NjQsImlzcyI6IlVIYXNzZWx0LXdpcy1KYW5hLVN0ZXZlbi1HaWxsZXMiLCJzdWIiOiJ3aXMtYXBpIn0.GBetcYGeO4VYoKDYn0_YX1eZa6nyn4IySt8ZwgOphSG9--5GsSqy2CZladvaLiWXMb0eDVQIJiCgrh_W18ZoeGDitWhU0-lXJdEGRaPlgIej9y-Nz7NQwigBhXZKSfBFxovMr8pVBwlztPhPktgt3k_MZUBtfVIeg9ZP-IVEKL-9uEU-B6KO5E6R_8LlJMd4ySYJhLDS-FYFKBMpoa4MvvdXJvGdb6t9tSPrDmP6xzs3kBQZ-w_lz92qwAaDN1MKO4g_39yDFHkxmItzbbPdNpCWw_lyI1DrEq-5wbbdOkrl9BVzQnIgjolP5QNYmQHjkcsxxwcHf0Z2DRONb5CsZA",
+									"type": "text"
+								},
+								{
+									"key": "isJobHunting",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/profile/users/1/setJobHunting",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"profile",
+								"users",
+								"1",
+								"setJobHunting"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Open vacancies",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyaWQiOiI2IiwiaWF0IjoxNTQ2NzE0MTQzLCJleHAiOjE1NDY4MDA1NDMsImlzcyI6IlVIYXNzZWx0LXdpcy1KYW5hLVN0ZXZlbi1HaWxsZXMiLCJzdWIiOiJ3aXMtYXBpIn0.GAR8l_6AYh-qFKIRkUfgE3r5psdRReJIOtaCR8lxwJ9Um8TpbrWfG-DwC4JH3bRvSrnVTXFAEkScOC42GPWeunNBUdamqRDyh2Gul0Kw7BnUBeIvqBJPx3Cr8F7yU1vvtQem_jIyLHGGtecGcCchgD_7PctE02vMfj2oxK6j4Mg2d2w9LM5HTH8dtSqGN9pNmgmP7ZH90NSSx0Bg34ohMuydXFI4BMXdtRiQ7tE3wqMG3x1FHjtzb31CXv_O7BAzW-bbFYq8fp0lpLgdBBG1XIQs4hVKH0Fvo9P2UvVOwu0KagV52AkylffEyPWiTEuQaOXaiTxuvHvfQhomZYhvTQ",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/vacancies/matching",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"vacancies",
+								"matching"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Connect",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyaWQiOiIxIiwiaWF0IjoxNTQ2NzAyNDY0LCJleHAiOjE1NDY3ODg4NjQsImlzcyI6IlVIYXNzZWx0LXdpcy1KYW5hLVN0ZXZlbi1HaWxsZXMiLCJzdWIiOiJ3aXMtYXBpIn0.GBetcYGeO4VYoKDYn0_YX1eZa6nyn4IySt8ZwgOphSG9--5GsSqy2CZladvaLiWXMb0eDVQIJiCgrh_W18ZoeGDitWhU0-lXJdEGRaPlgIej9y-Nz7NQwigBhXZKSfBFxovMr8pVBwlztPhPktgt3k_MZUBtfVIeg9ZP-IVEKL-9uEU-B6KO5E6R_8LlJMd4ySYJhLDS-FYFKBMpoa4MvvdXJvGdb6t9tSPrDmP6xzs3kBQZ-w_lz92qwAaDN1MKO4g_39yDFHkxmItzbbPdNpCWw_lyI1DrEq-5wbbdOkrl9BVzQnIgjolP5QNYmQHjkcsxxwcHf0Z2DRONb5CsZA",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/profile/users/2/connect",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"profile",
+								"users",
+								"2",
+								"connect"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "company",
+			"item": [
+				{
+					"name": "companyCreate",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyaWQiOiIyIiwiaWF0IjoxNTQ2NjM4ODM3LCJleHAiOjE1NDY3MjUyMzcsImlzcyI6IlVIYXNzZWx0LXdpcy1KYW5hLVN0ZXZlbi1HaWxsZXMiLCJzdWIiOiJ3aXMtYXBpIn0.OSHXRnLEK9bWVDe-2A_9LE_obd2_T2jF7QXWPY_ip3zy7Oaf3n8FqpYy9wyEOW5xUxtrO2JqlFOhY528jCK9OeBtBfmjCTg8_owhxJ0cegb7y7xfTkoZm9fUch5QSUyNZmv1-749euUAUOeX1hXbctq3s6h0yiaejissKp6DA-EiXgQy_poNq5aGd4NxsqeYI8Pf7I2lagsaE7msSTpDJ6Cl5WedWgNPkmlKUt-5RjZquo30HCXkdNU-Lu2Ag8QSAPgIfFho6j-XFn3A_sFeh81hOqHFsABZdusOpF0JdM7nRj3VbYkqK2hNK8x0-QiB_Ms1i_xjvJyL_fP24zmH-g",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "basf",
+									"type": "text"
+								},
+								{
+									"key": "addressStreet",
+									"value": "antwerpse steenweg 20",
+									"type": "text"
+								},
+								{
+									"key": "addressCity",
+									"value": "Beese",
+									"type": "text"
+								},
+								{
+									"key": "addressPostalCode",
+									"value": "2340",
+									"type": "text"
+								},
+								{
+									"key": "addressCountry",
+									"value": "Belgium",
+									"type": "text"
+								},
+								{
+									"key": "bio",
+									"value": "We make chemistery",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "telephone",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/company",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "companyEdit",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyaWQiOiIyIiwiaWF0IjoxNTQ2NjM4OTU0LCJleHAiOjE1NDY3MjUzNTQsImlzcyI6IlVIYXNzZWx0LXdpcy1KYW5hLVN0ZXZlbi1HaWxsZXMiLCJzdWIiOiJ3aXMtYXBpIn0.EQDuNHSNVbu5H-0R4b5f2Rtq5N0srswT05rsy5yJljE6EuI6yIwfxdBX79Q9hkK38qdbGZDGSw0B0XoT86XGbMZH3g0IU326eyUI71XbVyg-pWQ7fGWDDvA0ZVo5zaSsJBAcBWwu52Y20M9Qo8nTL2TzHPkTTtErnXXgZKb2vwmvsXsn4ID6oAJ8XcgTj9ng8flI3BDaTDrNHQM_SSNerBor5xxyYD_AjynmPGNO_4eXbC25qf2L94wulQPnoG7bAnPls5OBuoCB8yfPguRyNFXf0BrX9FGMe7rDljDxia2mZIndMxCqX7reB6d5jMQrL45E9mDt8xMHEEjDFqh7ZA",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "BASF Antwerp",
+									"type": "text"
+								},
+								{
+									"key": "addressStreet",
+									"value": "Scheldelaan 600",
+									"type": "text"
+								},
+								{
+									"key": "addressCity",
+									"value": "Antwerpen",
+									"type": "text"
+								},
+								{
+									"key": "addressPostalCode",
+									"value": "2040",
+									"type": "text"
+								},
+								{
+									"key": "addressCountry",
+									"value": "Belgium",
+									"type": "text"
+								},
+								{
+									"key": "bio",
+									"value": "More than 50 years ago, BASF set up shop in a strategic location in the port of Antwerp, the logistical heart of Europe. The site grew into the largest integrated production site in Belgium.",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "customer.service@basf.com",
+									"type": "text"
+								},
+								{
+									"key": "telephone",
+									"value": "03 561 21 11",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/company",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new vacancy",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyaWQiOiI0IiwiaWF0IjoxNTQ2NzA3ODE1LCJleHAiOjE1NDY3OTQyMTUsImlzcyI6IlVIYXNzZWx0LXdpcy1KYW5hLVN0ZXZlbi1HaWxsZXMiLCJzdWIiOiJ3aXMtYXBpIn0.FRK8ljIIZt8EoB7JfGY0f3oIAf5COdHplCaHzNNJnnrVHHGEK3NFlZOb-FFvUM45FbDpm8uxKShhAf-khT8lMv4ZpJM-MrH5vZgSWYP6jl7kJz6MIIwGW-FiLxPixO-wIuHwWQCvGoWS3qKe2fR9rtM6gOdR4a2w7zV9ojThwUMQO46zNuwlsoE-F3z6LDPjf9qWBtmUHJaiFDxHUn4F27hAgYuHsL4AcgwTH23bI6Nj4ZlaJzneZM_FAOaSNXQhKDMbH2gXKSs9toMf8o1g8BzlZDYE3pP9xuXZSJfCoobnojQ0z5TsCNcCzJls-kg8Ii_6DEuXiXnDlixGkdZRRg",
+									"type": "text"
+								},
+								{
+									"key": "jobTitle",
+									"value": "steam cracker manager",
+									"type": "text"
+								},
+								{
+									"key": "recruiterEmail",
+									"value": "job.applicants@basf.com",
+									"type": "text"
+								},
+								{
+									"key": "requiredDegreeName",
+									"value": "Master of Science",
+									"type": "text"
+								},
+								{
+									"key": "lat",
+									"value": "51.485",
+									"type": "text"
+								},
+								{
+									"key": "long",
+									"value": "-2.5012",
+									"type": "text"
+								},
+								{
+									"key": "bio",
+									"value": "You are in control of cracking light hydrocarbons into ethylene",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "active",
+									"type": "text"
+								},
+								{
+									"key": "field",
+									"value": "Science",
+									"type": "text"
+								},
+								{
+									"key": "minimumExperience",
+									"value": "0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/vacancies",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"vacancies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Open vacancies",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyaWQiOiI0IiwiaWF0IjoxNTQ2NzA3ODE1LCJleHAiOjE1NDY3OTQyMTUsImlzcyI6IlVIYXNzZWx0LXdpcy1KYW5hLVN0ZXZlbi1HaWxsZXMiLCJzdWIiOiJ3aXMtYXBpIn0.FRK8ljIIZt8EoB7JfGY0f3oIAf5COdHplCaHzNNJnnrVHHGEK3NFlZOb-FFvUM45FbDpm8uxKShhAf-khT8lMv4ZpJM-MrH5vZgSWYP6jl7kJz6MIIwGW-FiLxPixO-wIuHwWQCvGoWS3qKe2fR9rtM6gOdR4a2w7zV9ojThwUMQO46zNuwlsoE-F3z6LDPjf9qWBtmUHJaiFDxHUn4F27hAgYuHsL4AcgwTH23bI6Nj4ZlaJzneZM_FAOaSNXQhKDMbH2gXKSs9toMf8o1g8BzlZDYE3pP9xuXZSJfCoobnojQ0z5TsCNcCzJls-kg8Ii_6DEuXiXnDlixGkdZRRg",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/vacancies/4/matching",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"vacancies",
+								"4",
+								"matching"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login bedrijfs_leider1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userName",
+									"value": "Bedrijfs leider2",
+									"type": "text"
+								},
+								{
+									"key": "userPass",
+									"value": "bijvoorbeeld",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "general get requests",
+			"item": [
+				{
+					"name": "get user list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/profile/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"profile",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/profile/users/6",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"profile",
+								"users",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user info experience",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/profile/users/6/workExperience",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"profile",
+								"users",
+								"6",
+								"workExperience"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user info degrees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/profile/users/6/degrees",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"profile",
+								"users",
+								"6",
+								"degrees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get company list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/company/list",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"company",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get company info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/company/6",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"company",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get vacancies list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/vacancies",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"vacancies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get vacancy info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/vacancies/3",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"vacancies",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
