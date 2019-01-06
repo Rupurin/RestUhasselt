@@ -1,47 +1,4 @@
 
-Endpoints:
-	* POST /login
-		o ook voor company accounts (op het moment heb ik gewoon normale accounts gebruikt voor company accounts)
-	* GET /profile/user/:id
-		o checken of huidige user toegang mag hebben
-			volgens overleaf:
-				* eigen gebruiker
-				* business accounts
-				* friends
-			moeten we dat wel zo nauw beperken?
-	* POST /profile/company/:id
-		nog een kleine bug
-
-	NIEUW:
-	* GET /profile/user/:id/workExperience
-		geeft alle werkervaring van die gebruiker terug
-		check
-	* POST /profile/user/:id/workExperience
-		neemt een veld en een duratie (aangenomen dat dat in jaar is)
-		check
-	* POST /profile/user/:id/workExperience/remove
-		neemt een veld en een duratie (en een token) en verwijdert die van de DB
-		check
-	* GET /profile/user/:id/degrees
-		geeft alle diplomas van een gebruiker terug
-		check
-	* POST /profile/user/:id/degrees
-		voegt nieuw diploma toe
-		check
-	* (verwijderen van een diploma lijkt me niet gepast)
-
-	* sparql injection preventie
-
-Algemeen:
-	* Security gebruiken
-		zie authentication.js voor een voorbeeld
-	* overal error codes zetten & fatsoenlijkere errorberichten geven
-		denk dat we overal wel de error codes hebben?
-	* overal 'use strict' toepassen
-	* alles ns testen op bugs enz
-		work in progress
-
 Verslag:
-	* aanpassen van beschrijving endpoints aan uiteindelijke implementatie
-	* aanpassen van beschrijving RDF-XML aan uiteindelijke implementatie
-	* Demo/Verdediging voorbereiden
+	* Nalezen
+	* Inzenden

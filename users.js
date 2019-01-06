@@ -97,7 +97,7 @@ router.post('/:id(\\d+)/workExperience', async (req, res) =>{
 		res.status(500).send("Setting work experience did not succeed.\n" + result);
 		return;
 	}
-	res.send(result);
+	res.send("New work experience added.");
 });
 
 /**
@@ -142,7 +142,7 @@ router.post('/:id(\\d+)/workExperience/remove', async (req, res) =>{
 		res.status(500).send("Removing work experience did not succeed.\n" + result);
 		return;
 	}
-	res.send(result);
+	res.send("Work experience removed succesfully.");
 });
 
 /**
@@ -297,7 +297,7 @@ router.post('/:id(\\d+)/connect', async (req, res) => {
 		res.status(500).send("Making a connection did not succeed.\n" + result);
 	}
 
-	res.send(result);
+	res.send("Connection added succesfully.");
 });
 
 /**
